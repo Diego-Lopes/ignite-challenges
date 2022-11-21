@@ -19,9 +19,22 @@ export function Post(props) {
   }
 
   function handleNewCommentChange() {
+    event.target.setCustomValidity('');
     setNewComment(event.target.value);
   }
 
+  //função de deletar
+  function deleteComment(commentToDelete) {
+    const commentsWithoutDeletedOne = comments.filter(comment => {
+      return comment !== commentToDelete;
+    })
+    setComments(commentsWithoutDeletedOne);
+  }
+
+  //validando comentários.
+  function handleNewCommentInvalid(){
+    event.target.setCustomValidity("Esse campo é obrigatório!");
+  }
 
   //formatando data com a api Intl
   // const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
@@ -73,13 +86,26 @@ export function Post(props) {
           placeholder='Deixe um comentário'
           onChange={handleNewCommentChange}
           value={newComment}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
         <footer>
-          <button type='submit'>comentar</button>
+          <button 
+            type='submit'
+            disabled={newComment.length === 0}
+          >
+            comentar
+          </button>
         </footer>
       </form>
       <div className={styles.commentList}>
-        {comments.map(comment => <Comment key={comment} content={comment}/>)}
+        {comments.map(comment => (
+          <Comment
+            key={comment}
+            content={comment}
+            onDeleteComment={deleteComment}
+          />
+        ))}
       </div>
     </article>
   )
