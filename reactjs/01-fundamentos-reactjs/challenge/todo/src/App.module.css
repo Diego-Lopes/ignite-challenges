@@ -1,5 +1,5 @@
 .wrapper {
-  max-widht: 70rem;
+  width: min(70rem, 100%);
   margin: 2rem auto;
   padding: 0 1rem;
 
@@ -7,4 +7,9 @@
   grid-template-columns: 256px 1fr;
   gap: 2rem;
   align-items: flex-start;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
 }

@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  width: 100%;
+  /* max-width: 736px; */
+  /* margin-inline: auto; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--gray-500);
+  border: 1px solid var(--gray-400);
+  border-radius:8px;
+}
+
+.button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+
+.text {
+  color: var(--gray-100);
+  font-size: 1.4rem;
+}
+
+.textChecked {
+  text-decoration: line-through;
+  color: var(--gray-300);
+  font-size: 1.4rem;
+}
+
+.trash {
+  cursor: pointer;
+}
+
+

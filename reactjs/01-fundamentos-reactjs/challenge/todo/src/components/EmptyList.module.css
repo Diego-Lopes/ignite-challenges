@@ -1,0 +1,35 @@
+.listAll {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 6.4rem 2.4rem;
+  border-top: 1px solid var(--gray-300);
+
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.info > img {
+  width: 56px;
+  height: 56px;
+}
+
+.description > p,
+.description > span {
+  color: var(--gray-300);
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 140%;
+}
+
+.description > span {
+  font-weight: 400;
+}

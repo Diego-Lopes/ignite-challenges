@@ -1,0 +1,17 @@
+.header{
+  background: var(--gray-700);
+  height: 200px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  
+}
+
+@media (max-width: 500px) {
+  .header {
+    height: 150px;
+  }
+}
