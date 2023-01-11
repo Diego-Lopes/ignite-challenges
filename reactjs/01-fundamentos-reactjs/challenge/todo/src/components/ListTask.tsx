@@ -1,30 +1,40 @@
 import style from "./ListTask.module.css";
 import { EmptyList } from "./EmptyList";
 import { CardTask } from "./CardTask";
+import { IAppProps } from "../App";
 
-export function ListTask() {
+interface IListTaskProps {
+  data: IAppProps[];
+  countCheckeds: number;
+  onHandleCheckedsChange: (value: string)=> void;
+  onHandleDeleteTask: (value: string) => void;
+}
+
+export function ListTask({ data, countCheckeds,onHandleCheckedsChange, onHandleDeleteTask }: IListTaskProps) {
+
   return (
     <div className={style.wrapper}>
       <div className={style.header}>
         <div className={style.createTask}>
           <p>Tarefas criadas</p>
-          <p>0</p>
+          <p>{data.length}</p>
         </div>
 
         <div className={style.completTask}>
           <p>Concluídas</p>
-          <p>0</p>
+          <p>{`${countCheckeds} / ${data.length}`}</p>
         </div>
       </div>
-      {/* <EmptyList /> */}
-      <CardTask
-        isCompleted={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-        handleDeleted={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+
+      {data.length > 0 ? (
+        <CardTask
+          data={data}
+          isCompleted={onHandleCheckedsChange}
+          handleDeleted={onHandleDeleteTask}
+        />
+      ) : (
+        <EmptyList />
+      )}
     </div>
   );
 }

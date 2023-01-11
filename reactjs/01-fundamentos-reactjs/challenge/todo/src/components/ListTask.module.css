@@ -23,6 +23,11 @@
   justify-content: center;
 }
 
+.createTask, .completTask {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+}
+
 .createTask > p:nth-child(1),
 .completTask > p:nth-child(1) {
   font-family: "Inter";
