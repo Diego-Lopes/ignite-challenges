@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /** importamos o modulo styled-components  */
 import 'styled-components'
 /** Chamamos nosso theme */
@@ -14,5 +13,5 @@ type ThemeType = typeof defaultTheme
  * no defaultTheme.
  */
 declare module 'styled-components' {
-  export interface DefaultTheme extends ThemeType {}
+  export interface DefaultTheme extends ThemeType { }
 }
