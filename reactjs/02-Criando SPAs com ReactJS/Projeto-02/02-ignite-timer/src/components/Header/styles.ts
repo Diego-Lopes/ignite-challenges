@@ -9,12 +9,12 @@ export const HeaderContainer = styled.header`
 
   nav {
     display: flex;
-    gap: .5rem;
+    gap: 0.5rem;
 
     a {
       width: 3rem;
       height: 3rem;
-
+      box-shadow: none;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,6 +23,10 @@ export const HeaderContainer = styled.header`
 
       border-top: 3px solid transparent;
       border-bottom: 3px solid transparent;
+
+      &:hover {
+        border-bottom: 3px solid ${props => props.theme["green-500"]};  
+      }
     }
   }
 `;
