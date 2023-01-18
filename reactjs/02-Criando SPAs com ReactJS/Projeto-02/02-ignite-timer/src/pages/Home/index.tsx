@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { HandPalm, Play } from 'phosphor-react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { CyclesContext } from '../../context/CyclesContext'
@@ -23,7 +23,7 @@ const newCycleFormValidationSchema = zod.object({
 })
 
 export function Home() {
-  const {activeCycle, interruptCurrentCycle, createNewCycle} = useContext(CyclesContext)
+  const { activeCycle, interruptCurrentCycle, createNewCycle } = useContext(CyclesContext)
 
   // tipando useForm com base do objeto zod
   type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema> // usamos infer de infereir do zod para deixar dinâmico a tipagem
@@ -35,7 +35,7 @@ export function Home() {
       minutesAmount: 0,
     },
   })
-  const { handleSubmit, watch, /* reset */ } = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm
 
   // useEffect(() => {
   //   if ("Notification" in window) {
@@ -43,19 +43,21 @@ export function Home() {
   //     Notification.requestPermission().then(function (permission) {
   //       // Se o usuário permitir, crie uma nova notificação
   //       if (permission === "granted") {
-  //         const notification = new Notification(`${activeCycle.task ? activeCycle.task : "Terminou" } | Terminou`, {
+  //         const notification = new Notification(`${activeCycle.task ? `${activeCycle.task} | Iniciado` : `${activeCycle.task} | Terminou`}`, {
   //           body: "Alô um dois três",
   //           icon: "src/assets/logo.svg"
   //         });
   //       }
-
   //     });
   //   }
   // }, [activeCycle])
   /**  marcar task atual como concluído usando uma função para facilitar a tipagem
    * do typescript
    */
-
+  function handleCreateNewCycle(data: NewCycleFormData) {
+    createNewCycle(data);
+    reset();
+  }
 
   const task = watch('task') // observando em tempo real o valor do input
   const isSubmitDisabled = !task // variavel auxiliar bem explicativa
@@ -64,12 +66,12 @@ export function Home() {
 
   return (
     <HomeContainer>
-      <form onSubmit={handleSubmit(createNewCycle)}>
-        
-          <FormProvider {...newCycleForm}>
-            <NewCycleForm />
-          </FormProvider>
-          <Countdown />
+      <form onSubmit={handleSubmit(handleCreateNewCycle)}>
+
+        <FormProvider {...newCycleForm}>
+          <NewCycleForm />
+        </FormProvider>
+        <Countdown />
         {activeCycle ? (
           <StopCountdownButton onClick={interruptCurrentCycle} type="button">
             <HandPalm size={24} />
