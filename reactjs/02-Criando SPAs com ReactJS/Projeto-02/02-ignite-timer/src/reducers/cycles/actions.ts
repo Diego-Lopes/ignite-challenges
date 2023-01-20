@@ -1,5 +1,5 @@
 import { Cycle } from "./reducer";
-
+// typando dispatch
 export enum ActionTypes {
   add_new_cycle = "add_new_cycle",
   interrupt_current_cycle = "interrupt_current_cycle",

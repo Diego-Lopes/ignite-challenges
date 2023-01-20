@@ -39,13 +39,14 @@ export function cyclesReducer(state: CyclesState, action: any) {
       //   }),
       //   activeCycleId: null,
       // };
+      // fazendo a busca do circulo por id
       const currentCycleIndex = state.cycles.findIndex((cycle) => {
         return cycle.id === state.activeCycleId;
       });
 
-      if (currentCycleIndex < 0) {
-        return state;
-      }
+      // if (currentCycleIndex < 0) {
+      //   return state;
+      // }
 
       return produce(state, (draft) => {
         draft.activeCycleId = null;
@@ -68,9 +69,9 @@ export function cyclesReducer(state: CyclesState, action: any) {
         return cycle.id === state.activeCycleId;
       });
 
-      if (currentCycleIndex < 0) {
-        return state;
-      }
+      // if (currentCycleIndex < 0) {
+      //   return state;
+      // }
 
       return produce(state, draft => {
         draft.activeCycleId = null;

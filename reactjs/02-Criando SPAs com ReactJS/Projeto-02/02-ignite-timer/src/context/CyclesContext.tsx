@@ -1,6 +1,7 @@
 /** colocamos tudo que tem relação ao contexto aqui  */
 
-import { createContext, ReactNode, useReducer, useState } from "react";
+import { differenceInSeconds } from "date-fns";
+import { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 import { ActionTypes } from "../reducers/cycles/actions";
 import { Cycle, cyclesReducer } from "../reducers/cycles/reducer";
 // import { ActionTypes, Cycle, cyclesReducer } from "../reducers/cycles";
@@ -33,18 +34,56 @@ interface CycleContextProviderProps {
 
 
 
+
 // criando component context provider
 export function CyclesContextProvider({ children }: CycleContextProviderProps) {
   const [cyclesState, dispatch] = useReducer(cyclesReducer, {
+    cycles: [],
+    activeCycleId: null,
+  }, () => {
+
+    const storedStateAsJSON = localStorage.getItem(
+      "@ignite-timer:cycles-state-1.0.0",
+    )
+
+    if (storedStateAsJSON) {
+      return JSON.parse(storedStateAsJSON);
+    }
+
+    return {
       cycles: [],
       activeCycleId: null,
-    },
+    }
+  }
   )
-
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
-
   const { cycles, activeCycleId } = cyclesState;
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId) // variavel para setar o time, da task correta.
+
+  const [amountSecondsPassed, setAmountSecondsPassed] = useState(() => {
+
+    /** função para salvar de onde para o tempo da ação do projeto salve 
+     * no localstorage
+     */
+    if (activeCycle) {
+      return differenceInSeconds(new Date(), new Date(activeCycle.startDate)
+      )
+    }
+
+
+    return 0
+  })
+
+  // salvando em localstorage
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cyclesState);
+    /** Dica boa para nomear variaveis do localstorage
+     * use o @ com prefixo da aplicação
+     * seguido com de : o nome do localstorage
+     * e versão da aplicação para produção.
+     */
+    localStorage.setItem("@ignite-timer:cycles-state-1.0.0", stateJSON)
+  }, [cyclesState])
+
 
   function setSecondsPassed(seconds: number) {
     setAmountSecondsPassed(seconds)
