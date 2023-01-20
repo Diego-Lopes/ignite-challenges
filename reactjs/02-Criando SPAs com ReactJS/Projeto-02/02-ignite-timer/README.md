@@ -2,7 +2,7 @@
 
 
 <div aling='center'>
-  <img src='/src/assets/homeTimer.png' alt='imagem home'/>
+  <img src='https://github.com/Diego-Lopes/ignite-challenges/blob/main/reactjs/02-Criando%20SPAs%20com%20ReactJS/Projeto-02/02-ignite-timer/src/assets/img/homeTimer.png' alt='imagem home'/>
 </div>
 
 
