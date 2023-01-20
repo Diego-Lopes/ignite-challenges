@@ -1,7 +1,7 @@
 # Project Ignite Trilha React-Native
 
 
-![photoMain](https://raw.githubusercontent.com/Diego-Lopes/Ignite_ReactNative_Chalange_ToDo/assets/capa.png)
+![photoMain](https://github.com/Diego-Lopes/ignite-challenges/blob/main/react-native/01-fundamentos-React-Native/Challenge/todo/assets/Capa.png)
 
 
 
