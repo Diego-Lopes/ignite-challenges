@@ -9,7 +9,7 @@
 
 
 
-#Covered Content  🗒️
+# Covered Content  🗒️
 
 Este projeto foi feito para aplicar o conhecimento sobre SPAs (Single Page Aplication) e também sobre:
 
