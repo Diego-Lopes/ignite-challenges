@@ -3,17 +3,30 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   width: 100%;
   height: 104px;
-  display: flex;
-  justify-content: space-between;
+  
   background-color: ${props => props.theme.background};
   padding: 32px 106px;
   
+  @media screen and (min-width: 1440px) {
+    padding: 32px 0;
+
+  }
+  
+`;
+
+export const Wrapper = styled.div`
+  width: min(144rem, 100%);
+ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-inline: auto;
+
   img {
     width: 120px;
     height: fit-content;
   }
-
-  
 `;
 
 export const BoxButons = styled.div`
