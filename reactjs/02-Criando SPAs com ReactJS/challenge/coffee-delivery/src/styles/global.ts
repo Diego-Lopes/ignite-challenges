@@ -13,6 +13,10 @@ export const GlobalStyle = createGlobalStyle`
     box-shadow: 0 0 0 2px ${(props) => props.theme["purple-dark"]};
   }
 
+  :root {
+    font-size: 62.5%;
+  }
+
   body {
     background: ${(props) => props.theme.background};
     color: ${(props) => props.theme["base-text"]};
@@ -20,5 +24,11 @@ export const GlobalStyle = createGlobalStyle`
 
     padding-block: .01%;
     
+  }
+
+  p, input, textarea, button {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
   }
 `;
