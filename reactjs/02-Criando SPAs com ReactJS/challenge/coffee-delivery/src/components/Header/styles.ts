@@ -15,7 +15,8 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Wrapper = styled.div`
-  width: min(144rem, 100%);
+  width: min(112rem, 100%);
+
  
   display: flex;
   justify-content: space-between;
