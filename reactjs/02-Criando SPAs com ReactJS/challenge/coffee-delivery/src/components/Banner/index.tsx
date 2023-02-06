@@ -41,10 +41,13 @@ export function Banner() {
               <CicleIcons color="#8047F8">
                 <Coffee weight="fill" size={16} color={"white"} />
               </CicleIcons>
-              <p>O café chega fresquinho até você</p>
+              <p>O café chega fresquinho até você </p>
             </div>
           </div>
         </S.WrapperTexts>
+        <S.WrapperImg>
+          <img src="/assets/img/copo.png" alt="" />
+        </S.WrapperImg>
       </S.Content>
     </S.BannerContainer>
   );
