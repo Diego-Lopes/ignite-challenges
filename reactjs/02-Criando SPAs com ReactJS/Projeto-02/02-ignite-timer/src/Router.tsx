@@ -9,7 +9,6 @@ export function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/history" element={<History />} />
       </Route>
-     
     </Routes>
   )
 }

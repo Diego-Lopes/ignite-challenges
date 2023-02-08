@@ -6,6 +6,13 @@ export const BannerContainer = styled.div`
   background-size: 100%;
   width: 100%;
   height: 54.4rem;
+
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 520px) {
+    height: fit-content;
+  }
 `;
 
 export const Content = styled.div`
@@ -14,11 +21,15 @@ export const Content = styled.div`
 
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 520px) {
+    flex-direction: column;
+  }
 `;
 
 export const WrapperTexts = styled.div`
-  width: 50%;
+  width: 55%;
   .title {
     font-family: "Baloo 2", sans-serif;
     font-weight: 800;
@@ -39,6 +50,7 @@ export const WrapperTexts = styled.div`
     align-items: center;
     flex-wrap: wrap;
     gap: 2rem 4rem;
+    margin-top: 6.6rem;
 
     .icon {
       width: 45%;
@@ -57,7 +69,7 @@ export const WrapperTexts = styled.div`
 `;
 
 export const WrapperImg = styled.div`
-  width: 50%;
+  width: 45%;
   display: flex;
   justify-content: center;
   

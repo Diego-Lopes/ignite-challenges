@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ListCoffeeContainer = styled.div`
   width: 100%;
+  margin-top: 3.2rem;
 `;
 
 export const Content = styled.div`
@@ -11,6 +12,7 @@ export const Content = styled.div`
   h1 {
     font-size: 3.2rem;
     font-family: "Baloo 2";
+    font-weight: 800;
     line-height: 130%;
     color: ${props => props.theme["base-subtitle"]}
   }
@@ -23,4 +25,5 @@ export const Wrapper = styled.div`
   flex-wrap: wrap; 
   justify-items: flex-start;
   gap: 4rem 3.2rem;
+  margin-top: 5.4rem;
 `;

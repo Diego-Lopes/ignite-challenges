@@ -5,7 +5,7 @@ export const defaultTheme = {
   "yellow-light": "#f1e9c9",
 
   purple: "#8047f8",
-  "purple-dark": "#4b2995",
+  "purple-dark": "#4B2995",
   "purple-light": "#ebe5f9",
 
   "base-title": "#272221",
