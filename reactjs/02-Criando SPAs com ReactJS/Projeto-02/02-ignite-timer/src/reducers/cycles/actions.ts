@@ -4,7 +4,6 @@ export enum ActionTypes {
   add_new_cycle = "add_new_cycle",
   interrupt_current_cycle = "interrupt_current_cycle",
   mark_current_finished_cycle = "mark_current_finished_cycle",
-
 }
 
 export function addNewCycleAction(newCycle: Cycle) {

@@ -92,6 +92,7 @@ export const BoxInteraction = styled.div`
 
   .boxValue {
     /* width: fit-content; */
+    
     span {
       font-family: "Baloo 2", sans-serif;
       font-size: 2.4rem;
@@ -121,10 +122,13 @@ export const BoxCountUnit = styled.div`
   }
 
   .inputNumber {
-    width: 25px;
-    padding-left: 5px;
+    width: 21px;
+    padding: 1px;
     background: transparent;
     border: none;
+    font-size: 1.6rem;
+    color: ${props => props.theme["base-title"]};
+    font-weight: 400;
 
     &[type="number"]::-webkit-inner-spin-button,
     &[type="number"]::-webkit-outer-spin-button {
