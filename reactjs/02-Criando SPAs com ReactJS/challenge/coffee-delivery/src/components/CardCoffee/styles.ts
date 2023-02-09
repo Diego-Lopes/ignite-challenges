@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const CardCoffeeContainer = styled.div`
   width: 25.6rem;
-  height: 31rem;
+  /* height: 31rem; */
+  /* height: max(31rem, 100%); */
+  /* height: fit-content; */
+  padding-bottom: 2.1rem;
   background-color: ${(props) => props.theme["base-card"]};
-
   border-radius: 6px 36px;
 
   display: flex;
@@ -72,18 +74,30 @@ export const BoxDescription = styled.div`
 `;
 
 export const BoxInteraction = styled.div`
+  flex: 1;
+
   display: flex;
   align-items: center;
   justify-content: center;
   width: 90%;
   height: 38px;
   margin-top: 33px;
-  gap: 23px;
+  gap: 8px;
 
   .interaction {
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+
+  .boxValue {
+    /* width: fit-content; */
+    span {
+      font-family: "Baloo 2", sans-serif;
+      font-size: 2.4rem;
+      line-height: 130%;
+      font-weight: 800;
+    }
   }
 `;
 
@@ -94,10 +108,33 @@ export const BoxCountUnit = styled.div`
   background-color: ${(props) => props.theme["base-button"]};
   padding: 12px 8px;
   border-radius: 6px;
+  border: 1px solid transparent;
+  transition: border-color 350ms ease-in-out;
 
   svg {
     fill: ${(props) => props.theme.purple};
     transition: 350ms ease-in-out;
+  }
+
+  &:hover {
+    border: 1px solid ${(props) => props.theme["purple-dark"]};
+  }
+
+  .inputNumber {
+    width: 25px;
+    padding-left: 5px;
+    background: transparent;
+    border: none;
+
+    &[type="number"]::-webkit-inner-spin-button,
+    &[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
   }
 `;
 
@@ -106,17 +143,20 @@ export const ButtonBase = styled.button`
   align-items: center;
   justify-content: center;
   border-color: transparent;
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
 `;
 
 export const add = styled(ButtonBase)`
   padding: 2px;
-  outline-color: red;
+  cursor: pointer;
 
   background: transparent;
-  &:active,
-  &:focus {
-    outline: none;
-  }
 
   &:not([disabled]) {
     svg:hover {
@@ -132,15 +172,15 @@ export const subt = styled(ButtonBase)`
 
 export const ButtonAddToShoppingCart = styled(ButtonBase)`
   padding: 8px;
-  background: ${props => props.theme["purple-dark"]};
+  background: ${(props) => props.theme["purple-dark"]};
   border-radius: 8px;
 
   width: 38px;
   height: 38px;
 
   svg {
-    fill: ${props => props.theme.white};
-
+    fill: ${(props) => props.theme.white};
+    transition: 350ms ease-in;
     &:hover {
       transform: scale(1.5);
     }
