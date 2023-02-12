@@ -8,11 +8,13 @@ export const CardCoffeeContainer = styled.div`
   padding-bottom: 2.1rem;
   background-color: ${(props) => props.theme["base-card"]};
   border-radius: 6px 36px;
+  transition: 350ms ease-in-out;
 
   display: flex;
   align-items: center;
   /* justify-content: flex-start; */
   flex-direction: column;
+
 `;
 
 export const BoxImageCoffee = styled.div`
@@ -91,8 +93,9 @@ export const BoxInteraction = styled.div`
   }
 
   .boxValue {
-    /* width: fit-content; */
-    
+    p {
+      width: max-content;
+    }
     span {
       font-family: "Baloo 2", sans-serif;
       font-size: 2.4rem;
@@ -127,7 +130,7 @@ export const BoxCountUnit = styled.div`
     background: transparent;
     border: none;
     font-size: 1.6rem;
-    color: ${props => props.theme["base-title"]};
+    color: ${(props) => props.theme["base-title"]};
     font-weight: 400;
 
     &[type="number"]::-webkit-inner-spin-button,
@@ -150,7 +153,9 @@ export const ButtonBase = styled.button`
   &[disabled] {
     cursor: not-allowed;
   }
-
+  &:not([disabled]) {
+    cursor: pointer;
+  }
   &:focus {
     box-shadow: none;
   }
@@ -158,7 +163,6 @@ export const ButtonBase = styled.button`
 
 export const add = styled(ButtonBase)`
   padding: 2px;
-  cursor: pointer;
 
   background: transparent;
 
@@ -171,22 +175,39 @@ export const add = styled(ButtonBase)`
 `;
 
 export const subt = styled(ButtonBase)`
+  padding: 2px;
+
   background: transparent;
+
+  &:not([disabled]) {
+    svg:hover {
+      transform: scale(1.5);
+      filter: brightness(0.5);
+    }
+  }
 `;
 
-export const ButtonAddToShoppingCart = styled(ButtonBase)`
+interface ButtonAddToShoppingCart {
+  isAdded: boolean;
+}
+
+export const ButtonAddToShoppingCart = styled(ButtonBase)<ButtonAddToShoppingCart>`
   padding: 8px;
-  background: ${(props) => props.theme["purple-dark"]};
+  transition: 350ms ease-in-out;
+  background: ${(props) => props.isAdded ? props.theme["purple-dark"] : props.theme.purple};
   border-radius: 8px;
 
   width: 38px;
   height: 38px;
 
+  &:hover {
+    svg {
+      transform: scale(1.5);
+    }
+  }
+
   svg {
     fill: ${(props) => props.theme.white};
     transition: 350ms ease-in;
-    &:hover {
-      transform: scale(1.5);
-    }
   }
 `;
