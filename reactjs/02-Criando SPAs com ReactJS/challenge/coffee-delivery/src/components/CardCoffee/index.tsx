@@ -1,5 +1,7 @@
 import { Minus, Plus, ShoppingCartSimple, X } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { StorageContext } from "../../context/StorageContext";
+import { dataMock } from "../ListCoffees/Mock/data";
 import * as S from "./styles";
 interface CardCoffeeProps {
   id: number;
@@ -7,6 +9,7 @@ interface CardCoffeeProps {
   flag: string[];
   titleProduct: string;
   subTitleProduct: string;
+  isSelected: boolean;
   price: string;
   stock: string;
 }
@@ -15,7 +18,11 @@ export function CardCoffee(card: CardCoffeeProps) {
   const [priceMultipliedByQuntity, setPriceMultipliedByQuntity] = useState(
     +card.price
   );
-  const [isCheckingShoppingCart, setIsCheckingShoppingCart] = useState(false);
+  const [isCheckingShoppingCart, setIsCheckingShoppingCart] = useState(
+    card.isSelected
+  );
+
+  const { data, onChangeShoppingCart } = useContext(StorageContext);
 
   function addAmount() {
     if (amount >= 1 && amount < 99) {
@@ -31,17 +38,27 @@ export function CardCoffee(card: CardCoffeeProps) {
 
   function onChangeForShoppingCart() {
     console.log("addicional ao carrinho");
+
+    const ObjectCoffee = {
+      id: card.id,
+      urlImg: card.urlImg,
+      titleProduct: card.titleProduct,
+      isSelected: !isCheckingShoppingCart,
+      price: card.price,
+      amount,
+    };
+    onChangeShoppingCart(ObjectCoffee)
+  }
+  function removeItemForShoppingCart() {
+    console.log("removido do carrinho");
   }
 
-  function removeItemForShoppingCart() {
-    console.log("removel do carrinho");
-  }
   useEffect(() => {
     setPriceMultipliedByQuntity(amount * Number(card.price));
-  }, [amount]);
+  }, [amount, card.price]);
   useEffect(() => {
-    setPriceMultipliedByQuntity(amount * Number(card.price));
-  }, [card.price]);
+    setIsCheckingShoppingCart(card.isSelected);
+  }, [card.isSelected]);
 
   return (
     <S.CardCoffeeContainer isAdded={isCheckingShoppingCart}>

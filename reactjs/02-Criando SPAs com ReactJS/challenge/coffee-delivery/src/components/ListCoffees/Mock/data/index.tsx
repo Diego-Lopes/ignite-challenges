@@ -1,4 +1,4 @@
-export const data = [
+export const dataMock = [
   {
     id: 1,
     urlImg: "/assets/img/coffees/expressoTradicional.png",
@@ -7,6 +7,7 @@ export const data = [
     subTitleProduct: "O tradicional café feito com água quente e grãos moídos",
     price: "9.99",
     stock: "10",
+    isSelected: false
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const data = [
     subTitleProduct: "Expresso diluído, menos intenso que o tradicional",
     price: "9.90",
     stock: "5",
+    isSelected: false
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ export const data = [
     subTitleProduct: "Café expresso tradicional com espuma cremosa",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ export const data = [
     subTitleProduct: "Bebida preparada com café expresso e cubos de gelo",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ export const data = [
     subTitleProduct: "Meio a meio de expresso tradicional com leite vaporizado",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 6,
@@ -53,6 +58,7 @@ export const data = [
       "Uma dose de café expresso com o dobro de leite e espuma cremosa",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 7,
@@ -63,6 +69,7 @@ export const data = [
       "Bebida com canela feita de doses iguais de café, leite e espuma",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 8,
@@ -72,6 +79,7 @@ export const data = [
     subTitleProduct: "Café expresso misturado com um pouco de leite e espuma",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 9,
@@ -82,6 +90,7 @@ export const data = [
       "Café expresso com calda de chocolate, pouco leite e espuma",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 10,
@@ -92,6 +101,7 @@ export const data = [
       "Bebida feita com chocolate dissolvido no leite quente e café",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 11,
@@ -102,6 +112,7 @@ export const data = [
       "Drink gelado de café expresso com rum, creme de leite e hortelã",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 12,
@@ -111,6 +122,7 @@ export const data = [
     subTitleProduct: "Bebida adocicada preparada com café e leite de coco",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 13,
@@ -120,6 +132,7 @@ export const data = [
     subTitleProduct: "Bebida preparada com grão de café árabe e especiarias",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
   {
     id: 14,
@@ -130,5 +143,6 @@ export const data = [
       "Bebida a base de café, uísque irlandês, açúcar e chantily",
     price: "9.90",
     stock: "3",
+    isSelected: false
   },
 ];

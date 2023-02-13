@@ -1,8 +1,13 @@
 import { CardCoffee } from "../CardCoffee";
 import * as S from "./styles";
-import { data } from "./Mock/data";
+import { dataMock } from "./Mock/data";
+import { DataProps, StorageContext } from "../../context/StorageContext";
+import { useContext, useEffect, useState } from "react";
 
 export function ListCoffees() {
+  const { data } = useContext(StorageContext);
+  
+  
   return (
     <S.ListCoffeeContainer>
       <S.Content>
@@ -18,6 +23,7 @@ export function ListCoffees() {
               subTitleProduct={Coffee.subTitleProduct}
               price={Coffee.price}
               stock={Coffee.stock}
+              isSelected={Coffee.isSelected}
             />
           ))}
         </S.Wrapper>
