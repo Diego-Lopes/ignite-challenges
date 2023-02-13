@@ -44,7 +44,7 @@ export function CardCoffee(card: CardCoffeeProps) {
   }, [card.price]);
 
   return (
-    <S.CardCoffeeContainer>
+    <S.CardCoffeeContainer isAdded={isCheckingShoppingCart}>
       <S.BoxImageCoffee>
         <S.ImageCoffee src={card.urlImg} alt="uma imagem de café" />
       </S.BoxImageCoffee>
@@ -78,12 +78,15 @@ export function CardCoffee(card: CardCoffeeProps) {
             <input
               className="inputNumber"
               type="number"
-              disabled
-              // step={1}
+              // disabled
+              step={1}
               value={amount}
-              // min="1"
-              // max={99}
+              min={1}
+              max={99}
               // maxLength={99}
+              onChange={(e) => {
+                setAmount(+e.target.value);
+              }}
             />
             <S.add type="button" onClick={() => addAmount()}>
               <Plus size={16} weight="bold" color="#8047F8" />

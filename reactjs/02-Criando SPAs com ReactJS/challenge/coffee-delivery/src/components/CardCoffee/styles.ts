@@ -1,12 +1,15 @@
 import styled from "styled-components";
+interface ButtonAddToShoppingCart {
+  isAdded: boolean;
+}
 
-export const CardCoffeeContainer = styled.div`
+export const CardCoffeeContainer = styled.div<ButtonAddToShoppingCart>`
   width: 25.6rem;
   /* height: 31rem; */
   /* height: max(31rem, 100%); */
   /* height: fit-content; */
   padding-bottom: 2.1rem;
-  background-color: ${(props) => props.theme["base-card"]};
+  background-color: ${(props) => props.isAdded ? props.theme["purple-light"] : props.theme["base-card"]};
   border-radius: 6px 36px;
   transition: 350ms ease-in-out;
 
@@ -142,6 +145,10 @@ export const BoxCountUnit = styled.div`
     &[type="number"] {
       -moz-appearance: textfield;
     }
+
+    &:focus {
+      box-shadow: 0 0 0 0 #4b2995
+    }
   }
 `;
 
@@ -187,9 +194,7 @@ export const subt = styled(ButtonBase)`
   }
 `;
 
-interface ButtonAddToShoppingCart {
-  isAdded: boolean;
-}
+
 
 export const ButtonAddToShoppingCart = styled(ButtonBase)<ButtonAddToShoppingCart>`
   padding: 8px;
