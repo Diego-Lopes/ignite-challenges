@@ -207,7 +207,7 @@ export const ButtonAddToShoppingCart = styled(ButtonBase)<ButtonAddToShoppingCar
   width: 38px;
   height: 38px;
 
-  &:hover {
+  &:not([disabled]):hover {
     svg {
       transform: scale(1.5);
     }

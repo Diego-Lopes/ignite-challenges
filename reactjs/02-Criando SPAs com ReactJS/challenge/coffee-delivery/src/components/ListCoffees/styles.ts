@@ -14,7 +14,13 @@ export const Content = styled.div`
     font-family: "Baloo 2";
     font-weight: 800;
     line-height: 130%;
-    color: ${props => props.theme["base-subtitle"]}
+    color: ${(props) => props.theme["base-subtitle"]};
+  }
+
+  @media screen and (max-width: 600px) {
+    h1 {
+      margin-left: 2.5rem;
+    }
   }
 `;
 
@@ -22,8 +28,11 @@ export const Wrapper = styled.div`
   width: min(112rem, 100%);
 
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   justify-items: flex-start;
   gap: 4rem 3.2rem;
   margin-top: 5.4rem;
+
+  justify-content: center;
+  
 `;

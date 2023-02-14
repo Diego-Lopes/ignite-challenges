@@ -8,13 +8,17 @@ export const HeaderContainer = styled.div`
   width: 100%;
   height: 104px;
   transition: 350ms ease-in-out;
-  transform-origin: 50% 50%;
+  transform-origin: center;
 
   background-color: ${(props) => props.theme.background};
   padding: 32px 106px;
 
   @media screen and (min-width: 1440px) {
     padding: 32px 0;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding-inline: 1.9rem;
   }
 `;
 
@@ -40,9 +44,19 @@ export const Wrapper = styled.header`
     width: 100%;
     height: 104px;
     transition: 350ms ease-in-out;
-    transform-origin: center;
     background-color: ${(props) => props.theme.background};
-    padding: 32px 106px;
+
+    @media screen and (min-width: 1440px) {
+      padding: 3.2rem 39rem;
+    }
+
+    @media screen and (max-width: 1537px) {
+      padding: 3.2rem 20rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      padding-inline: 1.9rem;
+    }
   }
 `;
 

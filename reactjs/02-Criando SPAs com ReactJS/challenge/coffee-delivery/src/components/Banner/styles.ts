@@ -30,6 +30,7 @@ export const Content = styled.div`
 
 export const WrapperTexts = styled.div`
   width: 55%;
+
   .title {
     font-family: "Baloo 2", sans-serif;
     font-weight: 800;
@@ -62,8 +63,27 @@ export const WrapperTexts = styled.div`
         /* width: 18.7rem; */
         font-size: 1.6rem;
         line-height: 20.8px;
-        color: ${props => props.theme["base-text"]};
+        color: ${(props) => props.theme["base-text"]};
       }
+    }
+
+    @media screen and (max-width: 600px) {
+      margin-top: 3.6rem;
+
+      gap: 1rem 1rem;
+      .icon {
+        width: 70%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 520px) {
+    width: 90%;
+
+    .title {
+      font-weight: 800;
+      font-size: 3.2rem;
+      line-height: 110%;
     }
   }
 `;
@@ -72,11 +92,9 @@ export const WrapperImg = styled.div`
   width: 45%;
   display: flex;
   justify-content: center;
-  
+
   img {
     width: 476px;
     height: 360px;
   }
-
-
 `;

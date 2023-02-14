@@ -43,7 +43,7 @@ export function CardCoffee(card: CardCoffeeProps) {
   }, [data]);
 
   function addAmount() {
-    if (amount >= 1 && amount < 99) {
+    if (amount == 0 || (amount >= 1 && amount < 99)) {
       setAmount(1 + amount);
     }
   }
@@ -73,7 +73,9 @@ export function CardCoffee(card: CardCoffeeProps) {
   }
 
   useEffect(() => {
-    setPriceMultipliedByQuntity(amount * Number(card.price));
+    if (amount !== 0) {
+      setPriceMultipliedByQuntity(amount * Number(card.price));
+    } 
   }, [amount, card.price]);
   useEffect(() => {
     setIsCheckingShoppingCart(card.isSelected);
@@ -150,6 +152,7 @@ export function CardCoffee(card: CardCoffeeProps) {
                 onChangeForShoppingCart();
                 setIsCheckingShoppingCart(!isCheckingShoppingCart);
               }}
+              disabled={amount > 0 ? false : true}
             >
               <ShoppingCartSimple size={22} weight="fill" />
             </S.ButtonAddToShoppingCart>
