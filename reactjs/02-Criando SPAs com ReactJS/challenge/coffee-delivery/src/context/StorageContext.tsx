@@ -23,6 +23,7 @@ export interface DataProps {
 
 interface StorageContextProps {
   data: DataProps[];
+  countInTheCart: number;
   onChangeShoppingCart: (value: CardCoffeeProps) => void;
   onChangeRemoveShoppingCart: (value: number) => void;
 }
@@ -37,6 +38,11 @@ export function StorageContextProvider({
 }: StorageContextProviderProps) {
   const [data, setData] = useState<DataProps[]>([]);
   const [shoppingCart, setShoppingCart] = useState<CardCoffeeProps[]>([]);
+  const [countInTheCart, setCountInTheCart] = useState<number>(0);
+
+  console.log({ countInTheCart });
+
+  console.log({ shoppingCart });
 
   useEffect(() => {
     const dataLocaStorage: DataProps[] = JSON.parse(
@@ -47,7 +53,7 @@ export function StorageContextProvider({
       String(window.localStorage.getItem("@ignite-CoffeeDelivry:order-1.0.0"))
     );
 
-    console.log(dataLocaStorage);
+    // console.log(dataLocaStorage);
 
     if (dataLocaStorage !== null && shoppingCartOrders !== null) {
       if (dataLocaStorage.length > 0) {
@@ -106,12 +112,17 @@ export function StorageContextProvider({
       "@ignite-CoffeeDelivry:order-1.0.0",
       JSON.stringify(shoppingCart)
     );
+    let isManyInTheCart = JSON.parse(
+      String(window.localStorage.getItem("@ignite-CoffeeDelivry:order-1.0.0"))
+    );
+    setCountInTheCart(isManyInTheCart.length);
   }, [data, shoppingCart]);
 
   return (
     <StorageContext.Provider
       value={{
         data,
+        countInTheCart,
         onChangeShoppingCart,
         onChangeRemoveShoppingCart,
       }}
