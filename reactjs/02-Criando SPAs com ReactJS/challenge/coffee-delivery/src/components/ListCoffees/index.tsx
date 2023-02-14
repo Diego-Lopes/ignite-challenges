@@ -6,8 +6,13 @@ import { useContext, useEffect, useState } from "react";
 
 export function ListCoffees() {
   const { data } = useContext(StorageContext);
+  const [dataInSessions, setDataInSessions] = useState<DataProps[]>([]);
   
-  
+  // useEffect(() => {
+  //   const session = String(window.sessionStorage.getItem("@ignite-CoffeeDelivry:data-1.0.0"));
+  //   setDataInSessions(JSON.parse(session))
+  // }, [])
+
   return (
     <S.ListCoffeeContainer>
       <S.Content>

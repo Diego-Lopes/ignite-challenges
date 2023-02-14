@@ -12,9 +12,11 @@ interface CardCoffeeProps {
   isSelected: boolean;
   price: string;
   stock: string;
+  amount?: number;
 }
 export function CardCoffee(card: CardCoffeeProps) {
-  const [amount, setAmount] = useState(1);
+  let stateNamber = 1;
+  const [amount, setAmount] = useState(stateNamber);
   const [priceMultipliedByQuntity, setPriceMultipliedByQuntity] = useState(
     +card.price
   );
@@ -22,7 +24,23 @@ export function CardCoffee(card: CardCoffeeProps) {
     card.isSelected
   );
 
-  const { data, onChangeShoppingCart } = useContext(StorageContext);
+  const { data, onChangeShoppingCart, onChangeRemoveShoppingCart } =
+    useContext(StorageContext);
+
+  useEffect(() => {
+    const shoppingCartOrders: CardCoffeeProps[] = JSON.parse(
+      String(window.localStorage.getItem("@ignite-CoffeeDelivry:order-1.0.0"))
+    );
+    if (shoppingCartOrders !== null) {
+      if (shoppingCartOrders.length > 0) {
+        shoppingCartOrders
+          .filter((order) => order.id === card.id)
+          .map((item) => {
+            setAmount(Number(item.amount));
+          });
+      }
+    }
+  }, [data]);
 
   function addAmount() {
     if (amount >= 1 && amount < 99) {
@@ -47,10 +65,11 @@ export function CardCoffee(card: CardCoffeeProps) {
       price: card.price,
       amount,
     };
-    onChangeShoppingCart(ObjectCoffee)
+    onChangeShoppingCart(ObjectCoffee);
   }
-  function removeItemForShoppingCart() {
+  function onChangeRemoveItemForShoppingCart() {
     console.log("removido do carrinho");
+    onChangeRemoveShoppingCart(card.id);
   }
 
   useEffect(() => {
@@ -87,7 +106,7 @@ export function CardCoffee(card: CardCoffeeProps) {
           <S.BoxCountUnit>
             <S.subt
               type="button"
-              disabled={amount === 1 ? true : false}
+              disabled={amount === 1 || card.isSelected === true ? true : false}
               onClick={subAmount}
             >
               <Minus size={16} weight="bold" color="#8047F8" />
@@ -95,17 +114,20 @@ export function CardCoffee(card: CardCoffeeProps) {
             <input
               className="inputNumber"
               type="number"
-              // disabled
+              disabled={card.isSelected === true ? true : false}
               step={1}
               value={amount}
               min={1}
               max={99}
-              // maxLength={99}
               onChange={(e) => {
                 setAmount(+e.target.value);
               }}
             />
-            <S.add type="button" onClick={() => addAmount()}>
+            <S.add
+              type="button"
+              disabled={card.isSelected === true ? true : false}
+              onClick={() => addAmount()}
+            >
               <Plus size={16} weight="bold" color="#8047F8" />
             </S.add>
           </S.BoxCountUnit>
@@ -114,7 +136,7 @@ export function CardCoffee(card: CardCoffeeProps) {
               isAdded={isCheckingShoppingCart}
               type="button"
               onClick={() => {
-                removeItemForShoppingCart();
+                onChangeRemoveItemForShoppingCart();
                 setIsCheckingShoppingCart(!isCheckingShoppingCart);
               }}
             >

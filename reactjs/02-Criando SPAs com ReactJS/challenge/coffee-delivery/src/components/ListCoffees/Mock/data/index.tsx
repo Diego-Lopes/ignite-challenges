@@ -1,4 +1,4 @@
-export const dataMock = [
+export let dataMock = [
   {
     id: 1,
     urlImg: "/assets/img/coffees/expressoTradicional.png",
