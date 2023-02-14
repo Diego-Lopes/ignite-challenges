@@ -54,8 +54,6 @@ export function StorageContextProvider({
         setShoppingCart(shoppingCartOrders);
         return setData(dataLocaStorage);
       }
-      if (shoppingCartOrders.length > 0) {
-      }
     } else {
       setData(dataMock);
     }
