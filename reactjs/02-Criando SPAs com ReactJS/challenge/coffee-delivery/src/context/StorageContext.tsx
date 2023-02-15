@@ -24,6 +24,7 @@ export interface DataProps {
 interface StorageContextProps {
   data: DataProps[];
   countInTheCart: number;
+  shoppingCart: CardCoffeeProps[];
   onChangeShoppingCart: (value: CardCoffeeProps) => void;
   onChangeRemoveShoppingCart: (value: number) => void;
 }
@@ -122,6 +123,7 @@ export function StorageContextProvider({
     <StorageContext.Provider
       value={{
         data,
+        shoppingCart,
         countInTheCart,
         onChangeShoppingCart,
         onChangeRemoveShoppingCart,
