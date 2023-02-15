@@ -4,7 +4,8 @@ export function Checkout() {
   return (
     <S.CheckoutContainer>
       <S.Content>
-        <h1>It's page checkout</h1>
+        <S.Address></S.Address>
+        <S.ShoppingCart></S.ShoppingCart>
       </S.Content>
     </S.CheckoutContainer>
   )
