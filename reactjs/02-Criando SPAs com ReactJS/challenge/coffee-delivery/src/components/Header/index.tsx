@@ -21,7 +21,9 @@ export function Header() {
   return (
     <S.HeaderContainer>
       <S.Wrapper>
-        <img src={logo} alt="Logo Coffe Delivery" />
+        <a href="/">
+          <img src={logo} alt="Logo Coffe Delivery" />
+        </a>
         <S.BoxButons>
           <S.ButtonLocal>
             <MapPin size={22} weight="fill" />
