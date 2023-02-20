@@ -197,7 +197,33 @@ export const ShoppingCart = styled.div`
   }
 
   .wrapperShoppingCart {
+    background-color: ${(props) => props.theme["base-card"]};
+    width: 448px;
+    padding: 40px;
+    border-top-right-radius: 44px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 44px;
+    border-bottom-right-radius: 6px;
   }
 `;
 
-export const CardItem = styled.div``;
+export const CardItem = styled.div`
+  width: 368px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid ${(props) => props.theme["base-button"]};
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+
+  img {
+    width: 64px;
+    height: 64px;
+    margin-right: 20px;
+  }
+
+  .buttonOptions {
+    width: 171px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;

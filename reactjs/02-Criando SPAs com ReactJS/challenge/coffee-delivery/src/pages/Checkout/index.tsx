@@ -17,7 +17,7 @@ export function Checkout() {
   return (
     <S.CheckoutContainer>
       <S.Content>
-        <S.Address>
+        {/* <S.Address>
           <h2 className="title">Complete seu pedido</h2>
           <S.Form>
             <div className="wrapper">
@@ -74,7 +74,7 @@ export function Checkout() {
               </div>
             </div>
           </S.Form>
-        </S.Address>
+        </S.Address> */}
         <S.ShoppingCart>
           <h2 className="title">Cafés selecionados</h2>
           <div className="wrapperShoppingCart">
@@ -86,9 +86,9 @@ export function Checkout() {
                   <button>values</button>
                   <button>remove</button>
                 </div>
-                <div className="valueUnit">
-                  <p>{shoppingCart[0].price.replace(/\./g, ",")}</p>
-                </div>
+              </div>
+              <div className="valueUnit">
+                <p>R$ {shoppingCart[0].price.replace(/\./g, ",")}</p>
               </div>
             </S.CardItem>
             <div className="descriptionValues">
@@ -102,11 +102,13 @@ export function Checkout() {
               </div>
               <div>
                 <p>Total</p>
-                <strong>R$ {+shoppingCart[0].price * shoppingCart[0].amount + 3.50}</strong>
+                <strong>
+                  R$ {+shoppingCart[0].price * shoppingCart[0].amount + 3.5}
+                </strong>
               </div>
             </div>
-          </div>
             <button>confirmar pedido</button>
+          </div>
         </S.ShoppingCart>
       </S.Content>
     </S.CheckoutContainer>
