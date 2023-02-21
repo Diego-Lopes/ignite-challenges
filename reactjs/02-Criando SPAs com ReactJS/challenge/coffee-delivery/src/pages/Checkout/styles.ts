@@ -227,3 +227,37 @@ export const CardItem = styled.div`
     flex-wrap: wrap;
   }
 `;
+
+export const DescriptionValues = styled.div`
+  & > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:nth-child(2) {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  }
+
+  margin-bottom: 24px;
+
+  div > h3 {
+    font-size: 2rem;
+    line-height: 130%;
+  }
+`;
+
+export const Button = styled.button`
+  padding: 12px 8px;
+  width: 100%;
+  max-width: 368px;
+  height: 46px;
+  border: none;
+  border-radius: 6px;
+  background: ${(props) => props.theme.yellow};
+  text-transform: uppercase;
+  color: ${(props) => props.theme.white};
+  font-weight: 700;
+  line-height: 160%;
+`;

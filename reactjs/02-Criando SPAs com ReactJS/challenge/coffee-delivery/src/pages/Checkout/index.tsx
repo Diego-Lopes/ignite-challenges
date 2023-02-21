@@ -91,7 +91,7 @@ export function Checkout() {
                 <p>R$ {shoppingCart[0].price.replace(/\./g, ",")}</p>
               </div>
             </S.CardItem>
-            <div className="descriptionValues">
+            <S.DescriptionValues>
               <div>
                 <p>Total de itens</p>
                 <p>{+shoppingCart[0].price * shoppingCart[0].amount}</p>
@@ -101,13 +101,13 @@ export function Checkout() {
                 <p>R$ 3,50</p>
               </div>
               <div>
-                <p>Total</p>
-                <strong>
+                <h3>Total</h3>
+                <h3>
                   R$ {+shoppingCart[0].price * shoppingCart[0].amount + 3.5}
-                </strong>
+                </h3>
               </div>
-            </div>
-            <button>confirmar pedido</button>
+            </S.DescriptionValues>
+            <S.Button>confirmar pedido</S.Button>
           </div>
         </S.ShoppingCart>
       </S.Content>
