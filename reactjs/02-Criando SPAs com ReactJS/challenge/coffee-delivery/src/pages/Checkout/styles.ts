@@ -260,4 +260,10 @@ export const Button = styled.button`
   color: ${(props) => props.theme.white};
   font-weight: 700;
   line-height: 160%;
+  transition: 350ms ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background: ${props => props.theme["yellow-dark"]};
+  }
 `;
