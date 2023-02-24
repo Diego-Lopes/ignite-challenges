@@ -3,21 +3,42 @@ import {
   CreditCard,
   CurrencyDollar,
   MapPinLine,
+  Minus,
   Money,
+  Plus,
+  Trash,
 } from "phosphor-react";
 import * as S from "./styles";
 import { StorageContext } from "../../context/StorageContext";
-import { useContext } from "react";
-
+import { useContext, useEffect, useState } from "react";
+type CardCoffeeProps = {
+  id: number;
+  urlImg: string;
+  titleProduct: string;
+  isSelected: boolean;
+  price: string;
+  amount: number;
+};
 export function Checkout() {
   const { shoppingCart } = useContext(StorageContext);
+  const [dataShoppingCart, setDataShoppingCart] = useState<CardCoffeeProps[]>(
+    []
+  );
 
   console.log({ shoppingCart });
+  useEffect(() => {
+    let cart: CardCoffeeProps[] = JSON.parse(
+      String(window.localStorage.getItem("@ignite-CoffeeDelivry:order-1.0.0"))
+    );
+    if (cart) {
+      setDataShoppingCart(cart);
+    }
+  }, []);
 
   return (
     <S.CheckoutContainer>
       <S.Content>
-        {/* <S.Address>
+        <S.Address>
           <h2 className="title">Complete seu pedido</h2>
           <S.Form>
             <div className="wrapper">
@@ -74,27 +95,64 @@ export function Checkout() {
               </div>
             </div>
           </S.Form>
-        </S.Address> */}
+        </S.Address>
         <S.ShoppingCart>
           <h2 className="title">Cafés selecionados</h2>
           <div className="wrapperShoppingCart">
-            <S.CardItem>
-              <img src={shoppingCart[0].urlImg} />
-              <div className="buttonOptions">
-                <p>{shoppingCart[0].titleProduct}</p>
-                <div className="buttons">
-                  <button>values</button>
-                  <button>remove</button>
+            {shoppingCart.map((item) => (
+              <S.CardItem>
+                <img src={item.urlImg} />
+                <div className="buttonOptions">
+                  <p>{item.titleProduct}</p>
+                  <div className="buttons">
+                    <S.BoxCountUnit>
+                      <S.subt
+                        type="button"
+                        // disabled={
+                        //   amount === 1 || card.isSelected === true
+                        //     ? true
+                        //     : false
+                        // }
+                        // onClick={subAmount}
+                      >
+                        <Minus size={16} weight="bold" color="#8047F8" />
+                      </S.subt>
+                      <input
+                        className="inputNumber"
+                        type="number"
+                        // disabled={card.isSelected === true ? true : false}
+                        step={1}
+                        // value={amount}
+                        min={1}
+                        max={99}
+                        onChange={(e) => {
+                          // setAmount(+e.target.value);
+                        }}
+                      />
+                      <S.add
+                        type="button"
+                        // disabled={card.isSelected === true ? true : false}
+                        // onClick={() => addAmount()}
+                      >
+                        <Plus size={16} weight="bold" color="#8047F8" />
+                      </S.add>
+                    </S.BoxCountUnit>
+                    <button className="trash">
+                      <Trash size={16} />
+                      remover
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="valueUnit">
-                <p>R$ {shoppingCart[0].price.replace(/\./g, ",")}</p>
-              </div>
-            </S.CardItem>
-            <S.DescriptionValues>
+                <div className="valueUnit">
+                  <p>R$ {item.price.replace(/\./g, ",")}</p>
+                </div>
+              </S.CardItem>
+            ))}
+
+            {/* <S.DescriptionValues>
               <div>
                 <p>Total de itens</p>
-                <p>{+shoppingCart[0].price * shoppingCart[0].amount}</p>
+                <p>{+shoppingCart[0]?.price * shoppingCart[0].amount}</p>
               </div>
               <div>
                 <p>Entrega</p>
@@ -103,10 +161,10 @@ export function Checkout() {
               <div>
                 <h3>Total</h3>
                 <h3>
-                  R$ {+shoppingCart[0].price * shoppingCart[0].amount + 3.5}
+                  R$ {+shoppingCart[0]?.price * shoppingCart[0].amount + 3.5}
                 </h3>
               </div>
-            </S.DescriptionValues>
+            </S.DescriptionValues> */}
             <S.Button>confirmar pedido</S.Button>
           </div>
         </S.ShoppingCart>

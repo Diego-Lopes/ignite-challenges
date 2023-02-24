@@ -75,7 +75,7 @@ export function CardCoffee(card: CardCoffeeProps) {
   useEffect(() => {
     if (amount !== 0) {
       setPriceMultipliedByQuntity(amount * Number(card.price));
-    } 
+    }
   }, [amount, card.price]);
   useEffect(() => {
     setIsCheckingShoppingCart(card.isSelected);

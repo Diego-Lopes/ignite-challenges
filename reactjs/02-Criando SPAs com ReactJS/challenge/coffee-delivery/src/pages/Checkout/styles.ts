@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 export const CheckoutContainer = styled.div`
-  width: 100%;
-
   @media screen and (min-width: 600px) {
     margin-inline: 7rem;
   }
 `;
 
 export const Content = styled.div`
-  width: min(194rem, 100%);
+  width: min(114rem, 100%);
   display: grid;
   grid-gap: 3.2rem;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
+
   justify-items: center;
   margin-inline: auto;
 `;
@@ -214,6 +213,7 @@ export const CardItem = styled.div`
   border-bottom: 1px solid ${(props) => props.theme["base-button"]};
   padding-bottom: 24px;
   margin-bottom: 24px;
+  position: relative;
 
   img {
     width: 64px;
@@ -225,6 +225,49 @@ export const CardItem = styled.div`
     width: 171px;
     display: flex;
     flex-wrap: wrap;
+
+    p {
+      display: block;
+    }
+
+    .buttons {
+      display: flex;
+      /* height: 50px; */
+      gap: 8px;
+
+      .trash {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        padding: 4px;
+        border: none;
+        border-radius: 6px;
+        transition: 350ms ease-in-out;
+
+        background-color: ${(props) => props.theme["base-button"]};
+
+        svg {
+          color: ${(props) => props.theme.purple};
+        }
+
+        &:hover {
+          background-color: ${(props) => props.theme["base-hover"]};
+        }
+      }
+    }
+  }
+
+  .valueUnit {
+    position: absolute;
+    top: 5px;
+    right: 0;
+
+    p {
+      color: ${(props) => props.theme["base-text"]};
+      font-weight: 700;
+    }
   }
 `;
 
@@ -264,6 +307,92 @@ export const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: ${props => props.theme["yellow-dark"]};
+    background: ${(props) => props.theme["yellow-dark"]};
+  }
+`;
+
+export const BoxCountUnit = styled.div`
+  display: flex;
+  align-items: center;
+  /* gap: 4px; */
+  background-color: ${(props) => props.theme["base-button"]};
+  padding: 6px 4px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: border-color 350ms ease-in-out;
+
+  svg {
+    fill: ${(props) => props.theme.purple};
+    transition: 350ms ease-in-out;
+  }
+
+  &:hover {
+    border: 1px solid ${(props) => props.theme["purple-dark"]};
+  }
+
+  .inputNumber {
+    width: 21px;
+    padding: 1px;
+    background: transparent;
+    border: none;
+    font-size: 1.6rem;
+    color: ${(props) => props.theme["base-title"]};
+    font-weight: 400;
+
+    &[type="number"]::-webkit-inner-spin-button,
+    &[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0 #4b2995;
+    }
+  }
+`;
+
+export const ButtonBase = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: transparent;
+  &[disabled] {
+    cursor: not-allowed;
+  }
+  &:not([disabled]) {
+    cursor: pointer;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+`;
+
+export const add = styled(ButtonBase)`
+  padding: 2px;
+
+  background: transparent;
+
+  &:not([disabled]) {
+    svg:hover {
+      transform: scale(1.5);
+      filter: brightness(0.5);
+    }
+  }
+`;
+
+export const subt = styled(ButtonBase)`
+  padding: 2px;
+
+  background: transparent;
+
+  &:not([disabled]) {
+    svg:hover {
+      transform: scale(1.5);
+      filter: brightness(0.5);
+    }
   }
 `;
