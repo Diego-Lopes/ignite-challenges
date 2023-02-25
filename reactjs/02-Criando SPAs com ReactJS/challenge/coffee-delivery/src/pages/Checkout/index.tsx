@@ -10,7 +10,7 @@ import {
 } from "phosphor-react";
 import * as S from "./styles";
 import { StorageContext } from "../../context/StorageContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 type CardCoffeeProps = {
   id: number;
   urlImg: string;
@@ -20,20 +20,8 @@ type CardCoffeeProps = {
   amount: number;
 };
 export function Checkout() {
-  const { shoppingCart } = useContext(StorageContext);
-  const [dataShoppingCart, setDataShoppingCart] = useState<CardCoffeeProps[]>(
-    []
-  );
-
-  console.log({ shoppingCart });
-  useEffect(() => {
-    let cart: CardCoffeeProps[] = JSON.parse(
-      String(window.localStorage.getItem("@ignite-CoffeeDelivry:order-1.0.0"))
-    );
-    if (cart) {
-      setDataShoppingCart(cart);
-    }
-  }, []);
+  const { shoppingCart, onSubAmount, onAddAmount, onRemovedItem } =
+    useContext(StorageContext);
 
   return (
     <S.CheckoutContainer>
@@ -100,8 +88,8 @@ export function Checkout() {
           <h2 className="title">Cafés selecionados</h2>
           <div className="wrapperShoppingCart">
             {shoppingCart.map((item) => (
-              <S.CardItem  key={item.id}>
-                <img src={item.urlImg}/>
+              <S.CardItem key={item.id}>
+                <img src={item.urlImg} />
                 <div className="buttonOptions">
                   <p>{item.titleProduct}</p>
                   <div className="buttons">
@@ -113,7 +101,9 @@ export function Checkout() {
                         //     ? true
                         //     : false
                         // }
-                        // onClick={subAmount}
+                        onClick={() => {
+                          onSubAmount(item.id);
+                        }}
                       >
                         <Minus size={16} weight="bold" color="#8047F8" />
                       </S.subt>
@@ -122,7 +112,7 @@ export function Checkout() {
                         type="number"
                         // disabled={card.isSelected === true ? true : false}
                         step={1}
-                        // value={amount}
+                        value={item.amount}
                         min={1}
                         max={99}
                         onChange={(e) => {
@@ -132,12 +122,16 @@ export function Checkout() {
                       <S.add
                         type="button"
                         // disabled={card.isSelected === true ? true : false}
-                        // onClick={() => addAmount()}
+                        onClick={() => {
+                          onAddAmount(item.id);
+                        }}
                       >
                         <Plus size={16} weight="bold" color="#8047F8" />
                       </S.add>
                     </S.BoxCountUnit>
-                    <button className="trash">
+                    <button className="trash" 
+                      onClick={() => onRemovedItem(item.id)}
+                    >
                       <Trash size={16} />
                       remover
                     </button>
