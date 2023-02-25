@@ -26,7 +26,11 @@ interface StorageContextProps {
   countInTheCart: number;
   shoppingCart: CardCoffeeProps[];
   onChangeShoppingCart: (value: CardCoffeeProps) => void;
+  onSubAmount: (value: number) => void;
+  onAddAmount: (value: number) => void;
+  onRemovedItem: (value: number) => void;
   onChangeRemoveShoppingCart: (value: number) => void;
+  isToggle: boolean;
 }
 
 export const StorageContext = createContext({} as StorageContextProps);
@@ -40,6 +44,7 @@ export function StorageContextProvider({
   const [data, setData] = useState<DataProps[]>([]);
   const [shoppingCart, setShoppingCart] = useState<CardCoffeeProps[]>([]);
   const [countInTheCart, setCountInTheCart] = useState<number>(0);
+  const [isToggle, setIsToggle] = useState(false);
 
   console.log({ countInTheCart });
 
@@ -64,14 +69,14 @@ export function StorageContextProvider({
     } else {
       setData(dataMock);
     }
-  }, []);
+  }, [isToggle]);
 
   useEffect(() => {
     window.localStorage.setItem(
       "@ignite-CoffeeDelivry:data-1.0.0",
       JSON.stringify(data)
     );
-  }, [data, shoppingCart]);
+  }, [data, shoppingCart, isToggle]);
 
   console.log({ data, shoppingCart });
 
@@ -89,6 +94,50 @@ export function StorageContextProvider({
     setShoppingCart(newData);
   }
 
+  function onSubAmount(id: number) {
+    shoppingCart
+      .filter((filterItem) => filterItem.id === id)
+      .map((item) => {
+        if (item.amount > 1) {
+          item.amount = item.amount - 1;
+        }
+        return;
+      });
+    setIsToggle(!isToggle);
+    window.localStorage.setItem(
+      "@ignite-CoffeeDelivry:order-1.0.0",
+      JSON.stringify(shoppingCart)
+    );
+  }
+
+  function onAddAmount(id: number) {
+    shoppingCart
+      .filter((filterItem) => filterItem.id === id)
+      .map((item) => {
+        if (item.amount < 99) {
+          item.amount = item.amount + 1;
+        }
+        return;
+      });
+    setIsToggle(!isToggle);
+    window.localStorage.setItem(
+      "@ignite-CoffeeDelivry:order-1.0.0",
+      JSON.stringify(shoppingCart)
+    );
+  }
+
+  function onRemovedItem(id: number) {
+    console.log("entrou");
+    let newArray = [];
+    newArray = shoppingCart.filter((filterItem) => filterItem.id !== id);
+    modificationStateNoSelected(id);
+    setIsToggle(!isToggle);
+    window.localStorage.setItem(
+      "@ignite-CoffeeDelivry:order-1.0.0",
+      JSON.stringify(newArray)
+    );
+  }
+
   function modificationStateSelected(idItem: number) {
     data
       .filter((item) => item.id === idItem)
@@ -103,7 +152,19 @@ export function StorageContextProvider({
     data
       .filter((item) => item.id === idItem)
       .map((coffee) => {
-        coffee.isSelected = false;
+        if (coffee.isSelected === false) {
+          coffee.isSelected = true;
+          window.localStorage.setItem(
+            "@ignite-CoffeeDelivry:data-1.0.0",
+            JSON.stringify(data)
+          );
+        } else {
+          coffee.isSelected = false;
+          window.localStorage.setItem(
+            "@ignite-CoffeeDelivry:data-1.0.0",
+            JSON.stringify(data)
+          );
+        }
       });
   }
 
@@ -127,6 +188,10 @@ export function StorageContextProvider({
         countInTheCart,
         onChangeShoppingCart,
         onChangeRemoveShoppingCart,
+        onSubAmount,
+        onAddAmount,
+        onRemovedItem,
+        isToggle,
       }}
     >
       {children}
