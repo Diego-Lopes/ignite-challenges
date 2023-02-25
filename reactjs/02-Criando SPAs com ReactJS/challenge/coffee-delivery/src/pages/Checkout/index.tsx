@@ -100,8 +100,8 @@ export function Checkout() {
           <h2 className="title">Cafés selecionados</h2>
           <div className="wrapperShoppingCart">
             {shoppingCart.map((item) => (
-              <S.CardItem>
-                <img src={item.urlImg} />
+              <S.CardItem  key={item.id}>
+                <img src={item.urlImg}/>
                 <div className="buttonOptions">
                   <p>{item.titleProduct}</p>
                   <div className="buttons">

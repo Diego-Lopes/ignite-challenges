@@ -16,6 +16,11 @@ export const Content = styled.div`
 
   justify-items: center;
   margin-inline: auto;
+
+  @media screen and (max-width: 764px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 export const Address = styled.div`
