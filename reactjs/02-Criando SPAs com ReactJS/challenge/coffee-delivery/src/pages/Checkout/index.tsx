@@ -10,7 +10,7 @@ import {
 } from "phosphor-react";
 import * as S from "./styles";
 import { StorageContext } from "../../context/StorageContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 type CardCoffeeProps = {
   id: number;
   urlImg: string;
@@ -20,9 +20,30 @@ type CardCoffeeProps = {
   amount: number;
 };
 export function Checkout() {
-  const { shoppingCart, onSubAmount, onAddAmount, onRemovedItem } =
+  const { shoppingCart, onSubAmount, onAddAmount, onRemovedItem, isToggle } =
     useContext(StorageContext);
 
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPriceAmount, setTotalPriceAmount] = useState(0);
+  const [totalPriceAmountTaxa, setTotalPriceAmountTaxa] = useState(0);
+  let taxa = 3.5;
+
+  useEffect(() => {
+    shoppingCart.map((items) => {
+      setTotalAmount(+items.amount);
+      setTotalPrice(+items.price);
+    });
+    setTotalPriceAmountTaxa(totalPriceAmount + taxa);
+    setTotalPriceAmount(Number((totalAmount * totalPrice).toFixed(2)));
+  }, [isToggle]);
+
+  useEffect(() => {
+    console.log("executei somente essa vez");
+    
+    setTotalPriceAmountTaxa(totalPriceAmount + taxa);
+    setTotalPriceAmount(Number((totalAmount * totalPrice).toFixed(2)));
+  },[]);
   return (
     <S.CheckoutContainer>
       <S.Content>
@@ -129,7 +150,8 @@ export function Checkout() {
                         <Plus size={16} weight="bold" color="#8047F8" />
                       </S.add>
                     </S.BoxCountUnit>
-                    <button className="trash" 
+                    <button
+                      className="trash"
                       onClick={() => onRemovedItem(item.id)}
                     >
                       <Trash size={16} />
@@ -143,10 +165,10 @@ export function Checkout() {
               </S.CardItem>
             ))}
 
-            {/* <S.DescriptionValues>
+            <S.DescriptionValues>
               <div>
                 <p>Total de itens</p>
-                <p>{+shoppingCart[0]?.price * shoppingCart[0].amount}</p>
+                <p>{totalPriceAmount}</p>
               </div>
               <div>
                 <p>Entrega</p>
@@ -154,11 +176,9 @@ export function Checkout() {
               </div>
               <div>
                 <h3>Total</h3>
-                <h3>
-                  R$ {+shoppingCart[0]?.price * shoppingCart[0].amount + 3.5}
-                </h3>
+                <h3>R$ {totalPriceAmountTaxa}</h3>
               </div>
-            </S.DescriptionValues> */}
+            </S.DescriptionValues>
             <S.Button>confirmar pedido</S.Button>
           </div>
         </S.ShoppingCart>
