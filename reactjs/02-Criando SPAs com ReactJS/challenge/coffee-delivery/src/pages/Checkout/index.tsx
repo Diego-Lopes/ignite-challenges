@@ -40,7 +40,7 @@ export function Checkout() {
     );
 
     if (totalPriceAmount > 0) {
-      setTotalPriceAmountTaxa(totalPriceAmount + taxa);
+      setTotalPriceAmountTaxa(+(totalPriceAmount + taxa).toFixed(2));
     } else {
       setTotalPriceAmountTaxa(0);
     }
