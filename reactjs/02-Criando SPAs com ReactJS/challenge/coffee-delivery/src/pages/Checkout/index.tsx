@@ -23,27 +23,29 @@ export function Checkout() {
   const { shoppingCart, onSubAmount, onAddAmount, onRemovedItem, isToggle } =
     useContext(StorageContext);
 
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  // const [totalAmount, setTotalAmount] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
   const [totalPriceAmount, setTotalPriceAmount] = useState(0);
   const [totalPriceAmountTaxa, setTotalPriceAmountTaxa] = useState(0);
   let taxa = 3.5;
 
   useEffect(() => {
-    shoppingCart.map((items) => {
-      setTotalAmount(+items.amount);
-      setTotalPrice(+items.price);
+    let initialValue = 0;
+    let total = shoppingCart.map((items) => {
+      return +(items.amount * +items.price).toFixed(2);
     });
-    setTotalPriceAmountTaxa(totalPriceAmount + taxa);
-    setTotalPriceAmount(Number((totalAmount * totalPrice).toFixed(2)));
-  }, [isToggle]);
 
-  useEffect(() => {
-    console.log("executei somente essa vez");
-    
-    setTotalPriceAmountTaxa(totalPriceAmount + taxa);
-    setTotalPriceAmount(Number((totalAmount * totalPrice).toFixed(2)));
-  },[]);
+    setTotalPriceAmount(
+      +total.reduce((acc, value) => acc + value, initialValue).toFixed(2)
+    );
+
+    if (totalPriceAmount > 0) {
+      setTotalPriceAmountTaxa(totalPriceAmount + taxa);
+    } else {
+      setTotalPriceAmountTaxa(0);
+    }
+  }, [totalPriceAmount, shoppingCart]);
+
   return (
     <S.CheckoutContainer>
       <S.Content>
@@ -172,7 +174,7 @@ export function Checkout() {
               </div>
               <div>
                 <p>Entrega</p>
-                <p>R$ 3,50</p>
+                <p>R$ {totalPriceAmount && "3,50"}</p>
               </div>
               <div>
                 <h3>Total</h3>

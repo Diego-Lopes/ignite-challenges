@@ -46,9 +46,9 @@ export function StorageContextProvider({
   const [countInTheCart, setCountInTheCart] = useState<number>(0);
   const [isToggle, setIsToggle] = useState(false);
 
-  console.log({ countInTheCart });
+  // console.log({ countInTheCart });
 
-  console.log({ shoppingCart });
+  // console.log({ shoppingCart });
 
   useEffect(() => {
     const dataLocaStorage: DataProps[] = JSON.parse(
@@ -78,7 +78,7 @@ export function StorageContextProvider({
     );
   }, [data, shoppingCart, isToggle]);
 
-  console.log({ data, shoppingCart });
+  // console.log({ data, shoppingCart });
 
   function onChangeShoppingCart(value: CardCoffeeProps) {
     setShoppingCart([...shoppingCart, value]);
@@ -131,11 +131,11 @@ export function StorageContextProvider({
     let newArray = [];
     newArray = shoppingCart.filter((filterItem) => filterItem.id !== id);
     modificationStateNoSelected(id);
-    setIsToggle(!isToggle);
     window.localStorage.setItem(
       "@ignite-CoffeeDelivry:order-1.0.0",
       JSON.stringify(newArray)
     );
+    setIsToggle(!isToggle);
   }
 
   function modificationStateSelected(idItem: number) {
