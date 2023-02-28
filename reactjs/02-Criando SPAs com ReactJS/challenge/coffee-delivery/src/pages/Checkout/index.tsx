@@ -10,25 +10,23 @@ import {
 } from "phosphor-react";
 import * as S from "./styles";
 import { StorageContext } from "../../context/StorageContext";
-import { useContext, useEffect, useState } from "react";
-type CardCoffeeProps = {
-  id: number;
-  urlImg: string;
-  titleProduct: string;
-  isSelected: boolean;
-  price: string;
-  amount: number;
-};
-export function Checkout() {
-  const { shoppingCart, onSubAmount, onAddAmount, onRemovedItem, isToggle } =
-    useContext(StorageContext);
+import { FormEvent, useContext, useEffect, useState } from "react";
 
-  // const [totalAmount, setTotalAmount] = useState(0);
-  // const [totalPrice, setTotalPrice] = useState(0);
+export function Checkout() {
+  const { shoppingCart, onSubAmount, onAddAmount, onRemovedItem } =
+    useContext(StorageContext);
   const [totalPriceAmount, setTotalPriceAmount] = useState(0);
   const [totalPriceAmountTaxa, setTotalPriceAmountTaxa] = useState(0);
-  let taxa = 3.5;
+  const [cep, setCep] = useState("");
+  const [road, setRoad] = useState("");
+  const [number, setNumber] = useState("");
+  const [complementStreet, setComplementStreet] = useState("");
+  const [district, setDistrict] = useState("");
+  const [city, setCity] = useState("");
+  const [uf, setUf] = useState("");
+  const [payment, setPayment] = useState("");
 
+  let taxa = 3.5;
   useEffect(() => {
     let initialValue = 0;
     let total = shoppingCart.map((items) => {
@@ -46,12 +44,43 @@ export function Checkout() {
     }
   }, [totalPriceAmount, shoppingCart]);
 
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (
+      cep !== "" &&
+      road !== "" &&
+      number !== "" &&
+      district !== "" &&
+      city !== "" &&
+      uf !== ""
+    ) {
+      let pedido = `
+        ${shoppingCart.map((listItem) => {
+          return {
+            Produto: listItem.titleProduct,
+            Quant: listItem.amount,
+            preço: listItem.price,
+          };
+        })}
+      `;
+      let text = `
+      Pedido : ${pedido}
+        
+      `;
+
+      console.log({text});
+      
+    } else {
+    }
+  }
+
   return (
     <S.CheckoutContainer>
       <S.Content>
         <S.Address>
           <h2 className="title">Complete seu pedido</h2>
-          <S.Form>
+          <S.Form onSubmit={onSubmit}>
             <div className="wrapper">
               <div className="address">
                 <MapPinLine size={22} />
@@ -61,20 +90,63 @@ export function Checkout() {
                 </div>
               </div>
               <div className="boxInputs">
-                <input type="text" placeholder="CEP" />
-                <input type="text" placeholder="RUA" />
+                <input
+                  type="text"
+                  value={cep}
+                  maxLength={8}
+                  onChange={(e) =>
+                    setCep(
+                      e.target.value
+                        .replace(/\D/g, "")
+                        .replace(/^(\d{5})(\d{3})$/, "$1-$2")
+                    )
+                  }
+                  placeholder="CEP"
+                />
+                <input
+                  type="text"
+                  value={road}
+                  onChange={(e) => setRoad((e.target.value).toLocaleUpperCase())}
+                  placeholder="RUA"
+                />
                 <div>
-                  <input type="text" placeholder="NÚMERO" />
+                  <input
+                    type="text"
+                    value={number}
+                    onChange={(e) => setNumber((e.target.value).toLocaleUpperCase())}
+                    placeholder="NÚMERO"
+                  />
                   <div className="inputComplemento">
                     <label htmlFor="1">
-                      <i>Opcional</i>
+                      <i>"Opicional"</i>
                     </label>
-                    <input id="1" type="text" placeholder="COMPLEMENTO" />
+                    <input
+                      id="1"
+                      type="text"
+                      value={complementStreet}
+                      onChange={(e) => setComplementStreet((e.target.value).toLocaleUpperCase())}
+                      placeholder="COMPLEMENTO"
+                    />
                   </div>
                 </div>
-                <input type="text" placeholder="BAIRRO" />
-                <input type="text" placeholder="CIDADE" />
-                <input type="text" placeholder="UF" />
+                <input
+                  type="text"
+                  value={district}
+                  onChange={(e) => setDistrict((e.target.value).toLocaleUpperCase())}
+                  placeholder="BAIRRO"
+                />
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity((e.target.value).toLocaleUpperCase())}
+                  placeholder="CIDADE"
+                />
+                <input
+                  type="text"
+                  value={uf}
+                  onChange={(e) => setUf((e.target.value).toLocaleUpperCase())}
+                  placeholder="UF"
+                />
               </div>
             </div>
             <div className="boxModePay">
@@ -90,15 +162,24 @@ export function Checkout() {
                   </div>
                 </div>
                 <div className="boxOptions">
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() => setPayment("Cartão de crédito")}
+                  >
                     <CreditCard size={16} />
                     cartão de crédito
                   </button>
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() => setPayment("Cartão de débito")}
+                  >
                     <Bank size={16} />
                     cartão de débito
                   </button>
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() => setPayment("Pagamento em dinheiro em mãos")}
+                  >
                     <Money size={16} />
                     dinheiro
                   </button>
@@ -181,7 +262,7 @@ export function Checkout() {
                 <h3>R$ {totalPriceAmountTaxa}</h3>
               </div>
             </S.DescriptionValues>
-            <S.Button>confirmar pedido</S.Button>
+            <S.Button type="submit">confirmar pedido</S.Button>
           </div>
         </S.ShoppingCart>
       </S.Content>
