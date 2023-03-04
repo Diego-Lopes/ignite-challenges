@@ -30,6 +30,7 @@ interface StorageContextProps {
   onAddAmount: (value: number) => void;
   onRemovedItem: (value: number) => void;
   onChangeRemoveShoppingCart: (value: number) => void;
+  onFinishedShoppingCart: () => void;
   isToggle: boolean;
 }
 
@@ -180,6 +181,11 @@ export function StorageContextProvider({
     setCountInTheCart(isManyInTheCart.length);
   }, [data, shoppingCart]);
 
+  function onFinishedShoppingCart() {
+    window.localStorage.removeItem("@ignite-CoffeeDelivry:order-1.0.0");
+    setCountInTheCart(0);
+  }
+
   return (
     <StorageContext.Provider
       value={{
@@ -191,6 +197,7 @@ export function StorageContextProvider({
         onSubAmount,
         onAddAmount,
         onRemovedItem,
+        onFinishedShoppingCart,
         isToggle,
       }}
     >

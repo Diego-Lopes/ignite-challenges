@@ -7,13 +7,20 @@ export const ContainerSucess = styled.div`
   align-content: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 8rem;
+
+  .containerText {
+    width: min(144rem, 61.5%);
+    margin-inline: auto;
+  }
 `;
 
 export const Content = styled.div`
   display: flex;
   align-items: center;
   margin-inline: auto;
-
+  gap: 25rem;
+  margin-top: 4rem;
 
   .border {
     width: 50%;
@@ -26,7 +33,7 @@ export const Content = styled.div`
       #dbac2c 2.61%,
       #8047f8 98.76%
     ); */
-    padding:1px
+    padding: 1px;
   }
 
   .cardInfo {

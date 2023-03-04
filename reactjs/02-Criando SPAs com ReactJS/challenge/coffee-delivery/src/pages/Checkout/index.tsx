@@ -14,8 +14,13 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import { Sucess } from "../../components/Sucess";
 
 export function Checkout() {
-  const { shoppingCart, onSubAmount, onAddAmount, onRemovedItem } =
-    useContext(StorageContext);
+  const {
+    shoppingCart,
+    onSubAmount,
+    onAddAmount,
+    onRemovedItem,
+    onFinishedShoppingCart,
+  } = useContext(StorageContext);
   const [totalPriceAmount, setTotalPriceAmount] = useState(0);
   const [totalPriceAmountTaxa, setTotalPriceAmountTaxa] = useState(0);
   const [cep, setCep] = useState("");
@@ -26,7 +31,7 @@ export function Checkout() {
   const [city, setCity] = useState("");
   const [uf, setUf] = useState("");
   const [payment, setPayment] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   let taxa = 3.5;
   useEffect(() => {
@@ -102,6 +107,8 @@ export function Checkout() {
         .replace(/\:/g, ": ");
       console.log(text + address);
       alert(text + address);
+      setIsSubmitted(!isSubmitted);
+      onFinishedShoppingCart();
     } else {
       alert("Preencher os campos de entrega");
     }

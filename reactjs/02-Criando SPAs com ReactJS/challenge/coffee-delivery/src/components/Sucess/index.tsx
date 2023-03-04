@@ -5,8 +5,10 @@ import * as S from "./styles";
 export function Sucess() {
   return (
     <S.ContainerSucess>
-      <h1>Uhu! Pedido confirmado</h1>
-      <p>agora é só aguardar que logo o café chegará até você </p>
+      <div className="containerText">
+        <h1>Uhu! Pedido confirmado</h1>
+        <p>agora é só aguardar que logo o café chegará até você </p>
+      </div>
       <S.Content>
         <div className="border">
           <div className="cardInfo">
