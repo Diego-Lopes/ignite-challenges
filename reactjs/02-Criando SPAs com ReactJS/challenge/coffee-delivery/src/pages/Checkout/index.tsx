@@ -11,7 +11,7 @@ import {
 import * as S from "./styles";
 import { StorageContext } from "../../context/StorageContext";
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { Sucess } from "../../components/Sucess";
+import { Success } from "../../components/Success";
 
 export function Checkout() {
   const {
@@ -117,7 +117,14 @@ export function Checkout() {
   return (
     <>
       {isSubmitted ? (
-        <Sucess />
+        <Success
+          address={road}
+          payment={payment}
+          number={number}
+          district={district}
+          city={city}
+          complementsStreet={complementStreet}
+        />
       ) : (
         <S.CheckoutContainer>
           <S.Content>
@@ -165,7 +172,7 @@ export function Checkout() {
                       />
                       <div className="inputComplemento">
                         <label htmlFor="1">
-                          <i>"Opicional"</i>
+                          <i>"Opcional"</i>
                         </label>
                         <input
                           id="1"

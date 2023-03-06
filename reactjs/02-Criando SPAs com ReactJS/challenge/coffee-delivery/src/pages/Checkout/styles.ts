@@ -75,6 +75,10 @@ export const Address = styled.div`
         &:nth-child(1) {
           width: 200px;
           margin-bottom: 16px;
+
+          @media screen and (max-width: 400px) {
+            width: 100%;
+          }
         }
         &:nth-child(2) {
           width: 100%;
@@ -86,10 +90,19 @@ export const Address = styled.div`
         &:nth-child(4) {
           width: 200px;
           margin-right: 12px;
+          @media screen and (max-width: 400px) {
+            width: 100%;
+          }
         }
         &:nth-child(5) {
           width: 276px;
           margin-right: 12px;
+
+          @media screen and (max-width: 400px) {
+            width: 75.5%;
+            margin: 12px;
+            margin-left: 0;
+          }
         }
         &:nth-child(6) {
           width: 60px;
@@ -99,6 +112,10 @@ export const Address = styled.div`
       & > div {
         display: flex;
         gap: 1.2rem;
+
+        @media screen and (max-width: 400px) {
+          flex-wrap: wrap;
+        }
 
         .inputComplemento {
           width: 348px;
@@ -186,10 +203,37 @@ export const Address = styled.div`
         }
       }
     }
+
+    @media screen and (max-width: 400px) {
+      display: flex;
+      width: 91%;
+      .boxInfo {
+        width: 100%;
+
+        .boxOptions {
+          flex-wrap: wrap;
+          justify-content: center;
+          button {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .wrapper {
+      width: 90%;
+    }
   }
 `;
 
-export const Form = styled.form``;
+export const Form = styled.form`
+  @media screen and (max-width: 400px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 export const ShoppingCart = styled.div`
   .title {
@@ -208,6 +252,10 @@ export const ShoppingCart = styled.div`
     border-top-left-radius: 6px;
     border-bottom-left-radius: 44px;
     border-bottom-right-radius: 6px;
+
+    @media screen and (max-width: 400px) {
+      width: 397px;
+    }
   }
 `;
 
@@ -219,6 +267,10 @@ export const CardItem = styled.div`
   padding-bottom: 24px;
   margin-bottom: 24px;
   position: relative;
+
+  @media screen and (max-width: 400px) {
+    width: 320px;
+  }
 
   img {
     width: 64px;

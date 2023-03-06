@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerSucess = styled.div`
+export const ContainerSuccess = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

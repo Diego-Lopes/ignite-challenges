@@ -2,9 +2,18 @@ import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
 import { CicleIcons } from "../CicleIcons";
 import * as S from "./styles";
 
-export function Sucess() {
+interface SuccessProps {
+  address: string;
+  payment: string;
+  number: string;
+  district: string;
+  city: string;
+  complementsStreet: string;
+}
+
+export function Success(props: SuccessProps) {
   return (
-    <S.ContainerSucess>
+    <S.ContainerSuccess>
       <div className="containerText">
         <h1>Uhu! Pedido confirmado</h1>
         <p>agora é só aguardar que logo o café chegará até você </p>
@@ -17,7 +26,12 @@ export function Sucess() {
                 <MapPin size={16} weight="fill" color="white  " />
               </CicleIcons>
               <p>
-                entrega em <strong>Rua</strong> resto do endereço
+                Entrega em{" "}
+                <strong>
+                  {props.address} n° {props.number}
+                </strong>{" "}
+                complemento: {props.complementsStreet.toLocaleLowerCase()}{" "}
+                Cidade: {props.city.toLocaleLowerCase()}
               </p>
             </div>
             <div className="icons">
@@ -33,7 +47,8 @@ export function Sucess() {
                 <CurrencyDollar size={16} weight="fill" color="white  " />
               </CicleIcons>
               <p>
-                <strong>Cartão de Crédito</strong>
+                Forma de pagamento:{" "}
+                <strong>{props.payment.toLocaleUpperCase()}</strong>
               </p>
             </div>
           </div>
@@ -46,6 +61,6 @@ export function Sucess() {
           />
         </div>
       </S.Content>
-    </S.ContainerSucess>
+    </S.ContainerSuccess>
   );
 }
