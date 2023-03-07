@@ -5,10 +5,12 @@ export const BannerContainer = styled.div`
   background-repeat: no-repeat;
   background-size: 100%;
   width: 100%;
+  margin-inline: auto;
   height: 54.4rem;
 
   display: flex;
   align-items: center;
+
 
   @media screen and (max-width: 520px) {
     height: fit-content;
@@ -96,5 +98,10 @@ export const WrapperImg = styled.div`
   img {
     width: 476px;
     height: 360px;
+
+    @media screen and (max-width: 600px) {
+      width:230%;
+      height:230%;
+    }
   }
 `;

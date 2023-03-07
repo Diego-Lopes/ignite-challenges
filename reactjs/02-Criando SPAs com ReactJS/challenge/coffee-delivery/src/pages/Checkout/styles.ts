@@ -206,7 +206,7 @@ export const Address = styled.div`
 
     @media screen and (max-width: 600px) {
       display: flex;
-      width: 91%;
+      width: 100%;
       .boxInfo {
         width: 100%;
 
@@ -223,7 +223,7 @@ export const Address = styled.div`
   }
   @media screen and (max-width: 600px) {
     .wrapper {
-      width: 90%;
+      width: 100%;
     }
   }
 `;
@@ -254,7 +254,7 @@ export const ShoppingCart = styled.div`
     border-bottom-right-radius: 6px;
 
     @media screen and (max-width: 600px) {
-      width: 397px;
+      width: 110%;
     }
   }
 `;

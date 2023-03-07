@@ -105,7 +105,7 @@ export function Checkout() {
         .replace(/\[|\]/g, "\n")
         .replace(/\{|\}/g, "")
         .replace(/\:/g, ": ");
-      console.log(text + address);
+      // console.log(text + address);
       alert(text + address);
       setIsSubmitted(!isSubmitted);
       onFinishedShoppingCart();
@@ -266,11 +266,6 @@ export function Checkout() {
                         <S.BoxCountUnit>
                           <S.subt
                             type="button"
-                            // disabled={
-                            //   amount === 1 || card.isSelected === true
-                            //     ? true
-                            //     : false
-                            // }
                             onClick={() => {
                               onSubAmount(item.id);
                             }}
@@ -280,7 +275,6 @@ export function Checkout() {
                           <input
                             className="inputNumber"
                             type="number"
-                            // disabled={card.isSelected === true ? true : false}
                             step={1}
                             value={item.amount}
                             min={1}
@@ -291,7 +285,6 @@ export function Checkout() {
                           />
                           <S.add
                             type="button"
-                            // disabled={card.isSelected === true ? true : false}
                             onClick={() => {
                               onAddAmount(item.id);
                             }}
