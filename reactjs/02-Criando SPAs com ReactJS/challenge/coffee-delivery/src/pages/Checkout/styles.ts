@@ -76,7 +76,7 @@ export const Address = styled.div`
           width: 200px;
           margin-bottom: 16px;
 
-          @media screen and (max-width: 400px) {
+          @media screen and (max-width: 600px) {
             width: 100%;
           }
         }
@@ -90,7 +90,7 @@ export const Address = styled.div`
         &:nth-child(4) {
           width: 200px;
           margin-right: 12px;
-          @media screen and (max-width: 400px) {
+          @media screen and (max-width: 600px) {
             width: 100%;
           }
         }
@@ -98,7 +98,7 @@ export const Address = styled.div`
           width: 276px;
           margin-right: 12px;
 
-          @media screen and (max-width: 400px) {
+          @media screen and (max-width: 600px) {
             width: 75.5%;
             margin: 12px;
             margin-left: 0;
@@ -113,7 +113,7 @@ export const Address = styled.div`
         display: flex;
         gap: 1.2rem;
 
-        @media screen and (max-width: 400px) {
+        @media screen and (max-width: 600px) {
           flex-wrap: wrap;
         }
 
@@ -204,7 +204,7 @@ export const Address = styled.div`
       }
     }
 
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 600px) {
       display: flex;
       width: 91%;
       .boxInfo {
@@ -221,7 +221,7 @@ export const Address = styled.div`
       }
     }
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 600px) {
     .wrapper {
       width: 90%;
     }
@@ -229,7 +229,7 @@ export const Address = styled.div`
 `;
 
 export const Form = styled.form`
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 600px) {
     display: flex;
     flex-direction: column;
   }
@@ -253,7 +253,7 @@ export const ShoppingCart = styled.div`
     border-bottom-left-radius: 44px;
     border-bottom-right-radius: 6px;
 
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 600px) {
       width: 397px;
     }
   }
@@ -268,7 +268,7 @@ export const CardItem = styled.div`
   margin-bottom: 24px;
   position: relative;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 600px) {
     width: 320px;
   }
 
