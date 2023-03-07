@@ -26,7 +26,7 @@ export const Wrapper = styled.header`
   width: min(112rem, 100%);
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 
   margin-inline: auto;
