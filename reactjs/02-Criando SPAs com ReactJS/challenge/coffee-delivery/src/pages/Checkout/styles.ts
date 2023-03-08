@@ -254,7 +254,8 @@ export const ShoppingCart = styled.div`
     border-bottom-right-radius: 6px;
 
     @media screen and (max-width: 600px) {
-      width: 173%;
+      width: 100%;
+      margin-left: 1rem;
     }
   }
 `;
