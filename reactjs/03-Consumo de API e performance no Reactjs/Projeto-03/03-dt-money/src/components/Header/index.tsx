@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import * as Dialog from "@radix-ui/react-dialog";
 import logoImg from "../../assets/logo.svg";
+import { NewTransactionModal } from "../NewTransactionModal";
 
 /**
  * esse asChild ele faz com que o Dialog.trigger não crie um novo botton e
@@ -15,13 +16,7 @@ export function Header() {
           <Dialog.Trigger asChild>
             <S.NewTransactionButton>Nova transação</S.NewTransactionButton>
           </Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Overlay/>
-            <Dialog.Content>
-              <Dialog.Title>Nova Transação</Dialog.Title>
-              <Dialog.Close/>
-            </Dialog.Content>
-          </Dialog.Portal>
+          <NewTransactionModal />
         </Dialog.Root>
       </S.HeaderContent>
     </S.ContainerHeader>
