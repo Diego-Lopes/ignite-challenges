@@ -1,28 +1,28 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
-import * as S from "./style";
-import * as z from "zod";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
-import { TransactionsContext } from "../../contexts/TransactiosContext";
+import * as Dialog from '@radix-ui/react-dialog'
+import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
+import * as S from './style'
+import * as z from 'zod'
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useContext } from 'react'
+import { TransactionsContext } from '../../contexts/TransactiosContext'
 
-//primeiro, criando o schema do formulário.
+// primeiro, criando o schema do formulário.
 const newTransactionFormSchema = z.object({
   description: z.string(),
   price: z.number(),
   category: z.string(),
-  type: z.enum(["income", "outcome"]),
-});
+  type: z.enum(['income', 'outcome']),
+})
 
-//fazendo a typagem com infer de zod
-type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
+// fazendo a typagem com infer de zod
+type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
-  const { createTransaction } = useContext(TransactionsContext);
+  const { createTransaction } = useContext(TransactionsContext)
 
   const {
-    control, //pegando informações controladas, ou seja, armazenada a cada entrada de dado no campo antes de submeter o envio do formulário.
+    control, // pegando informações controladas, ou seja, armazenada a cada entrada de dado no campo antes de submeter o envio do formulário.
     register,
     handleSubmit,
     reset,
@@ -30,20 +30,20 @@ export function NewTransactionModal() {
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
     defaultValues: {
-      type: "income",
+      type: 'income',
     },
-  });
+  })
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
-    const { category, description, price, type } = data;
+    const { category, description, price, type } = data
     await createTransaction({
       category,
       description,
       price,
       type,
-    });
+    })
 
-    reset();
+    reset()
   }
   return (
     <Dialog.Portal>
@@ -59,26 +59,26 @@ export function NewTransactionModal() {
             type="text"
             placeholder="Descrição"
             required
-            {...register("description")}
+            {...register('description')}
           />
           <input
             type="number"
             placeholder="Preço"
             required
-            {...register("price", { valueAsNumber: true })} //faz conversão do valor do input para numero.
+            {...register('price', { valueAsNumber: true })} // faz conversão do valor do input para numero.
           />
           <input
             type="text"
             placeholder="Categoria"
             required
-            {...register("category")}
+            {...register('category')}
           />
 
           <Controller
             control={control}
             name="type"
             render={({ field }) => {
-              console.log(field);
+              console.log(field)
 
               return (
                 <S.TransactionType
@@ -94,7 +94,7 @@ export function NewTransactionModal() {
                     Saída
                   </S.TransactionTypeButton>
                 </S.TransactionType>
-              );
+              )
             }}
           />
 
@@ -104,5 +104,5 @@ export function NewTransactionModal() {
         </form>
       </S.Content>
     </Dialog.Portal>
-  );
+  )
 }

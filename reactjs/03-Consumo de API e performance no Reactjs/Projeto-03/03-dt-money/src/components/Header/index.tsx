@@ -1,7 +1,7 @@
-import * as S from "./styles";
-import * as Dialog from "@radix-ui/react-dialog";
-import logoImg from "../../assets/logo.svg";
-import { NewTransactionModal } from "../NewTransactionModal";
+import * as S from './styles'
+import * as Dialog from '@radix-ui/react-dialog'
+import logoImg from '../../assets/logo.svg'
+import { NewTransactionModal } from '../NewTransactionModal'
 
 /**
  * esse asChild ele faz com que o Dialog.trigger não crie um novo botton e
@@ -20,5 +20,5 @@ export function Header() {
         </Dialog.Root>
       </S.HeaderContent>
     </S.ContainerHeader>
-  );
+  )
 }
