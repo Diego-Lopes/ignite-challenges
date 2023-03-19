@@ -29,7 +29,11 @@ interface TransactionsProviderProps {
 }
 
 export const TransactionsContext = createContext({} as TransactionContextType)
-
+/**
+ * useCallback
+ * Um hook focado em performance que memoriza funções
+ * e as recria caso uma de suas dependências seja alterada.
+ */
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<TransactionProps[]>([])
 
@@ -47,7 +51,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   useEffect(() => {
     // useEffect não pode ser um async.
     fetchTransactions()
-  }, [])
+  }, [fetchTransactions])
 
   const createTransaction = useCallback(
     async (data: CreateTransactionInput) => {
