@@ -67,7 +67,7 @@ export function NewTransactionModal() {
             {...register('description')}
           />
           <input
-            type="number"
+            type="text"
             placeholder="Preço"
             required
             {...register('price', { valueAsNumber: true })} // faz conversão do valor do input para numero.

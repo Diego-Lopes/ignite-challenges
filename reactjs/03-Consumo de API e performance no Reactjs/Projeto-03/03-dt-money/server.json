@@ -1,44 +1,244 @@
 {
   "transactions": [
     {
-      "id": 1,
-      "description": "Desenvolvimento de site",
-      "type": "income",
-      "category": "Venda",
-      "price": 1400,
-      "createdAt": "2023-03-12T15:57:11.336Z"
-    },
-    {
-      "id": 2,
-      "description": "Servidor de hospedagem",
+      "category": "eu",
+      "description": "Amazon-Marketplace 8/10",
+      "price": 232.39,
       "type": "outcome",
-      "category": "Despesa",
-      "price": 250.5,
-      "createdAt": "2023-03-12T16:57:11.336Z"
+      "createdAt": "2023-03-20T19:30:20.761Z",
+      "id": 1
     },
     {
-      "category": "venda",
-      "description": "criação de app",
-      "price": 10000,
-      "type": "income",
-      "createdAt": "2023-03-18T15:53:29.742Z",
+      "category": "eu",
+      "description": "Sao Luc*Mensalidade 2/2",
+      "price": 28.58,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:30:38.872Z",
+      "id": 2
+    },
+    {
+      "category": "eu",
+      "description": "Cordeiro Confeccoes e 2/2",
+      "price": 151.5,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:30:53.864Z",
       "id": 3
     },
     {
-      "category": "Despesa",
-      "description": "Pagamento cnpj",
-      "price": 70,
+      "category": "eu",
+      "description": "Rocketseat Ignite 5/12",
+      "price": 147.9,
       "type": "outcome",
-      "createdAt": "2023-03-18T16:00:52.799Z",
+      "createdAt": "2023-03-20T19:31:09.559Z",
       "id": 4
     },
     {
-      "category": "Despesa",
-      "description": "Pagamento indústria TechJay",
-      "price": 5000,
+      "category": "eu",
+      "description": "Kabum 9/10",
+      "price": 184.16,
       "type": "outcome",
-      "createdAt": "2023-03-18T16:21:54.661Z",
+      "createdAt": "2023-03-20T19:31:32.752Z",
       "id": 5
+    },
+    {
+      "category": "eu",
+      "description": "K S Calcados e Confecc 3/5",
+      "price": 57.77,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:33:44.935Z",
+      "id": 6
+    },
+    {
+      "category": "eu",
+      "description": "Supermercado Tai Max",
+      "price": 34.37,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:34:07.248Z",
+      "id": 7
+    },
+    {
+      "category": "eu",
+      "description": "Netflix.Com",
+      "price": 55.9,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:35:28.431Z",
+      "id": 8
+    },
+    {
+      "category": "eu",
+      "description": "Girauto Motos",
+      "price": 40,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:36:38.377Z",
+      "id": 9
+    },
+    {
+      "category": "eu",
+      "description": "Pag*Mkglamstore",
+      "price": 100,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:37:28.263Z",
+      "id": 10
+    },
+    {
+      "category": "eu",
+      "description": "Sg Academia *Sca",
+      "price": 69.9,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:37:43.327Z",
+      "id": 11
+    },
+    {
+      "category": "eu",
+      "description": "Servicos Cla*699932913",
+      "price": 20,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:38:07.174Z",
+      "id": 12
+    },
+    {
+      "category": "eu",
+      "description": "Enio Amaral de Paiva",
+      "price": 50,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:38:26.359Z",
+      "id": 13
+    },
+    {
+      "category": "eu",
+      "description": "Sg Academia *Sca",
+      "price": 69.9,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:38:39.279Z",
+      "id": 14
+    },
+    {
+      "category": "eu",
+      "description": "Espetinho do Leandro",
+      "price": 36,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:40:49.055Z",
+      "id": 15
+    },
+    {
+      "category": "eu",
+      "description": "Ebn*Spotify",
+      "price": 9.9,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:41:02.719Z",
+      "id": 16
+    },
+    {
+      "category": "eu",
+      "description": "Drogaria Ultra Popular",
+      "price": 12.99,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:41:17.926Z",
+      "id": 17
+    },
+    {
+      "category": "Rafael",
+      "description": "NU PAGAMENTOS SA Rafael Couto",
+      "price": 486.96,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:41:52.662Z",
+      "id": 18
+    },
+    {
+      "category": "eu",
+      "description": "Eucard(passagem do amor)",
+      "price": 18.77,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:42:13.510Z",
+      "id": 19
+    },
+    {
+      "category": "eu",
+      "description": "G. H. B. Pereira Frut",
+      "price": 18.77,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:42:31.678Z",
+      "id": 20
+    },
+    {
+      "category": "eu",
+      "description": "Pitstop Comercio de Co",
+      "price": 50,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:42:43.862Z",
+      "id": 21
+    },
+    {
+      "category": "eu",
+      "description": "Homus Kebab (Sl)",
+      "price": 31,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:43:13.549Z",
+      "id": 22
+    },
+    {
+      "category": "eu",
+      "description": "Posto Jaguar Jipa",
+      "price": 48.67,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:43:56.597Z",
+      "id": 23
+    },
+    {
+      "category": "eu",
+      "description": "Pag*Mkglamstore(cuidado com pets)",
+      "price": 69.99,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:49:26.189Z",
+      "id": 24
+    },
+    {
+      "category": "eu",
+      "description": "Comercial Sao Joao",
+      "price": 28.54,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:49:45.477Z",
+      "id": 25
+    },
+    {
+      "category": "eu",
+      "description": "Amazon.Com.Br",
+      "price": 29.59,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:50:04.926Z",
+      "id": 26
+    },
+    {
+      "category": "eu",
+      "description": "Supermercado Tai Max",
+      "price": 9.86,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:50:32.550Z",
+      "id": 27
+    },
+    {
+      "category": "eu",
+      "description": "Amazon Marketplace 1/3",
+      "price": 26.64,
+      "type": "outcome",
+      "createdAt": "2023-03-20T19:50:53.191Z",
+      "id": 28
+    },
+    {
+      "category": "compensação",
+      "description": "Salário ",
+      "price": 2029.97,
+      "type": "income",
+      "createdAt": "2023-03-20T19:52:45.510Z",
+      "id": 29
+    },
+    {
+      "category": "compensação",
+      "description": "saldo em conta",
+      "price": 160.41,
+      "type": "income",
+      "createdAt": "2023-03-20T19:53:44.941Z",
+      "id": 30
     }
   ]
 }
