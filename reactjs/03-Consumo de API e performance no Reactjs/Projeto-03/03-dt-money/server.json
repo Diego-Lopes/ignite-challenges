@@ -239,6 +239,22 @@
       "type": "income",
       "createdAt": "2023-03-20T19:53:44.941Z",
       "id": 30
+    },
+    {
+      "category": "Estudo/ amor",
+      "description": "curso jaleko 234/12 - 1",
+      "price": 19.5,
+      "type": "outcome",
+      "createdAt": "2023-03-22T11:37:03.433Z",
+      "id": 31
+    },
+    {
+      "category": "eu",
+      "description": "Compra AliExpress 118,95/4 - 1",
+      "price": 29.74,
+      "type": "outcome",
+      "createdAt": "2023-03-22T11:55:48.326Z",
+      "id": 32
     }
   ]
 }
