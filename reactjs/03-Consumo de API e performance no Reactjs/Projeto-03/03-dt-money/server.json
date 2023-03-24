@@ -255,6 +255,30 @@
       "type": "outcome",
       "createdAt": "2023-03-22T11:55:48.326Z",
       "id": 32
+    },
+    {
+      "category": "Passagem eu",
+      "description": "Passagens eucatur (330,91 / 4 = 82,72) - 1",
+      "price": 82.72,
+      "type": "outcome",
+      "createdAt": "2023-03-24T20:06:53.720Z",
+      "id": 33
+    },
+    {
+      "category": "compensação",
+      "description": "Adiantamento saque FGTS",
+      "price": 1834.96,
+      "type": "income",
+      "createdAt": "2023-03-24T20:08:12.910Z",
+      "id": 34
+    },
+    {
+      "category": "Empréstimo",
+      "description": "pagar mãe",
+      "price": 600,
+      "type": "outcome",
+      "createdAt": "2023-03-24T20:11:27.515Z",
+      "id": 35
     }
   ]
 }
