@@ -359,6 +359,38 @@
       "type": "outcome",
       "createdAt": "2023-03-27T13:53:01.015Z",
       "id": 45
+    },
+    {
+      "category": "lazer",
+      "description": "Soveteria",
+      "price": 55.68,
+      "type": "outcome",
+      "createdAt": "2023-03-31T11:22:48.135Z",
+      "id": 46
+    },
+    {
+      "category": "Alimentação",
+      "description": "Kebab",
+      "price": 18,
+      "type": "outcome",
+      "createdAt": "2023-03-31T11:23:13.205Z",
+      "id": 47
+    },
+    {
+      "category": "Alimento",
+      "description": "Drogaria Ultra Popular (PitStop)",
+      "price": 6.99,
+      "type": "outcome",
+      "createdAt": "2023-03-31T11:26:01.180Z",
+      "id": 48
+    },
+    {
+      "category": "Automóvel ",
+      "description": "Auto Posto Patrão",
+      "price": 20,
+      "type": "outcome",
+      "createdAt": "2023-03-31T11:26:24.921Z",
+      "id": 49
     }
   ]
 }
