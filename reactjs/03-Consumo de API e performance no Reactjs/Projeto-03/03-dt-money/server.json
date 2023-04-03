@@ -391,6 +391,62 @@
       "type": "outcome",
       "createdAt": "2023-03-31T11:26:24.921Z",
       "id": 49
+    },
+    {
+      "category": "Alimentação",
+      "description": "Salada de Fruta ",
+      "price": 16,
+      "type": "outcome",
+      "createdAt": "2023-04-03T11:28:22.637Z",
+      "id": 50
+    },
+    {
+      "category": "Lazer",
+      "description": "Transferência 40 do Boliche",
+      "price": 40,
+      "type": "outcome",
+      "createdAt": "2023-04-03T11:30:24.845Z",
+      "id": 51
+    },
+    {
+      "category": "Alimentação",
+      "description": "Alimentação Garden",
+      "price": 88,
+      "type": "outcome",
+      "createdAt": "2023-04-03T11:31:13.969Z",
+      "id": 52
+    },
+    {
+      "category": "Alimentação",
+      "description": "Fruto de Goiás ",
+      "price": 23,
+      "type": "outcome",
+      "createdAt": "2023-04-03T11:31:49.970Z",
+      "id": 53
+    },
+    {
+      "category": "Beleza",
+      "description": "Mega modas",
+      "price": 76.55,
+      "type": "outcome",
+      "createdAt": "2023-04-03T11:34:12.396Z",
+      "id": 54
+    },
+    {
+      "category": "Alimentação",
+      "description": "Hamburguês",
+      "price": 47.5,
+      "type": "outcome",
+      "createdAt": "2023-04-03T11:34:50.412Z",
+      "id": 55
+    },
+    {
+      "category": "Lazer",
+      "description": "Internet Pelikan Net",
+      "price": 80,
+      "type": "outcome",
+      "createdAt": "2023-04-03T11:35:14.930Z",
+      "id": 56
     }
   ]
 }
