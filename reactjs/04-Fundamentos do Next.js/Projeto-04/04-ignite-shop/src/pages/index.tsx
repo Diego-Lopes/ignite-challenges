@@ -6,12 +6,10 @@ import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 
 import camiseta1 from "../assets/camisetas/1.png";
-import camiseta2 from "../assets/camisetas/2.png";
-import camiseta3 from "../assets/camisetas/3.png";
-import camiseta4 from "../assets/camisetas/4.png";
 import { stripe } from "@/lib/stripe";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import Stripe from "stripe";
+import Link from "next/link";
 
 interface HomeProps {
   products: {
@@ -35,28 +33,30 @@ export default function Home({ products }: HomeProps) {
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map((product) => {
         return (
-          <Product key={product.id} className="keen-slider__slide">
-            <Image
-              src={product.imageUrl}
-              width={520}
-              height={480}
-              alt={""}
-              quality={95}
-              placeholder="blur"
-              blurDataURL={`${camiseta1}`}
-            />
-            <footer>
-              <strong>{product.name}</strong>
-              <span>R$ {product.price}</span>
-            </footer>
-          </Product>
+          <Link key={product.id} href={`/product/${product.id}`}>
+            <Product className="keen-slider__slide">
+              <Image
+                src={product.imageUrl}
+                width={520}
+                height={480}
+                alt={""}
+                quality={95}
+                placeholder="blur"
+                blurDataURL={`${camiseta1}`}
+              />
+              <footer>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </footer>
+            </Product>
+          </Link>
         );
       })}
     </HomeContainer>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ["data.default_price"],
   });
@@ -68,14 +68,18 @@ export const getServerSideProps: GetServerSideProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: price.unit_amount! / 100,
+      price: new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(price.unit_amount! / 100),
     };
   });
-  console.log(response.data);
+  // console.log(response.data);
 
   return {
     props: {
       products,
     },
+    revalidate: 60 * 60 * 2, //a cada duas horas,
   };
 };
