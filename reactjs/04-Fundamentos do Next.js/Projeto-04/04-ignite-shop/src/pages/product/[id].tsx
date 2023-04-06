@@ -2,9 +2,10 @@ import * as S from "@/styles/pages/product";
 
 import camisa1 from "../../assets/camisetas/1.png";
 import Image from "next/image";
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
+import { useRouter } from "next/router";
 
 interface ProductIdProps {
   product: {
@@ -17,10 +18,23 @@ interface ProductIdProps {
 }
 
 export default function ProductId({ product }: ProductIdProps) {
+  //mais usado é essa opção.
+  const { isFallback } = useRouter();
+
+  if(isFallback) {
+    return <p>Loading...</p>
+  }
+
   return (
     <S.ProductContainer>
       <S.ImageContainer>
-        <Image src={product.imageUrl} alt={""} quality={100} width={520} height={480}/>
+        <Image
+          src={product.imageUrl}
+          alt={""}
+          quality={100}
+          width={520}
+          height={480}
+        />
       </S.ImageContainer>
       <S.ProductDatails>
         <h1>{product?.name}</h1>
@@ -32,6 +46,13 @@ export default function ProductId({ product }: ProductIdProps) {
     </S.ProductContainer>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { id: "prod_Ndwpduatu9IjBt" } }],
+    fallback: true,
+  };
+};
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   params,
