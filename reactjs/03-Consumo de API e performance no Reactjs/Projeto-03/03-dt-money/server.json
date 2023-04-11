@@ -447,6 +447,14 @@
       "type": "outcome",
       "createdAt": "2023-04-03T11:35:14.930Z",
       "id": 56
+    },
+    {
+      "category": "alimentação",
+      "description": "alimentação restaurante (amor)",
+      "price": 41,
+      "type": "outcome",
+      "createdAt": "2023-04-11T21:34:01.480Z",
+      "id": 57
     }
   ]
 }
