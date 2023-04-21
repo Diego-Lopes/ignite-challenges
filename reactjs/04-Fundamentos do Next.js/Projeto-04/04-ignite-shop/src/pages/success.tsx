@@ -47,6 +47,20 @@ export default function Success({ customerName, product }: SuccessProps) {
  * 3 getStaticProps
  */
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  //tratando erro quando não recebemos um session_id
+  // no getserversideprops ele permite pelo lado do servidor redirecionar o usuário
+  // vamos testar para quando não temos session_id
+  if(!context.query.session_id) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+
+  
   const sessionId = String(context.query.session_id);
 
   //buscando os dados lá do stripe usando o parametro sessionId;
