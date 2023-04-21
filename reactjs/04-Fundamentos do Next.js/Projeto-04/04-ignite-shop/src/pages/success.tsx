@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
 import Image from "next/image";
+import Head from "next/head";
 
 interface SuccessProps {
   customerName: string;
@@ -15,23 +16,30 @@ interface SuccessProps {
 
 export default function Success({ customerName, product }: SuccessProps) {
   return (
-    <S.SuccessContainer>
-      <h1>Compra efetuada com sucesso!</h1>
-      <S.ImageContainer>
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          quality={100}
-          width={114}
-          height={106}
-        />
-      </S.ImageContainer>
-      <p>
-        Uhuuul <strong>{customerName}</strong>, sua{" "}
-        <strong>{product.name}</strong> já está a caminho da sua casa.
-      </p>
-      <Link href={"/"}>Voltar ao catálogo</Link>
-    </S.SuccessContainer>
+    <>
+      <Head>
+        <title> Compra efetuada | Don Store</title>
+
+        <meta name="robots" content="noindex" />
+      </Head>
+      <S.SuccessContainer>
+        <h1>Compra efetuada com sucesso!</h1>
+        <S.ImageContainer>
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            quality={100}
+            width={114}
+            height={106}
+          />
+        </S.ImageContainer>
+        <p>
+          Uhuuul <strong>{customerName}</strong>, sua{" "}
+          <strong>{product.name}</strong> já está a caminho da sua casa.
+        </p>
+        <Link href={"/"}>Voltar ao catálogo</Link>
+      </S.SuccessContainer>
+    </>
   );
 }
 
@@ -50,17 +58,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   //tratando erro quando não recebemos um session_id
   // no getserversideprops ele permite pelo lado do servidor redirecionar o usuário
   // vamos testar para quando não temos session_id
-  if(!context.query.session_id) {
+  if (!context.query.session_id) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
-      }
-    }
+      },
+    };
   }
 
-
-  
   const sessionId = String(context.query.session_id);
 
   //buscando os dados lá do stripe usando o parametro sessionId;

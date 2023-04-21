@@ -15,7 +15,17 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        <style id="stiches" dangerouslySetInnerHTML={{__html: getCssText()}}/>
+        <style
+          id="stiches"
+          dangerouslySetInnerHTML={{ __html: getCssText() }}
+        />
+
+        <link
+          rel="shortcut icon"
+          href="/don.svg"
+          type="image/svg+xml"
+          sizes="42x42"
+        />
       </Head>
       <body>
         <Main />
