@@ -2,15 +2,22 @@
 import { stripe } from "@/lib/stripe";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  name: string;
-};
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
-  const priceId = "price_1MsewJItRknFcmnla7UTLUhU";
+  const { priceId } = req.body;
+
+  //tratativa de chamada de rotas dentro da pasta api qualquer método pode chamar as rotas criadas aqui.
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  //tratativa de erro
+  if (!priceId) {
+    return res.status(400).json({ error: "Price not found." });
+  }
+
   const successUrl = `${process.env.NEXT_URL}/success`;
   const cancelUrl = `${process.env.NEXT_URL}/`;
   const checkoutSession = await stripe.checkout.sessions.create({
