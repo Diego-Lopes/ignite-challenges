@@ -1,6 +1,6 @@
 // this is shoppingcart
 
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
 interface DataProps {
   id: string;
@@ -28,7 +28,13 @@ export function ShoppingcartLocalStorageProvider({
   const [data, setData] = useState<DataProps[]>([]);
   const [countInTheShoppcart, setCountInTheShoppcart] = useState(0);
 
-  //add in shoppcart
+  //add in shoppcart no localStorage
+
+  useEffect(() => {
+    
+  }, [])
+
+
 
   return (
     <LocalStorageShoppcartContext.Provider
