@@ -6,6 +6,7 @@ import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 
 import camiseta1 from "../assets/camisetas/1.png";
+import bag from "../../public/Bag.svg";
 import { stripe } from "@/lib/stripe";
 import { GetStaticProps } from "next";
 import Stripe from "stripe";
@@ -38,12 +39,8 @@ export default function Home({ products }: HomeProps) {
       <HomeContainer ref={sliderRef} className="keen-slider">
         {products.map((product) => {
           return (
-            <Link
-              key={product.id}
-              href={`/product/${product.id}`}
-              prefetch={false}
-            >
-              <Product className="keen-slider__slide">
+            <Product className="keen-slider__slide" key={product.id}>
+              <Link href={`/product/${product.id}`} prefetch={false}>
                 <Image
                   src={product.imageUrl}
                   width={520}
@@ -53,12 +50,23 @@ export default function Home({ products }: HomeProps) {
                   placeholder="blur"
                   blurDataURL={`${camiseta1}`}
                 />
-                <footer>
+              </Link>
+
+              <footer>
+                <div>
                   <strong>{product.name}</strong>
                   <span>{product.price}</span>
-                </footer>
-              </Product>
-            </Link>
+                </div>
+                <Image
+                  src={bag}
+                  alt={""}
+                  quality={95}
+                  placeholder="blur"
+                  blurDataURL={`${camiseta1}`}
+                  onClick={() => console.log("clickou")}
+                />
+              </footer>
+            </Product>
           );
         })}
       </HomeContainer>

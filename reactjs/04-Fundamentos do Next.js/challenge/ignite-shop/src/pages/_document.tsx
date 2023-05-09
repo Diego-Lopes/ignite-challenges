@@ -22,7 +22,7 @@ export default function Document() {
 
         <link
           rel="shortcut icon"
-          href="/don.svg"
+          href="/igShop.svg"
           type="image/svg+xml"
           sizes="42x42"
         />
