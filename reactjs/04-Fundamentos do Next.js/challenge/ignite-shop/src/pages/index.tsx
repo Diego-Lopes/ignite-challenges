@@ -1,6 +1,4 @@
-import { styled } from "@/styles";
 import { HomeContainer, Product } from "@/styles/pages/home";
-import { Inter } from "next/font/google";
 import Image from "next/image";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -34,7 +32,7 @@ export default function Home({ products }: HomeProps) {
   return (
     <>
       <Head>
-        <title> Home | Don Store</title>
+        <title> Home | Ignite Shop</title>
       </Head>
       <HomeContainer ref={sliderRef} className="keen-slider">
         {products.map((product) => {
