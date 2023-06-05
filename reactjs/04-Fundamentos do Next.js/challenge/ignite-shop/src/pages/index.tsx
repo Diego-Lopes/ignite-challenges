@@ -34,7 +34,7 @@ export default function Home({ products }: HomeProps) {
       <Head>
         <title> Home | Ignite Shop</title>
       </Head>
-      {/* <HomeContainer ref={sliderRef} className="keen-slider">
+      <HomeContainer ref={sliderRef} className="keen-slider">
         {products.map((product) => {
           return (
             <Product className="keen-slider__slide" key={product.id}>
@@ -67,7 +67,7 @@ export default function Home({ products }: HomeProps) {
             </Product>
           );
         })}
-      </HomeContainer> */}
+      </HomeContainer>
     </>
   );
 }
