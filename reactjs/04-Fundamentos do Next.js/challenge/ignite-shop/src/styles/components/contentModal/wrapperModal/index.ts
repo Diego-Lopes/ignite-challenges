@@ -18,12 +18,46 @@ export const Overlay = styled(Dialog.Overlay, {
   animation: `${overlayShow} 350ms ease-in-out`,
 });
 
+const animatModal = keyframes({
+  "0%": { right: "-500px" },
+  // "50%": { right: "-250px" },
+  // "75%": { rigth: "-50px" },
+  "100%": { right: 0 },
+});
+
 export const Content = styled(Dialog.Content, {
   minWidth: "480px",
   minHeight: "100vh",
-
+  padding: "2.4rem",
   position: "fixed",
-  right: 0,
+  // right: "-500px",
   top: 0,
-  background: "rgba(255,255,255,0.20)",
+  background: "$gray800",
+  "box-shadow": "-4px 0px 30px rgba(0, 0, 0, 0.8)",
+  animation: `${animatModal} 450ms ease-in-out forwards`,
 });
+
+export const Close = styled(Dialog.Close, {
+  background: "transparent",
+  border: 0,
+
+  position:'relative',
+  left: 'calc( 100% - 5%)',
+
+  svg: {
+    color: "White",
+    "&:hover": {
+      transition: "all 350ms ease-in-out",
+      transform: 'scale(1.1)',
+      cursor: 'pointer',
+    },
+  },
+});
+
+export const WrapperList = styled("div", {
+  width: "100%",
+  minHeight: '522px',
+  overflowX: 'auto',
+
+  background: 'red'
+})

@@ -1,10 +1,14 @@
 import { globalCss } from ".";
 
 export const globalStyles = globalCss({
+  // ":root": {
+  //   fontSize: "62.5%",
+  // },
+
   "*": {
     margin: 0,
     padding: 0,
-    boxSizing: 'border-box'
+    boxSizing: "border-box",
   },
   body: {
     "-webkit-font-smoothing": "antialiased",
