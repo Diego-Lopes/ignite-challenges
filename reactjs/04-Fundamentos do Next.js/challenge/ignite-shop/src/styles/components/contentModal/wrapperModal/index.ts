@@ -41,23 +41,59 @@ export const Close = styled(Dialog.Close, {
   background: "transparent",
   border: 0,
 
-  position:'relative',
-  left: 'calc( 100% - 5%)',
+  position: "relative",
+  left: "calc( 100% - 5%)",
 
   svg: {
     color: "White",
     "&:hover": {
       transition: "all 350ms ease-in-out",
-      transform: 'scale(1.1)',
-      cursor: 'pointer',
+      transform: "scale(1.1)",
+      cursor: "pointer",
     },
   },
 });
 
 export const WrapperList = styled("div", {
+  marginTop: "2rem",
   width: "100%",
-  minHeight: '522px',
-  overflowX: 'auto',
+  maxHeight: "522px",
+  overflowY: "auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "1.5rem",
+  padding: ".75rem 0",
+});
 
-  background: 'red'
-})
+export const BoxInfo = styled("div", {
+  marginTop: "6px",
+  display: "flex",
+  gap: "7px",
+  flexDirection: "column",
+
+  div: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+
+  ".font": {
+    fontSize: "1.125rem",
+  },
+});
+
+export const ButtonFinished = styled("button", {
+  marginTop: "3.25rem",
+  minHeight: "4.3125rem",
+  backgroundColor: "$green500",
+  border: "0",
+  borderRadius: "8px",
+  color: "$white",
+  fontSize: "1.125rem",
+  fontWeight: "bold",
+  lineHeight: "160%",
+
+  "&:hover": {
+    transition: "all 450ms ease-in-out",
+    backgroundColor: "$green300",
+  },
+});
