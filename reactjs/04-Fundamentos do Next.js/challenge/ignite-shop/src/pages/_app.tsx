@@ -1,22 +1,27 @@
-import { globalStyles } from "@/styles/global";
-import { Container, Header, ShoppingCart } from "@/styles/pages/app";
-import type { AppProps } from "next/app";
-import logoImg from "../assets/logo.svg";
-import Image from "next/image";
-import { ShoppingcartLocalStorageProvider } from "@/context/shoppingcart";
-import { ModalShoppingCart } from "@/components/modaShopCart";
+import { AppProps } from "next/app"
+import { globalStyles } from "../styles/global"
+import { Container } from "../styles/pages/app";
+import { ProSidebarProvider } from "react-pro-sidebar";
+import Sidebar from "../components/Sidebar";
+import { CartProvider } from "use-shopping-cart";
+import Header from "../components/Header";
+
 globalStyles();
 
+const stripeKey = process.env.STRIPE_SECRET_KEY
+
 export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <Container>
-      <Header>
-        <Image src={logoImg} alt="" />
-        <ModalShoppingCart />
-      </Header>
-      <ShoppingcartLocalStorageProvider>
-        <Component {...pageProps} />
-      </ShoppingcartLocalStorageProvider>
-    </Container>
-  );
+   return (
+    <CartProvider
+      cartMode="checkout-session" stripe={stripeKey} currency="BRL" shouldPersist={true}
+    >
+      <ProSidebarProvider>
+          <Sidebar />
+          <Container>
+          <Header />
+          <Component {...pageProps} />
+        </Container>
+      </ProSidebarProvider>
+    </CartProvider>
+   )
 }
