@@ -1,0 +1,4 @@
+{
+  "extends": "@ignite-ui-diego/ts-config/react.json",
+  "include": ["src"]
+}

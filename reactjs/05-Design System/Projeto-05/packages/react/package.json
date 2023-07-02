@@ -1,10 +1,10 @@
 {
-  "name": "@ignite-ui/react",
+  "name": "@ignite-ui-diego/react",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
-  "module":"./dist/index.mjs",
-  "types":"./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch"
@@ -15,6 +15,7 @@
   "devDependencies": {
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",
-    "@ignite-ui/tokens": "*"
+    "@ignite-ui-diego/tokens": "*",
+    "@ignite-ui-diego/ts-config": "*"
   }
 }
