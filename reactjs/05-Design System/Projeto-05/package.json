@@ -1,0 +1,6 @@
+{
+  "privete": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
