@@ -7,15 +7,20 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch"
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "lint": "eslint src/**/*.ts* --fix"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "tsup": "^7.1.0",
-    "typescript": "^5.1.6",
+    "@ignite-ui-diego/eslint-config": "*",
     "@ignite-ui-diego/tokens": "*",
-    "@ignite-ui-diego/ts-config": "*"
+    "@ignite-ui-diego/ts-config": "*",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "react": "^18.2.0",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
   }
 }
