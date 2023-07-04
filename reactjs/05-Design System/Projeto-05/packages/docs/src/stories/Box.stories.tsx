@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@ignite-ui-diego/react'
+import { Box, BoxProps, Text } from '@ignite-ui-diego/react'
 import type { StoryObj, Meta } from '@storybook/react' // typagem do typescript
 
 export default {
@@ -8,11 +8,7 @@ export default {
 
   // args são propriedades
   args: {
-    children: (
-      <>
-        <span>Testeando o elemento Box</span>
-      </>
-    ),
+    children: <Text>Testeando o elemento Box</Text>,
   },
 } as Meta<BoxProps>
 
