@@ -28,6 +28,8 @@
     "@ignite-ui-diego/eslint-config": "*",
     "@ignite-ui-diego/react": "*",
     "@ignite-ui-diego/tokens": "*",
+    "@ignite-ui-diego/ts-config": "*",
+    "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
