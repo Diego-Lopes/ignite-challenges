@@ -19,12 +19,15 @@
     "@storybook/react": "^7.0.25",
     "@storybook/react-vite": "^7.0.25",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@vitejs/plugin-react": "^4.0.1",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.25",
-    "@vitejs/plugin-react": "^4.0.1",
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "@ignite-ui-diego/eslint-config": "*",
+    "@ignite-ui-diego/react": "*",
+    "@ignite-ui-diego/tokens": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
