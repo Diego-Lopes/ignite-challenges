@@ -29,6 +29,7 @@
     "@ignite-ui-diego/react": "*",
     "@ignite-ui-diego/tokens": "*",
     "@ignite-ui-diego/ts-config": "*",
+    "@phosphor-icons/react": "^2.0.10",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
