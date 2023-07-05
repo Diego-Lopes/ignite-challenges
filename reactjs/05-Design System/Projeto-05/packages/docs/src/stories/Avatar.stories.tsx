@@ -17,5 +17,6 @@ export const Primary: StoryObj<AvatarProps> = {}
 export const WithFallback: StoryObj<AvatarProps> = {
   args: {
     src: undefined,
+    alt: '',
   },
 }

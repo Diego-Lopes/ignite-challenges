@@ -28,5 +28,6 @@ export const AvatarFallback = styled(Avatar.Fallback, {
   svg: {
     width: '$6',
     height: '$6',
+    color: '$ignite300',
   },
 })
