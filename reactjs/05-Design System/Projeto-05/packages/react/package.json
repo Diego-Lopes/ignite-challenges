@@ -24,8 +24,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.10",
     "@radix-ui/react-avatar": "^1.0.3",
-    "@stitches/react": "^1.2.8",
-    "phosphor-react": "^1.4.1"
+    "@stitches/react": "^1.2.8"
   }
 }
