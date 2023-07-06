@@ -8,18 +8,7 @@ const config = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "@storybook/addon-storysource", 
-    {
-      name: "@storybook/addon-storysource",
-      options: {
-        rule: {
-          include: ['../src/stories'],
-        },
-        loaderOptions: {
-          prettierConfig: { printWidth: 80, singleQuote: false },
-        },
-      }
-    }
+    "@storybook/addon-storysource",
   ],
   framework: {
     name: "@storybook/react-vite",
