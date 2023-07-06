@@ -14,7 +14,7 @@ const config = {
       name: "@storybook/addon-storysource",
       options: {
         rule: {
-          include: [path.resolve(__dirname, '../src/stories')],
+          include: ['../src/stories'],
         },
         loaderOptions: {
           prettierConfig: { printWidth: 80, singleQuote: false },
