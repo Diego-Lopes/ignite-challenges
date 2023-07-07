@@ -11,6 +11,13 @@ export default {
     src: 'https://github.com/diego-lopes.png',
     alt: 'Diego Lopes',
   },
+  argTypes: {
+    src: {
+      control: {
+        type: 'text',
+      },
+    },
+  },
 } as Meta<AvatarProps>
 
 export const Primary: StoryObj<AvatarProps> = {}
@@ -18,5 +25,17 @@ export const WithFallback: StoryObj<AvatarProps> = {
   args: {
     src: undefined,
     alt: '',
+  },
+  argTypes: {
+    src: {
+      control: {
+        type: null,
+      },
+    },
+    alt: {
+      control: {
+        type: null,
+      },
+    },
   },
 }
