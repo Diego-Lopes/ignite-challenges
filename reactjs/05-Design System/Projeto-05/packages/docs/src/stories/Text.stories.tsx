@@ -1,6 +1,5 @@
 import { Text, TextProps } from '@ignite-ui-diego/react'
 import type { StoryObj, Meta } from '@storybook/react' // typagem do typescript
-
 export default {
   // essa é a configuração global
   title: 'Typography/Text',
@@ -31,11 +30,6 @@ export default {
       control: {
         type: 'inline-radio',
       },
-    },
-  },
-  parameters: {
-    docs: {
-      canvas: { SourceState: 'show' },
     },
   },
 } as Meta<TextProps>
