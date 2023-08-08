@@ -1,4 +1,0 @@
-{
-  "extends": "@ignite-ui-diego/ts-config/base.json",
-  "include": ["src"]
-}
