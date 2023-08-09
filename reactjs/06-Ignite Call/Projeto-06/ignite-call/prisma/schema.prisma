@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// @id determina que sera prime key.
+// @unique determina que seja único.
+// @@map possibilita a modificação do nome da tabela.
+
+model User {
+  id         String   @id @default(uuid())
+  username   String   @unique
+  name       String
+  created_at DateTime @default(now())
+
+  @@map("users")
+}
