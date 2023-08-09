@@ -1,4 +1,4 @@
-# Ignite-ui 
+# Ignite Challenges
 
 ---
 
