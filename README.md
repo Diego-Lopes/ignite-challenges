@@ -2,10 +2,6 @@
 
 ---
 
-[Clique aqui para acessar o Projeto](https://github.com/Diego-Lopes/Design-System-ignite)
-
-[Clique aqui para acessar o document](https://diego-lopes.github.io/Design-System-ignite/?path=/docs/home--docs)
-
 ## 💻 Autor
 
 ---
