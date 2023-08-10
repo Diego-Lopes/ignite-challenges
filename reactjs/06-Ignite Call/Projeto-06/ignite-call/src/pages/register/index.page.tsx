@@ -14,7 +14,7 @@ const registerFormSchema = z.object({
     .string()
     .min(3, { message: 'O usuário precisa ter pelo menos 3 letras' })
     .regex(/^(?!-)([a-z\\-]+)$/i, {
-      message: 'Inicie com mínimo 3 letras e pode conter hifens',
+      message: 'Inicie com mínimo 3 letras e só permite hifens',
     })
     .transform((username) => username.toLowerCase()),
   name: z

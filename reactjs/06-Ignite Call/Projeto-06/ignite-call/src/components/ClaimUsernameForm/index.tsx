@@ -11,7 +11,7 @@ const claimUsernameFormSchema = z.object({
     .string()
     .min(3, { message: 'Mínimo 3 letras' })
     .regex(/^(?!-)([a-z\\-]+)$/i, {
-      message: 'Inicie com mínimo 3 letras e pode conter hifens',
+      message: 'Inicie com mínimo 3 letras e só pode conter hifens',
     })
     .transform((username) => username.toLowerCase()),
 })
