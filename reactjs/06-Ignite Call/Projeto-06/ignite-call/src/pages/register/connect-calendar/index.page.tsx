@@ -1,12 +1,24 @@
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { Container, Header } from '../styles'
-import { ArrowRight } from 'phosphor-react'
-// import { api } from '@/lib/axios'
-import { ConnectBox, ConnectItem } from './styles'
-import { signIn } from 'next-auth/react'
+import { ArrowRight, Check } from 'phosphor-react'
+import { AuthError, ConnectBox, ConnectItem } from './styles'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 export default function Register() {
-  // async function handleRegister(data: RegisterFormData) {}
+  const session = useSession()
+  const router = useRouter()
+
+  console.log(session)
+
+  // tratativa de error via query
+  const hasAuthError = !!router.query.error
+  // verificando se está autenticado
+  const isSignedIn = session.status === 'authenticated'
+
+  async function handleConnectCalendar() {
+    await signIn('google')
+  }
 
   return (
     <Container>
@@ -22,16 +34,31 @@ export default function Register() {
       <ConnectBox>
         <ConnectItem>
           <Text>Google Calendar</Text>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => signIn('google')}
-          >
-            Conectar
-            <ArrowRight weight="bold" />
-          </Button>
+          {isSignedIn ? (
+            <Button variant="secondary" size="sm" disabled>
+              Conectado
+              <Check weight="bold" />
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handleConnectCalendar}
+            >
+              Conectar
+              <ArrowRight weight="bold" />
+            </Button>
+          )}
         </ConnectItem>
-        <Button type="submit">
+
+        {hasAuthError && (
+          <AuthError size="md">
+            Falha ao se conectar ao Google, verifique se você habilitou as
+            permissões de acesso ao Google Calendar
+          </AuthError>
+        )}
+
+        <Button type="submit" disabled={!isSignedIn}>
           Próximo passo
           <ArrowRight weight="bold" />
         </Button>
