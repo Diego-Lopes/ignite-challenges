@@ -15,10 +15,52 @@ datasource db {
 // @@map possibilita a modificação do nome da tabela.
 
 model User {
+  //User vai existir autenticado ou não.
   id         String   @id @default(uuid())
   username   String   @unique
   name       String
+  email      String?  @unique
+  avatar_url String?
   created_at DateTime @default(now())
 
+  //relacionamento de tabelas
+  accounts Account[]
+  sessions Session[]
+
   @@map("users")
+}
+
+// adapter
+
+model Account {
+  //Account é a integração com usuário com algum provider, porém, um único User
+  id                  String  @id @default(cuid())
+  user_id             String
+  type                String
+  provider            String
+  provider_account_id String
+  refresh_token       String?
+  access_token        String?
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String?
+  session_state       String?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_account_id])
+  @@map("accounts")
+}
+
+model Session {
+  //cada vez que usuário fizer login em uma máquina diferente terá um sessão.
+  id            String   @id @default(cuid())
+  session_token String   @unique
+  user_id       String
+  expires       DateTime
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
 }
