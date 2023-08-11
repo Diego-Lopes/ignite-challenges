@@ -42,6 +42,14 @@ export function buildNextAuthOptions(
         }
         return true
       },
+
+      // retorno da informações na session no useSession do Next-auth
+      async session({ session, user }) {
+        return {
+          ...session,
+          user,
+        }
+      },
     },
   }
 }
