@@ -1,11 +1,11 @@
 import { prisma } from '../prisma'
 import { parseCookies, destroyCookie } from 'nookies'
 import { Adapter } from 'next-auth/adapters'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse, NextPageContext } from 'next'
 
 export function PrismaAdapter(
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextApiRequest | NextPageContext['req'],
+  res: NextApiResponse | NextPageContext['res'],
 ): Adapter {
   /**
    * sempre que fazer modificação no cookie é o res, para
