@@ -8,4 +8,9 @@ declare module 'next-auth' {
     username: string
     avatar_url: string
   }
+
+  // para parar de dar erro no api time-intervals
+  interface Session {
+    user: User
+  }
 }
