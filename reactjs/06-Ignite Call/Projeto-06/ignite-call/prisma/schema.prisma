@@ -24,8 +24,10 @@ model User {
   created_at DateTime @default(now())
 
   //relacionamento de tabelas
-  accounts Account[]
-  sessions Session[]
+  accounts      Account[]
+  sessions      Session[]
+  timeIntervals UserTimeInterval[]
+  //aqui vai criar referencia apenas no prisma, então camel-case
 
   @@map("users")
 }
@@ -63,4 +65,19 @@ model Session {
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+//criando tabela de intervalo do usuário.
+model UserTimeInterval {
+  id                    String @id @default(uuid())
+  week_day              Int
+  time_start_in_minutes Int
+  time_end_in_minutes   Int
+
+  //fazendo relação com a tabela user
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String //aqui vai criar uma tabela no bd.
+
+  //renomeando a tabela
+  @@map("user_time_intervals")
 }
