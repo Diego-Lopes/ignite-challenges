@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   // caso não encontre um usuário retorn um erro.
   if (!user) {
     return {
-      notFound: true,
+      notFound: true, // retorna o erro 404
     }
   }
 
