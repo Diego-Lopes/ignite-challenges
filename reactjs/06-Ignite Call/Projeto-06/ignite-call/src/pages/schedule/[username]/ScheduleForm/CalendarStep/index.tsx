@@ -7,18 +7,28 @@ import {
   TimePickerList,
 } from './styles'
 import { useState } from 'react'
+import dayjs from 'dayjs'
 
 export function CalendarStep() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
   // em isDateSelected vamos usar um condicional baseado no selectedDate
   const isDateSelected = !!selectedDate
+
+  // pegando o dia por extenso para lista de horas
+  const weekDay = selectedDate ? dayjs(selectedDate).format('dddd') : null
+
+  // pegando dia e o mês por extenso
+  const weekDayExtend = selectedDate
+    ? dayjs(selectedDate).format('DD[ de ]MMMM')
+    : null
   return (
     <Container isTimePickerOpen={isDateSelected}>
       <Calendar selectedDate={selectedDate} onDateSelected={setSelectedDate} />
       {isDateSelected && (
         <TimePicker>
           <TimePickerHeader>
-            terça-feira <span>20 de setembro</span>
+            {weekDay} <span>{weekDayExtend}</span>
           </TimePickerHeader>
 
           <TimePickerList>
