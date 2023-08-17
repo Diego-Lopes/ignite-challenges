@@ -8,21 +8,42 @@ import {
   CalendarTitle,
 } from './styles'
 import { getWeekDays } from '@/utils/get-week-days'
+import { useState } from 'react'
+import dayjs from 'dayjs'
 
 export function Calendar() {
+  const [currentDate, setCurrentDate] = useState(() => {
+    return dayjs().set('date', 1)
+  })
+
+  function handlePreviousMounth() {
+    const previousMounthDate = currentDate.subtract(1, 'month')
+
+    setCurrentDate(previousMounthDate)
+  }
+
+  function handleNextMounth() {
+    const previousMounthDate = currentDate.add(1, 'month')
+
+    setCurrentDate(previousMounthDate)
+  }
+
   const shortWeekday = getWeekDays({ short: true })
+
+  const currentMounth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
 
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          Agosto <span>2023</span>
+          {currentMounth} <span>{currentYear}</span>
         </CalendarTitle>
         <CalendarActions>
-          <button>
+          <button onClick={handlePreviousMounth} title="Previous month">
             <CaretLeft />
           </button>
-          <button>
+          <button onClick={handleNextMounth} title="Next month">
             <CaretRight />
           </button>
         </CalendarActions>
@@ -36,19 +57,21 @@ export function Calendar() {
           </tr>
         </thead>
         <tbody>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <CalendarDay>1</CalendarDay>
-          </td>
-          <td>
-            <CalendarDay disabled>2</CalendarDay>
-          </td>
-          <td>
-            <CalendarDay>3</CalendarDay>
-          </td>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <CalendarDay>1</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay disabled>2</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>3</CalendarDay>
+            </td>
+          </tr>
         </tbody>
       </CalendarBody>
     </CalendarContainer>
