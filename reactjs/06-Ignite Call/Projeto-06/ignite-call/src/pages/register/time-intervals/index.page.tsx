@@ -103,7 +103,7 @@ export default function TimeIntervals() {
   })
 
   // pegando a semana através do indexs
-  const weekDays = getWeekDays()
+  const weekDays = getWeekDays({ short: false })
 
   // assitir os inputs com a função watch
   /**

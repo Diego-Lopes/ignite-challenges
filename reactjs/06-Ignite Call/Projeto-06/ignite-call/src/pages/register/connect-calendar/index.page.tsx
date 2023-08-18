@@ -9,7 +9,7 @@ export default function Register() {
   const session = useSession()
   const router = useRouter()
 
-  console.log(session)
+  // console.log(session)
 
   // tratativa de error via query
   const hasAuthError = !!router.query.error

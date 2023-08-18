@@ -28,9 +28,9 @@ model User {
   accounts      Account[]
   sessions      Session[]
   timeIntervals UserTimeInterval[]
-  Scheduling    Scheduling[]
 
   //aqui vai criar referencia apenas no prisma, então camel-case
+  Scheduling Scheduling[]
 
   @@map("users")
 }
@@ -87,15 +87,15 @@ model UserTimeInterval {
 
 //Criando a tabela do calendário
 model Scheduling {
-  id          String   @id @default(uuid())
-  date        DateTime
-  name        String
-  email       String
-  observation String?
-  created_at  DateTime @default(now())
+  id           String   @id @default(uuid())
+  date         DateTime
+  name         String
+  email        String
+  observations String?
+  created_at   DateTime @default(now())
 
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  @@map("Schedulings")
+  @@map("schedulings")
 }
