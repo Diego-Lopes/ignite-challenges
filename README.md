@@ -7,7 +7,7 @@
 ---
 
 <a href="https://www.facebook.com/DiegoLopes2009/">
- <img style="border-radius: 50%;" src="https://github.com/diego-lopes.png" width="100px;" alt="Diego Lopes"/>
+ <img style="max-width: 100%; border-radius: 50%; box-shadow: 0 0 0 2px #fff;" src="https://github.com/diego-lopes.png" width="100px;" alt="Diego Lopes"/>
  <br>
  <h2><b>Diego Lopes</b></h2></a>
 
