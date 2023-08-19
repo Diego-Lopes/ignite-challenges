@@ -60,5 +60,5 @@ export default async function handle(
       AND DATE_FORMAT(S.date,"%Y-%m") = ${`${year}-${month}`}
   `
 
-  return res.json({ blockedWeekDays, blockedDateRaw })
+  return res.json({ blockedWeekDays })
 }
