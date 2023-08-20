@@ -101,9 +101,14 @@ export default async function handle(
    * com a hora do agendamento.
    */
   const availableTimes = possibleTimes.filter((time) => {
-    return !blockedTimes.some(
+    const isTimeBlocked = blockedTimes.some(
       (blockTimes) => blockTimes.date.getHours() === time,
     )
+
+    const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
+
+    /** retorna caso não esteja bloqueado e não esteja no passado */
+    return !isTimeBlocked && !isTimeInPast
   })
 
   return res.json({ possibleTimes, availableTimes })
