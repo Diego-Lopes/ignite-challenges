@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   pageExtensions: ['page.tsx', 'api.ts', 'api.tsx'],
   images: {
-    domains: ["images.prismic.io", "localhost", "lh3.googleusercontent.com/a/"],
+    domains: ["images.prismic.io", "localhost", "lh3.googleusercontent.com"],
   },
 }
 
