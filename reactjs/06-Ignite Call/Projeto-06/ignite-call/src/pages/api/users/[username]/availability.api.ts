@@ -26,7 +26,7 @@ export default async function handle(
   })
 
   if (!user) {
-    res.status(404).json({ message: 'User does not exist.' })
+    return res.status(404).json({ message: 'User does not exist.' })
   }
 
   const referenceDate = dayjs(String(date))
