@@ -9,9 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-brands-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@hookform/resolvers": "^2.9.10",
+    "axios": "^1.2.1",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.9"
+    "react-hook-form": "^7.40.0",
+    "react-markdown": "^8.0.4",
+    "react-router-dom": "^6.4.4",
+    "react-syntax-highlighter": "^15.5.0",
+    "styled-components": "^5.3.6",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^1.2.0",
@@ -21,6 +33,7 @@
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.36.0",
     "typescript": "^4.9.3",
-    "vite": "^4.2.0"
+    "vite": "^4.2.0",
+    "@types/react-syntax-highlighter": "^15.5.5"
   }
 }

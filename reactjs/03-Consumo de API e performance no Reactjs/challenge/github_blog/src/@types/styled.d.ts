@@ -1,8 +1,8 @@
-import { defaultTheme } from '@/styles/theme/default'
-import 'styled-components'
+import "styled-components";
+import { defaultTheme } from "../styles/theme/defaultTheme";
 
-type ThemeType = typeof defaultTheme
+type ThemeType = typeof defaultTheme;
 
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme extends ThemeType {}
 }
