@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma'
 import dayjs from 'dayjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
+import { google } from 'googleapis'
+import { getGoogleOAuthToken } from '@/lib/google'
 
 export default async function handle(
   req: NextApiRequest,
@@ -76,13 +78,62 @@ export default async function handle(
    * depois dessa verificaçõe se tudo der certo
    * salvar no banco de dados
    */
-  await prisma.scheduling.create({
+  const scheduling = await prisma.scheduling.create({
     data: {
       name,
       email,
       observations,
       date: schedulingDate.toDate(),
       user_id: user.id,
+    },
+  })
+
+  /**
+   * criando um acesso ao token de api do calendário google
+   */
+  const calendar = google.calendar({
+    version: 'v3',
+    auth: await getGoogleOAuthToken(user.id),
+  })
+
+  /**
+   * feito o acesso agora vamos fazer a inserção de agendamento
+   * calendarId: é para pegar o calendario que a pessoa criou um personalizado
+   * como o nome por exemplo ignitecall ou outro que seja.
+   * o primary ele pega o default do google calendar
+   *
+   * requestBody: enviar todas as informações do evento em si.
+   *
+   * attendees: o convidado que é aquele que está agendando.
+   *
+   * conferenceData: fazer conferencia de vídeo chamada com google meet
+   */
+  await calendar.events.insert({
+    calendarId: 'primary',
+    conferenceDataVersion: 1,
+    requestBody: {
+      summary: `Ignite Call: ${name}`,
+      description: observations,
+      start: {
+        dateTime: schedulingDate.format(),
+      },
+      end: {
+        dateTime: schedulingDate.add(1, 'hour').format(),
+      },
+      attendees: [
+        {
+          email,
+          displayName: name,
+        },
+      ],
+      conferenceData: {
+        createRequest: {
+          requestId: scheduling.id,
+          conferenceSolutionKey: {
+            type: 'hangoutsMeet',
+          },
+        },
+      },
     },
   })
 
