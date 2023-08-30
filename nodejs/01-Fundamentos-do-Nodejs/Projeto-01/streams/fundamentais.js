@@ -13,7 +13,7 @@
  * agora fundamentos de Readable de node:stream
  */
 
-import { Readable } from "node:stream";
+import { Readable, Transform, Writable } from "node:stream";
 
 class OneToHundredStream extends Readable {
   index = 1;
@@ -23,13 +23,36 @@ class OneToHundredStream extends Readable {
     //precisamos trabalhar com buffer
     const i = this.index++;
 
-    if (i > 100) {
-      this.push(null);
-    } else {
-      const buf = Buffer.from(String(i))
-      this.push(buf)
-    }
+    setTimeout(() => {
+      if (i > 100) {
+        this.push(null);
+      } else {
+        const buf = Buffer.from(String(i));
+        this.push(buf);
+      }
+    }, 1000);
   }
 }
 
-new OneToHundredStream().pipe(process.stdout)
+//stream de escrita
+//stream de escrita vai apenas processar os dados
+class MultiplyByTenStream extends Writable {
+  //método obrigatório _write, recebe 3 parãmetros
+
+  _write(chunk, encoding, callback) {
+    console.log(Number(chunk.toString()) * 10);
+    callback(); //callback faz com que encerre
+  }
+}
+
+//transformando stream com Transform
+class InverseNumberStream extends Transform {
+  _transform(chunk, encoding, callback) {
+    const transformed = Number(chunk.toString()) * -1;
+    callback(null, Buffer.from(String(transformed)));
+  }
+}
+
+new OneToHundredStream()
+  .pipe(new InverseNumberStream())
+  .pipe(new MultiplyByTenStream());
