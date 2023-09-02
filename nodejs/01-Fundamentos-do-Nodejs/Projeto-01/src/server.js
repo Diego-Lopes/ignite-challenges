@@ -32,7 +32,7 @@ import { extractQueryParams } from "./utils/extract-query-params.js";
 const server = http.createServer(async (req, res) => {
   const { method, url } = req
   
-  await json(req, res)
+  await json(req, res) //implementação steam
 
   const route = routes.find(route => {
     return route.method === method && route.path.test(url)
@@ -43,9 +43,9 @@ const server = http.createServer(async (req, res) => {
   if (route) {
     const routeParams = req.url.match(route.path)
 
-    console.log(routeParams.groups)
+    // console.log(routeParams.groups)
 
-    console.log(extractQueryParams(routeParams.groups.query))
+    // console.log(extractQueryParams(routeParams.groups.query))
 
     const { query, ...params } = routeParams.groups
     
