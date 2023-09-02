@@ -1,0 +1,12 @@
+{
+  "name": "challenge-task",
+  "version": "1.0.0",
+  "type":"module",
+  "description": "Challenge ignite-nodejs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/server.js"
+  },
+  "author": "Diego Lopes",
+  "license": "ISC"
+}
