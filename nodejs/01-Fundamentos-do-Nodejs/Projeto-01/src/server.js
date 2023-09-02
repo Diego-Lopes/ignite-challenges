@@ -1,6 +1,7 @@
 import http from "node:http";
 import { json } from "./middleware/json.js";
 import { routes } from "./routes.js";
+import { extractQueryParams } from "./utils/extract-query-params.js";
 
 // - Criar usuários
 // - Listagem usuários
@@ -37,14 +38,20 @@ const server = http.createServer(async (req, res) => {
     return route.method === method && route.path.test(url)
   })
 
-  console.log(route);
+  // console.log(route);
 
   if (route) {
     const routeParams = req.url.match(route.path)
 
-    // console.log(routeParams.groups.id)
+    console.log(routeParams.groups)
 
-    req.params = {...routeParams.groups }
+    console.log(extractQueryParams(routeParams.groups.query))
+
+    const { query, ...params } = routeParams.groups
+    
+    
+    req.params = params
+    req.query = query ? extractQueryParams(query) : {}
 
     return route.handler(req, res)
   }
