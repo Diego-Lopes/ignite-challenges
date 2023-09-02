@@ -37,8 +37,24 @@ export class Database {
    * escreva o nome da tabela ex.: 'users'
    * @returns 
    */
-  select(table) {
-    const data = this.#database[table] ?? [] //verifica na database se existe table se não retorna array vazio.
+  select(table, search) {
+    let data = this.#database[table] ?? []
+
+    if(search) {
+      data = data.filter(row => {
+        // transformar para array Object.entries()
+        /**
+         * funcionalidade do Object.entries()
+         * recebe um object
+         * {name: "diego", email: "diego"}
+         * Object.entries() converte para 
+         * [['name', 'diego'], ['email', 'diego']]
+         */
+        return Object.entries(search).some(([key, value]) => {
+          return row[key].toLowerCase().includes(value.toLowerCase())
+        })
+      })
+    }
 
     return data
   }
