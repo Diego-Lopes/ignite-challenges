@@ -1,17 +1,39 @@
 import http from "node:http";
-import { routes } from "../routes";
+import { routes } from "./routes.js";
+import { json } from "./middleware/json.js";
+
+
 const port = 3333;
-const server = http.createServer((req, res) => {
+
+
+const server = http.createServer(async (req, res) => {
   const {method, url} = req
 
-  console.log(method, url);
+  await json(req, res)//implementação stream
+
+  // console.log({method, url}) //tudo certo até aqui.
 
   //routers
   const route = routes.find(route => {
+    // console.log(route);
     return route.method === method && route.path.test(url)
   })
 
-  return res.writeHead(200).end("ok");
+  console.log({route}) //tudo certo até aqui
+
+  if (route) { //validando se route bate com tipo de url de requisição
+    const routeParams = req.url.match(route.path)
+    console.log({routeParams});
+
+    const { query, ...params } = routeParams.groups
+
+    console.log({query, ...params});
+    req.params = params
+
+    return route.handler(req, res)
+  }
+
+  return res.writeHead(404).end();
 });
 
 server.listen(port, () => {
