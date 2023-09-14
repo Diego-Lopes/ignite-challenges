@@ -12,8 +12,8 @@ export function buildRoutePath(path) {
   // [ ':id', 'id', index: 7, input: '/users/:id', groups: undefined ]
   console.log(pathWithParams);
   // /users/([a-z0-9-_]+)
-  // const pathRegex = new RegExp(`^${pathWithParams}(?<query>\\?(.*))?$)`)
-  const pathRegex = new RegExp(`^${pathWithParams}`)
+  const pathRegex = new RegExp(`^${pathWithParams}(?<query>\\?(.*))?$`)
+  // const pathRegex = new RegExp(`^${pathWithParams}`)
 
   return pathRegex
 }
