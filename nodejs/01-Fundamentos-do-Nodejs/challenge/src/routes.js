@@ -42,17 +42,24 @@ export const routes = [
       const { title, description } = req.body;
       console.log({ title, description, id });
 
-      database
-        .filter((filter) => {
-          return filter.id === id;
-        })
-        .map((obj) => {
-          obj.title = title;
-          obj.description = description !== "" ? description : obj.description
-          obj.update_at = new Date()
-        });
+      database.filter((filter) => {
+        if (filter.id === id) {
+          database
+            .filter((filter) => {
+              return filter.id === id;
+            })
+            .map((obj) => {
+              obj.title = title;
+              obj.description =
+                description !== "" ? description : obj.description;
+              obj.update_at = new Date();
+            });
 
-      return res.writeHead(204).end();
+          return res.writeHead(204).end();
+        } else {
+          return res.writeHead(404).end();
+        }
+      });
     },
   },
 ];
