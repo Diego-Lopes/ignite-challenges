@@ -41,17 +41,12 @@ export const routes = [
       const { id } = req.params;
       console.log({ id });
 
-      database.filter((filter) => {
-        if (filter.id === id) {
-          const index = database.findIndex((obj) => obj.id === id)
+      const findIndex = database.findIndex((index) => index.id === id);
 
-          console.log({ index })
-
-          return res.writeHead(204).end()
-        } else {
-          return res.writeHead(404).end()
-        }
-      });
+      if (findIndex > -1) {
+        database.splice(findIndex, 1);
+        return res.writeHead(204).end()
+      }
     },
   },
   {
@@ -76,9 +71,8 @@ export const routes = [
             });
 
           return res.writeHead(204).end();
-        } 
+        }
       });
     },
   },
-  
 ];
