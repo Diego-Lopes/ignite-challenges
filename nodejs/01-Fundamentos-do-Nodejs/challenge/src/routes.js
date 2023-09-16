@@ -35,12 +35,32 @@ export const routes = [
     },
   },
   {
+    method: "DELETE",
+    path: buildRoutePath("/tasks/:id"),
+    handler: (req, res) => {
+      const { id } = req.params;
+      console.log({ id });
+
+      database.filter((filter) => {
+        if (filter.id === id) {
+          const index = database.findIndex((obj) => obj.id === id)
+
+          console.log({ index })
+
+          return res.writeHead(204).end()
+        } else {
+          return res.writeHead(404).end()
+        }
+      });
+    },
+  },
+  {
     method: "PUT",
     path: buildRoutePath("/tasks/:id"),
     handler: (req, res) => {
       const { id } = req.params;
       const { title, description } = req.body;
-      console.log({ title, description, id });
+      // console.log({ title, description, id });
 
       database.filter((filter) => {
         if (filter.id === id) {
@@ -56,10 +76,9 @@ export const routes = [
             });
 
           return res.writeHead(204).end();
-        } else {
-          return res.writeHead(404).end();
-        }
+        } 
       });
     },
   },
+  
 ];
