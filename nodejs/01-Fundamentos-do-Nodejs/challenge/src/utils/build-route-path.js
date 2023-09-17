@@ -1,7 +1,7 @@
 // estração de variável :id
 
 export function buildRoutePath(path) {
-  const routeParametersRegex = /:([a-zA-Z]*)/g
+  const routeParametersRegex = /:([a-zA-Z]+)/g
 
   const pathWithParams = path.replaceAll(
     routeParametersRegex,
@@ -10,7 +10,7 @@ export function buildRoutePath(path) {
 
   console.log(Array.from(path.matchAll(routeParametersRegex)));
   // [ ':id', 'id', index: 7, input: '/users/:id', groups: undefined ]
-  console.log(pathWithParams);
+  console.log({pathWithParams});
   // /users/([a-z0-9-_]+)
   const pathRegex = new RegExp(`^${pathWithParams}(?<query>\\?(.*))?$`)
   // const pathRegex = new RegExp(`^${pathWithParams}`)

@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { buildRoutePath } from "./utils/build-route-path.js";
+import { run } from "./streams/import-csv.js";
 
 const database = [];
 
@@ -8,7 +9,15 @@ export const routes = [
     method: "GET",
     path: buildRoutePath("/tasks"),
     handler: (req, res) => {
-      console.log(req.query);
+      // console.log(req.query);
+      return res.writeHead(200).end(JSON.stringify(database));
+    },
+  },
+  {
+    method: "POST",
+    path: buildRoutePath("/tasks/streamInCsv"),
+    handler: async (req, res) => {
+      await run();
       return res.writeHead(200).end(JSON.stringify(database));
     },
   },
@@ -18,6 +27,23 @@ export const routes = [
     handler: (req, res) => {
       const { title, description } = req.body;
       console.log({ title, description });
+
+      if (!title) {
+        return res.writeHead(404).end(
+          JSON.stringify({
+            message: "Title is required",
+          })
+        );
+      }
+
+      if (!description) {
+        return res.writeHead(404).end(
+          JSON.stringify({
+            message: "Description is required",
+          })
+        );
+      }
+
       const ObjTask = {
         id: randomUUID(),
         title,
@@ -29,7 +55,7 @@ export const routes = [
 
       database.push(ObjTask);
 
-      console.log(database);
+      // console.log(database);
 
       return res.writeHead(201).end();
     },
@@ -45,9 +71,9 @@ export const routes = [
 
       if (findIndex > -1) {
         database.splice(findIndex, 1);
-        return res.writeHead(204).end()
+        return res.writeHead(204).end();
       } else {
-        return res.writeHead(404).end()
+        return res.writeHead(404).end();
       }
     },
   },
@@ -57,54 +83,67 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params;
       const { title, description } = req.body;
-
-      database.filter((filter) => {
-        if (filter.id === id) {
-          database
-            .filter((filter) => {
-              return filter.id === id;
-            })
-            .map((obj) => {
-              obj.title = title;
-              obj.description =
-                description !== "" ? description : obj.description;
-              obj.update_at = new Date();
-            });
-
-          return res.writeHead(204).end();
-        } else {
-          return res.writeHead(404).end()
-        }
+      console.log({
+        id,
+        title,
+        description,
       });
+      if (!title || !description) {
+        return res.writeHead(404).end(
+          JSON.stringify({
+            message: "Title or description are required",
+          })
+        );
+      }
+
+      const isTask = database.find((obj) => obj.id === id);
+      console.log(!!isTask);
+      if (!!isTask) {
+        database
+          .filter((filter) => {
+            return filter.id === id;
+          })
+          .map((obj) => {
+            obj.title = title;
+            obj.description = description;
+            obj.update_at = new Date();
+          });
+
+        return res.writeHead(204).end();
+      } else {
+        return res.writeHead(404).end();
+      }
     },
   },
   {
     method: "PATCH",
-    path: buildRoutePath("/tasks/:id"),
+    path: buildRoutePath("/tasks/:id/complete"),
     handler: (req, res) => {
       const { id } = req.params;
 
-      database.filter((filter) => {
-        if (filter.id === id) {
-          database
-            .filter((filter) => {
-              return filter.id === id;
-            })
-            .map((obj) => {
-              if(obj.completed_at === null) {
-                obj.completed_at = true
-                obj.update_at = new Date();
-              } else if(obj.completed_at === true) {
-                obj.completed_at = null
-                obj.update_at = new Date();
-              } 
-            });
+      const isTask = database.find((obj) => obj.id === id);
 
-          return res.writeHead(204).end();
-        } else {
-          return res.writeHead(404).end()
-        }
-      });
+      if (!!isTask) {
+        database
+          .filter((filter) => {
+            return filter.id === id;
+          })
+          .map((obj) => {
+            const isTaskCompleted = !!obj.completed_at;
+            const complete_at = isTaskCompleted ? null : new Date();
+
+            if (isTaskCompleted) {
+              obj.completed_at = null;
+              obj.update_at = new Date();
+            } else {
+              obj.completed_at = complete_at;
+              obj.update_at = new Date();
+            }
+          });
+        return res.writeHead(204).end();
+      } else {
+        return res.writeHead(404).end();
+      }
     },
   },
 ];

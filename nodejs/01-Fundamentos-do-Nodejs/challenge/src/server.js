@@ -24,7 +24,7 @@ const server = http.createServer(async (req, res) => {
 
   if (route) { //validando se route bate com tipo de url de requisição
     const routeParams = req.url.match(route.path)
-    console.log({routeParams});
+    // console.log({routeParams});
 
     const { query, ...params } = routeParams.groups
 
