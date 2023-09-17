@@ -1,7 +1,7 @@
 {
   "name": "challenge-task",
   "version": "1.0.0",
-  "type":"module",
+  "type": "module",
   "description": "Challenge ignite-nodejs",
   "main": "index.js",
   "scripts": {
@@ -9,5 +9,8 @@
   },
   "keywords": [],
   "author": "Diego Lopes",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^5.5.0"
+  }
 }
