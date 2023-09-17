@@ -1,0 +1,22 @@
+{
+  "name": "02-criando-api-rest-com-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fastify": "^4.23.2"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
+    "@types/node": "^20.6.2",
+    "eslint": "^8.49.0",
+    "tsx": "^3.12.10",
+    "typescript": "^5.2.2"
+  }
+}
