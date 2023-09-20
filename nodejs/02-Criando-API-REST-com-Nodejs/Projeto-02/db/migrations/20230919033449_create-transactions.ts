@@ -10,6 +10,9 @@ export async function up(knex: Knex): Promise<void> {
      * .primary() é para dizer que uma chave primaria.
      */
     table.text('title').notNullable()
+    // .decimal() recebe 3 parâmetros 1 o nome da tabela, 2 tamanho que queremos armazenar e 3 casa decimais
+    table.decimal('amount', 10, 2).notNullable()
+    table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
   })
 }
 
