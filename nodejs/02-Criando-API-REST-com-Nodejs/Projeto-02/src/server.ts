@@ -1,25 +1,15 @@
 import fastify from 'fastify'
-import { knex } from './database'
-import crypto from 'node:crypto'
 import { env } from './env'
+import { transationsRoutes } from './routes/transactions'
 
 const app = fastify()
 
-app.get('/hello', async () => {
-  // const transaction = knex('transactions')
-  //   .insert({
-  //     id: crypto.randomUUID(),
-  //     title: 'Transação de teste',
-  //     amount: 1000,
-  //   })
-  //   .returning('*')
-
-  // return transaction
-
-  // traz todas as transações do banco de dados
-  const transactions = await knex('transactions').select('*')
-  return transactions
-})
+// usando plugin do fastify
+/**
+ * define bem as ordem pois dependendo da posição de um plugin e nele precisa
+ * modificar dados e não estives ordenado certo dará problema.
+ */
+app.register(transationsRoutes)
 
 app
   .listen({ port: env.PORT })
