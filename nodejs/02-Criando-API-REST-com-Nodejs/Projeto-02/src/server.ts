@@ -9,7 +9,9 @@ const app = fastify()
  * define bem as ordem pois dependendo da posição de um plugin e nele precisa
  * modificar dados e não estives ordenado certo dará problema.
  */
-app.register(transationsRoutes)
+app.register(transationsRoutes, {
+  prefix: 'transactions', // colocando prefixo de transacions e lá na routes/transactions colocamos apenas /
+})
 
 app
   .listen({ port: env.PORT })
