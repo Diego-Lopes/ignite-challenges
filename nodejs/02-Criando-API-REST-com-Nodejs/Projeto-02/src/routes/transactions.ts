@@ -6,6 +6,28 @@ import crypto from 'node:crypto'
 // todo o plugin fastify obrigatoriamente precisa ser assíncrona
 // o app está sem tipagem precisamos tipar ele do fastify podemos usar FastifyInstance
 export async function transationsRoutes(app: FastifyInstance) {
+  // listar tudo
+  app.get('/', async () => {
+    const transactions = await knex('transactions').select()
+
+    return {
+      transactions,
+    }
+  })
+
+  // buscar detalhes de uma transação única
+  app.get('/:id', async (request) => {
+    const getTransactionsParamsSchema = z.object({
+      id: z.string().uuid(),
+    })
+    const { id } = getTransactionsParamsSchema.parse(request.params)
+    const transaction = await knex('transactions').where('id', id).first()
+
+    return {
+      transaction,
+    }
+  })
+
   app.post('/', async (request, reply) => {
     // schema de validação
     const createTransactionBodySchema = z.object({
