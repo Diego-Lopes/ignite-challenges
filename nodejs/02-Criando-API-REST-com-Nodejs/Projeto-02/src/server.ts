@@ -1,9 +1,12 @@
 import fastify from 'fastify'
 import { env } from './env'
 import { transationsRoutes } from './routes/transactions'
+import cookie from '@fastify/cookie'
 
 const app = fastify()
 
+// fazendo o cadastro de registro em cookie
+app.register(cookie)
 // usando plugin do fastify
 /**
  * define bem as ordem pois dependendo da posição de um plugin e nele precisa
