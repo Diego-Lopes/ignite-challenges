@@ -28,6 +28,17 @@ export async function transationsRoutes(app: FastifyInstance) {
     }
   })
 
+  // obtendo o resumo da conta sobre amount
+  app.get('/summary', async () => {
+    const summary = await knex('transactions')
+      .sum('amount', { as: 'amount' }) // como 2 parametro passamos entre chaves as: 'amount' para renomear
+      .first() // usamos first para remover do array, por padrão retorna em um array.
+
+    return {
+      summary,
+    }
+  })
+
   app.post('/', async (request, reply) => {
     // schema de validação
     const createTransactionBodySchema = z.object({
