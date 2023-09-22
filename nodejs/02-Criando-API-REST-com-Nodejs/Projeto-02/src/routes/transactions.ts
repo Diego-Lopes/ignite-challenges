@@ -2,42 +2,71 @@ import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { knex } from '../database'
 import crypto from 'node:crypto'
+import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 
 // todo o plugin fastify obrigatoriamente precisa ser assíncrona
 // o app está sem tipagem precisamos tipar ele do fastify podemos usar FastifyInstance
 export async function transationsRoutes(app: FastifyInstance) {
   // listar tudo
-  app.get('/', async () => {
-    const transactions = await knex('transactions').select()
+  app.get(
+    '/',
+    {
+      preHandler: [checkSessionIdExists], // preHandler é executar antes do  handler
+    },
+    async (request, reply) => {
+      const { sessionId } = request.cookies
+      const transactions = await knex('transactions')
+        .where('session_id', sessionId)
+        .select()
 
-    return {
-      transactions,
-    }
-  })
+      return {
+        transactions,
+      }
+    },
+  )
 
   // buscar detalhes de uma transação única
-  app.get('/:id', async (request) => {
-    const getTransactionsParamsSchema = z.object({
-      id: z.string().uuid(),
-    })
-    const { id } = getTransactionsParamsSchema.parse(request.params)
-    const transaction = await knex('transactions').where('id', id).first()
+  app.get(
+    '/:id',
+    {
+      preHandler: [checkSessionIdExists],
+    },
+    async (request) => {
+      const getTransactionsParamsSchema = z.object({
+        id: z.string().uuid(),
+      })
+      const { sessionId } = request.cookies
 
-    return {
-      transaction,
-    }
-  })
+      const { id } = getTransactionsParamsSchema.parse(request.params)
+      const transaction = await knex('transactions')
+        .where({ session_id: sessionId, id })
+        .first()
+
+      return {
+        transaction,
+      }
+    },
+  )
 
   // obtendo o resumo da conta sobre amount
-  app.get('/summary', async () => {
-    const summary = await knex('transactions')
-      .sum('amount', { as: 'amount' }) // como 2 parametro passamos entre chaves as: 'amount' para renomear
-      .first() // usamos first para remover do array, por padrão retorna em um array.
+  app.get(
+    '/summary',
+    {
+      preHandler: [checkSessionIdExists],
+    },
+    async (request) => {
+      const { sessionId } = request.cookies
 
-    return {
-      summary,
-    }
-  })
+      const summary = await knex('transactions')
+        .where('session_id', sessionId)
+        .sum('amount', { as: 'amount' }) // como 2 parametro passamos entre chaves as: 'amount' para renomear
+        .first() // usamos first para remover do array, por padrão retorna em um array.
+
+      return {
+        summary,
+      }
+    },
+  )
 
   app.post('/', async (request, reply) => {
     // schema de validação
