@@ -7,6 +7,13 @@ import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 // todo o plugin fastify obrigatoriamente precisa ser assíncrona
 // o app está sem tipagem precisamos tipar ele do fastify podemos usar FastifyInstance
 export async function transationsRoutes(app: FastifyInstance) {
+  /**
+   * aplicando middlewares globais
+   */
+  app.addHook('preHandler', async (request, reply) => {
+    console.log(`[${request.method}] ${request.url}`)
+  })
+
   // listar tudo
   app.get(
     '/',
