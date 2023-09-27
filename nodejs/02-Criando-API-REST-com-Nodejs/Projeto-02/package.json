@@ -23,6 +23,7 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
     "@types/node": "^20.6.2",
+    "@types/supertest": "^2.0.12",
     "eslint": "^8.49.0",
     "supertest": "^6.3.3",
     "tsx": "^3.12.10",
