@@ -1,8 +1,9 @@
 // fazendo o 1 teste
 
-import { test, beforeAll, afterAll, describe, it, expect } from 'vitest'
+import { beforeAll, afterAll, describe, it, expect, beforeEach } from 'vitest'
 import request from 'supertest'
 import { app } from '../src/app'
+import { execSync } from 'node:child_process'
 
 // criando categoria
 describe('Transactions routes', () => {
@@ -16,6 +17,12 @@ describe('Transactions routes', () => {
     // depois de tudo
     await app.close()
     // close descarta a aplicação de teste.
+  })
+
+  beforeEach(() => {
+    // execSync executa comando de terminal de dentro da aplicação
+    execSync('npm run knex migrate:rollback --all')
+    execSync('npm run knex migrate:latest')
   })
 
   /**
