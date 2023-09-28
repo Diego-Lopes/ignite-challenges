@@ -1,4 +1,3 @@
-import 'dotenv/config' // atomaticamente vai ler o arquivo .env
 import { knex as setupKnex, Knex } from 'knex'
 import { env } from './env'
 
