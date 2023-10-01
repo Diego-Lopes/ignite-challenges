@@ -1,6 +1,16 @@
-/node_modules
+# Dependencies
+node_modules
+
+# Package dependencies lock
 package-lock.json
-db/app.db
-db/test.db
+
+# Database
+# *.db ignora todos os arquivos com .db
+db/*.db 
+
+# Environment
 .env
 .env.test
+
+# Build
+build
