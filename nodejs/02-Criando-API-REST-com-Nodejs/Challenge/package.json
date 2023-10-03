@@ -1,0 +1,22 @@
+{
+  "name": "challenge-daily-diet",
+  "version": "1.0.0",
+  "description": "Challenge project 02, rocketseat",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch srv/server.ts",
+    "lint": "eslint src --ext .ts --fix"
+  },
+  "author": "Diego Lopes",
+  "license": "MIT",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
+    "@types/node": "^20.8.2",
+    "eslint": "^8.50.0",
+    "tsx": "^3.13.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "fastify": "^4.23.2"
+  }
+}
