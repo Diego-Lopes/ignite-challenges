@@ -1,2 +1,16 @@
-# node modules
+# Dependencies
 node_modules
+
+# Package dependencies lock
+package-lock.json
+
+# Database
+# *.db ignora todos os arquivos com .db
+db/*.db 
+
+# Environment
+.env
+.env.test
+
+# Build
+build
