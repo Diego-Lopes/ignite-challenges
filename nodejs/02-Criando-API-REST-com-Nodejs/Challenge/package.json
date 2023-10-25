@@ -4,10 +4,10 @@
   "description": "Challenge project 02, rocketseat",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch srv/server.ts",
+    "dev": "tsx watch src/server.ts",
     "lint": "eslint src --ext .ts --fix",
     "knex": "node --no-warnings --loader tsx ./node_modules/knex/bin/cli.js",
-    "build": " tsup src --out-dir build"
+    "build": "tsup src --out-dir build"
   },
   "author": "Diego Lopes",
   "license": "MIT",
