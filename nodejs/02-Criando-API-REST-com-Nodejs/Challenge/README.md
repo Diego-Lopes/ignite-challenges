@@ -1,6 +1,6 @@
 ## RF - Requisito funcional
 - [x] Deve ser possível criar um usário
-- [ ] Deve ser possível identificar o usuário entre as requsições
+- [x] Deve ser possível identificar o usuário entre as requsições
 - [x] Deve ser possível registra um refeição feita, com as seguintes informações
  
 <i>As refeições devem ser relacionadas a um usuário</i>
