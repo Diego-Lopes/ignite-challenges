@@ -12,11 +12,33 @@ datasource db {
 
 //tabela no prisma é chamado de model o nome da tabela é no singular.
 model User {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
-
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
   //para mudar o nome da tabela de singular para plural use @@map
 
   @@map("users")
+}
+
+//create table CheckIn
+model CheckIn {
+  id           String    @id @default(uuid())
+  created_at   DateTime  @default(now())
+  validated_at DateTime?
+
+  @@map("check_ins")
+}
+
+//create table Gym
+model Gym {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+  phone       String?
+  latitude    Decimal
+  longitude   Decimal
+
+  @@map("gyms")
 }
