@@ -37,7 +37,15 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       return reply.status(409).send({ message: error.message })
     }
 
-    return reply.status(500).send() // TODO: fix me
+    // return reply.status(500).send() // TODO: fix me
+
+    /**
+     * Para tratar error não conhecidos, e não generalizar com um
+     * reply.status(500)
+     * passamos um throw error, isso faz com que a camada acima trate esse
+     * erro que é o fastfy.
+     */
+    throw error
   }
 
   return reply.status(201).send()
