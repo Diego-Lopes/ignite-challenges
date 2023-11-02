@@ -1,43 +1,42 @@
-import { prisma } from '@/lib/prisma'
+import { UserRepository } from '@/repositoreis/users-repository'
 import { hash } from 'bcryptjs'
 
-interface RegisteruserCaseRequest {
+interface RegisterUserCaseRequest {
   name: string
   email: string
   password: string
 }
 
-export async function registerUseCase({
-  name,
-  email,
-  password,
-}: RegisteruserCaseRequest) {
-  const password_hash = await hash(password, 6)
-  /**
-   * hash("", round)
-   * 1 parâmetro temos nosso valor da password
-   * 2 parâmetro temos nosso round que nada mais é que pegar o valor do 1 round
-   * e concatenar com segundo round quando for chamado novamente e assim
-   * até chegar ao limite que é 6 como acima.
-   */
+// Implementation SOLID
 
-  // validar se há email existente
+// D - Dependency inversion Principle
+export class RegisterUseCase {
+  // o construtor onde podemos inserir as dependencias.
+  // eslint-disable-next-line prettier/prettier
+  constructor(private usersRepository: UserRepository) { }
 
-  const userWithSameEmail = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  })
+  async execute({ name, email, password }: RegisterUserCaseRequest) {
+    const password_hash = await hash(password, 6)
+    /**
+     * hash("", round)
+     * 1 parâmetro temos nosso valor da password
+     * 2 parâmetro temos nosso round que nada mais é que pegar o valor do 1 round
+     * e concatenar com segundo round quando for chamado novamente e assim
+     * até chegar ao limite que é 6 como acima.
+     */
 
-  if (userWithSameEmail) {
-    throw new Error('E-mail already exists.')
-  }
+    // validar se há email existente
+    const userWithSameEmail = await this.usersRepository.findByEmail(email)
 
-  await prisma.user.create({
-    data: {
+    if (userWithSameEmail) {
+      throw new Error('E-mail already exists.')
+    }
+
+    // created user
+    await this.usersRepository.create({
       name,
       email,
       password_hash,
-    },
-  })
+    })
+  }
 }
