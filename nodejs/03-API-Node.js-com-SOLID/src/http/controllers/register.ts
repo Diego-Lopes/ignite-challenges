@@ -1,8 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { RegisterUseCase } from '@/use-cases/register'
-import { PrismaUsersRepository } from '@/repositoreis/prisma/prisma-users-repository'
 import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists-error'
+import { makeRegisterUseCase } from '@/use-cases/factories/make-register-use-case'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
@@ -15,7 +14,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
   try {
     // pegando as dependências de prisma respository, dependency pattern
-    const prismaUsersRepository = new PrismaUsersRepository() // aqui podemos trocar fácil de ORM.
+    // const usersRepository = new PrismaUsersRepository() // aqui podemos trocar fácil de ORM.
     /**
      * Pois a dependências direta do prisma não é mais possível, foi aplicado o conceito
      * repository pattern e uma das 5 regras do SOLID que é
@@ -24,7 +23,12 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
      */
 
     // instanciando a class use-case register com as dependências de prisma users repository
-    const registerUseCase = new RegisterUseCase(prismaUsersRepository)
+    // const registerUseCase = new RegisterUseCase(usersRepository)
+
+    /**
+     * Padrão de pattern Factory
+     */
+    const registerUseCase = makeRegisterUseCase()
 
     await registerUseCase.execute({
       name,
