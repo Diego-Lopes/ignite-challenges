@@ -48,7 +48,7 @@ export default async function Search({ searchParams }: SearchProps) {
       <div className="grid grid-cols-3 gap-6">
         {products.length === 0 ? (
           <span className="text-lg font-semibold text-zinc-400">
-            Não encontramos um produto com esse termo.
+            Não encontramos nenhum produto com esse termo.
           </span>
         ) : (
           products.map((product) => {

@@ -1,7 +1,6 @@
 import { api } from '@/data/api'
 import { Product } from '@/data/types/product'
 import { env } from '@/env'
-import { Metadata } from 'next'
 import { ImageResponse } from 'next/og'
 import colors from 'tailwindcss/colors'
 // converte html em image o ImageResponse
@@ -16,7 +15,7 @@ interface ProductProps {
 export const runtime = 'edge'
 
 // Image metadata
-export const alt = 'About Acme'
+export const alt = ''
 export const size = {
   width: 1200,
   height: 630,
