@@ -8,9 +8,9 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
 
   async findByUserIdOnDate(userId: string, date: Date) {
     const startOfTheDay = dayjs(date).startOf('date')
-    // ele retorna 2023-11-21 00:00:00
+    // ele retorna 2023-11-21T00:00:00
     const endOfTheDay = dayjs(date).endOf('date')
-    // ele retorna 2023-11-21 23:59:59
+    // ele retorna 2023-11-21T23:59:59
 
     const checkInSameDate = this.items.find((checkIn) => {
       // verificando se o check in está dentro de um intervalo de um dia e 24h

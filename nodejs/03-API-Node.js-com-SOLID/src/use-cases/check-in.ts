@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { CheckIn } from '@prisma/client'
 import { CheckInsRepository } from '@/repositoreis/check-ins-repository'
+import { GymsRepository } from '@/repositoreis/gyms-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates'
 
 /**
  * tipagem de entrada e de saída
@@ -8,6 +11,8 @@ import { CheckInsRepository } from '@/repositoreis/check-ins-repository'
 interface CheckInUseCaseRequest {
   userId: string
   gymId: string
+  userLatitude: number
+  userLongitude: number
 }
 
 interface CheckInUseCaseResponse {
@@ -15,12 +20,37 @@ interface CheckInUseCaseResponse {
 }
 
 export class CheckInUseCase {
-  constructor(private checkInsRepository: CheckInsRepository) { }
+  constructor(
+    private checkInsRepository: CheckInsRepository,
+    private gymsRepository: GymsRepository
+  ) { }
 
   async execute({
     userId,
-    gymId
+    gymId,
+    userLatitude,
+    userLongitude
   }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
+
+    // verificando a academia
+    const gym = await this.gymsRepository.findById(gymId)
+
+    if (!gym) {
+      throw new ResourceNotFoundError()
+    }
+
+    // se a academia existir precisamos calcular a distância entre o usuário e academia.
+    const distance = getDistanceBetweenCoordinates(
+      { latitude: userLatitude, longitude: userLongitude },
+      { latitude: gym.latitude.toNumber(), longitude: gym.longitude.toNumber() }
+    )
+
+    const MAX_DISTANCE_IN_KILOMETERS = 0.1
+
+    if (distance > MAX_DISTANCE_IN_KILOMETERS) {
+      throw new Error()
+    }
+
 
     // verificar se existe checkin do mesmo dia
     const checkInOnSameDay = await this.checkInsRepository.findByUserIdOnDate(
