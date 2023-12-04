@@ -4,6 +4,8 @@ import { CheckInsRepository } from '@/repositoreis/check-ins-repository'
 import { GymsRepository } from '@/repositoreis/gyms-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates'
+import { MaxNumberOfCheckInsEror } from './errors/max-number-of-check-ins-error'
+import { MaxDistanceError } from './errors/max-distance-errror'
 
 /**
  * tipagem de entrada e de saída
@@ -48,7 +50,7 @@ export class CheckInUseCase {
     const MAX_DISTANCE_IN_KILOMETERS = 0.1
 
     if (distance > MAX_DISTANCE_IN_KILOMETERS) {
-      throw new Error()
+      throw new MaxDistanceError()
     }
 
 
@@ -60,7 +62,7 @@ export class CheckInUseCase {
 
     // se existe um checkIn no mesmo dia, vamos disparar um erro.
     if (checkInOnSameDay) {
-      throw new Error()
+      throw new MaxNumberOfCheckInsEror()
     }
 
     const checkIn = await this.checkInsRepository.create({
