@@ -88,25 +88,25 @@ describe('Check-in Use Case', () => {
 
     expect(checkIn.id).toEqual(expect.any(String))
   })
-})
 
-it('Should not be able check in on distant gym', async () => {
-  // criando nova academia
-  gymsRepository.items.push({
-    id: 'gym-02',
-    title: 'JavaScript Gym',
-    description: '',
-    phone: '',
-    latitude: new Decimal(-27.0747279),
-    longitude: new Decimal(-49.4889672),
+  it('Should not be able check in on distant gym', async () => {
+    // criando nova academia
+    gymsRepository.items.push({
+      id: 'gym-02',
+      title: 'JavaScript Gym',
+      description: '',
+      phone: '',
+      latitude: new Decimal(-27.0747279),
+      longitude: new Decimal(-49.4889672),
+    })
+
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-02',
+        userId: 'user-01',
+        userLatitude: -27.2092052,
+        userLongitude: -49.601091,
+      }),
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
-
-  await expect(() =>
-    sut.execute({
-      gymId: 'gym-02',
-      userId: 'user-01',
-      userLatitude: -27.2092052,
-      userLongitude: -49.601091,
-    }),
-  ).rejects.toBeInstanceOf(MaxDistanceError)
 })
