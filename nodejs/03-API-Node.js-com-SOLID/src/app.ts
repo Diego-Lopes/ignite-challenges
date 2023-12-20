@@ -2,9 +2,16 @@ import fastify from 'fastify'
 import { appRouter } from './http/routes'
 import { ZodError } from 'zod'
 import { env } from './env'
+import fastifyJwt from '@fastify/jwt'
 export const app = fastify()
 
 app.register(appRouter)
+
+// adicionando funcionalidade do jwt
+// passamos um objeto como segundo parâmetros com as configuração.
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+})
 
 // Criando uma tratativa de erros global
 app.setErrorHandler((error, _, reply) => {

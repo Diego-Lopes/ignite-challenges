@@ -17,16 +17,32 @@ export async function authenticate(
   try {
     const authenticateUseCase = makeAuthenticateUseCase()
 
-    await authenticateUseCase.execute({
+    const { user } = await authenticateUseCase.execute({
       email,
       password,
     })
+
+    // implementando o token
+
+    /**
+     * como registranmos o @fastify/jwt no app agora temos as funcionalidades
+     * no reply.
+     * jwtSigin() recebe 2 parâmetros
+     */
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: user.id,
+        },
+      },
+    )
+
+    return reply.status(200).send({ token })
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
       return reply.status(400).send({ message: error.message })
     }
     throw error
   }
-
-  return reply.status(200).send()
 }

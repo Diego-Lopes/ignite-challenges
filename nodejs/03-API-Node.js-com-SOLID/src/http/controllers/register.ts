@@ -15,6 +15,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   try {
     // pegando as dependências de prisma respository, dependency pattern
     // const usersRepository = new PrismaUsersRepository() // aqui podemos trocar fácil de ORM.
+
     /**
      * Pois a dependências direta do prisma não é mais possível, foi aplicado o conceito
      * repository pattern e uma das 5 regras do SOLID que é
