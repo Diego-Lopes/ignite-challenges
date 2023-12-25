@@ -2,19 +2,41 @@ import fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from './env'
 import fastifyJwt from '@fastify/jwt'
+import fastifyCookie from '@fastify/cookie'
 import { gymsRouters } from './http/controllers/gyms/routes'
 import { usersRouters } from './http/controllers/users/routes'
 import { checkInsRouters } from './http/controllers/check-ins/routes'
 export const app = fastify()
 
+// fazendo o cadastro no app.
+app.register(fastifyCookie)
 app.register(gymsRouters)
 app.register(usersRouters)
 app.register(checkInsRouters)
 
 // adicionando funcionalidade do jwt
 // passamos um objeto como segundo parâmetros com as configuração.
+/**
+ * Implementando estratégia de refresh de token
+ * módulo 7 do ignite.
+ * Para revalidar o token do usuário o tempo tem que ser curto,
+ * para que possamos sempre validar que esse usuário está ativo.
+ * vou verificar acada 10 minute e gerar novo token válido para ele.
+ *
+ * cookien: pegamos o nome do cookie refresh token e setamos signed: com false.
+ * signed: assinatura é quando pegamos uma informação e faz um processo de hash nela,
+ * a gente assina para que depois seja possível validar que a informação foi gerada
+ * pelo nosso backend.
+ */
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+  sign: {
+    expiresIn: '10m',
+  },
 })
 
 // Criando uma tratativa de erros global
