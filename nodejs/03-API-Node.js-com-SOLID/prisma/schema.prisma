@@ -10,12 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+//enum significa uma opção em uma lista
+
 //tabela no prisma é chamado de model o nome da tabela é no singular.
 model User {
   id            String   @id @default(uuid())
   name          String
   email         String   @unique
   password_hash String
+  role          Role     @default(MEMBER)
   created_at    DateTime @default(now())
 
   CheckIns CheckIn[] //esse CheckIns em camel case ele não salva no banco de dados

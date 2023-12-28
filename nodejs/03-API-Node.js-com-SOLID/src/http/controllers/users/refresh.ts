@@ -11,8 +11,11 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
    * no reply.
    * jwtSigin() recebe 2 parâmetros
    */
+
+  const { role } = request.user
+
   const token = await reply.jwtSign(
-    {},
+    { role },
     {
       sign: {
         sub: request.user.sub,
@@ -28,7 +31,7 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
    * refazer a autenticação.
    */
   const refreshToken = await reply.jwtSign(
-    {},
+    { role },
     {
       sign: {
         sub: request.user.sub,

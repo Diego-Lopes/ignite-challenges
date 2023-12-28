@@ -30,7 +30,10 @@ export async function authenticate(
      * jwtSigin() recebe 2 parâmetros
      */
     const token = await reply.jwtSign(
-      {},
+      {
+        // payload
+        role: user.role,
+      },
       {
         sign: {
           sub: user.id,
@@ -46,7 +49,10 @@ export async function authenticate(
      * refazer a autenticação.
      */
     const refreshToken = await reply.jwtSign(
-      {},
+      {
+        // payload
+        role: user.role,
+      },
       {
         sign: {
           sub: user.id,
