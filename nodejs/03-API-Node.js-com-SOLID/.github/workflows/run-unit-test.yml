@@ -1,0 +1,24 @@
+# criando um ci: continuous integration
+# workflow nada mais é que uma esteira de comandos para cada commit feito.
+
+name: Run Unit Tests
+
+# executar o comando quando receber no github: [push, pull...]
+on: [push] 
+
+jobs:
+  run-unit-test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3 #baixar o codigo na nossa máquina ubunto.
+      
+      - uses: actions/setup-node@v3 #baixar o node.
+        with:
+          node-version: 18
+          cache: 'npm'
+      
+      - run: npm ci # ci não vai tentar fazer um tipo de interação com usuário.
+
+      - run: npm run test
