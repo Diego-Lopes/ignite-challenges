@@ -5,7 +5,7 @@ import { validate } from './validate'
 import { history } from './history'
 import { metrics } from './metrics'
 
-export async function checkInsRouters(app: FastifyInstance) {
+export async function checkInsRoutes(app: FastifyInstance) {
   // no fastify addHook faz o papel de middlewares
   app.addHook('onRequest', verifyJWT) // todas as rotas vão chamar o validador de token jwt.
 

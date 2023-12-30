@@ -3,16 +3,16 @@ import { ZodError } from 'zod'
 import { env } from './env'
 import fastifyJwt from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
-import { gymsRouters } from './http/controllers/gyms/routes'
-import { usersRouters } from './http/controllers/users/routes'
-import { checkInsRouters } from './http/controllers/check-ins/routes'
+import { gymsRoutes } from './http/controllers/gyms/routes'
+import { usersRoutes } from './http/controllers/users/routes'
+import { checkInsRoutes } from './http/controllers/check-ins/routes'
 export const app = fastify()
 
 // fazendo o cadastro no app.
 app.register(fastifyCookie)
-app.register(gymsRouters)
-app.register(usersRouters)
-app.register(checkInsRouters)
+app.register(gymsRoutes)
+app.register(usersRoutes)
+app.register(checkInsRoutes)
 
 // adicionando funcionalidade do jwt
 // passamos um objeto como segundo parâmetros com as configuração.

@@ -20,7 +20,7 @@ describe('Search Gyms (e2e)', () => {
 
   it('should be able search gyms by title', async () => {
     // fazendo authenticate e desestruturando o obj e pegando o token
-    const { token } = await createAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app, true)
 
     // criando cademias antes para fazer a busca
     await request(app.server)
