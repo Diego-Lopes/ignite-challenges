@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api-solid-pg-challenge:
+    image: bitnami/postgresql:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=docker@challenge
+      - POSTGRESQL_PASSWORD=docker@challenge
+      - POSTGRESQL_DATABASE=api_solid_challenge
