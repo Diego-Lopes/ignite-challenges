@@ -17,37 +17,39 @@ enum Role {
 }
 
 model DonationPet {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   name          String
   species       String
   idade         Int
   description   String?
   state         String
   city          String
-  adotado       Boolean  @default(false)
-  created_at    DateTime @default(now())
-  date_donation DateTime
+  adotado       Boolean   @default(false)
+  created_at    DateTime  @default(now())
+  date_donation DateTime?
 
-  org    Organization @relation(fields: [org_id], references: [id])
-  org_id String
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
 
   @@map("donation_pets")
 }
 
 model Organization {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  phone       String
-  state       String
-  city        String
-  latitude    Decimal?
-  longitude   Decimal?
-  user_name   String
-  password    String
-  role        Role     @default(ORG)
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  phone         String
+  email         String?
+  state         String
+  city          String
+  latitude      Decimal?
+  longitude     Decimal?
+  user_name     String
+  password_hash String
+  created_at    DateTime @default(now())
+  role          Role     @default(ORG)
 
-  DonationPet DonationPet[]
+  DonationPets DonationPet[]
 
   @@map("organizations")
 }
