@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { OrganizationsRepository } from '@/repositories/organizations-interfaces-repository'
 import { hash } from 'bcryptjs'
 
 interface RegisterUseCaseRequest {
@@ -15,9 +16,9 @@ interface RegisterUseCaseRequest {
   state: string
 }
 
-// inversão de dependencia
+// inversão de dependencia e usamos interface para fazer imensão no prisma
 export class RegisterUseCase {
-  constructor(private organizationsRepository: any) { }
+  constructor(private organizationsRepository: OrganizationsRepository) { }
 
   async execute({
     city,
@@ -33,6 +34,12 @@ export class RegisterUseCase {
     userName,
   }: RegisterUseCaseRequest) {
     const password_hash = await hash(password, 6)
+
+    const organizationWithSameEmail = await this.organizationsRepository.findByEmail(email)
+
+    if (organizationWithSameEmail) {
+      throw new Error('E-mail already exists.')
+    }
 
     await this.organizationsRepository.create({
       city,

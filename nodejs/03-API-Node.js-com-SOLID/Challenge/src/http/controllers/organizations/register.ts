@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { RegisterUseCase } from '@/use-cases/register'
-import { PrismaOrganizationsRepository } from '@/repositories/prisma-organizations-repository'
+import { PrismaOrganizationsRepository } from '@/repositories/prisma/prisma-organizations-repository'
 
 export async function registerORG(
   request: FastifyRequest,
