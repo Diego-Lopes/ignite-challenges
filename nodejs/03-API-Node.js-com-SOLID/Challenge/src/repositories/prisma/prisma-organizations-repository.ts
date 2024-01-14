@@ -1,14 +1,13 @@
 import { prisma } from '@/lib/prisma'
-import { $Enums, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { OrganizationsRepository } from '../organizations-interfaces-repository'
 
 export class PrismaOrganizationsRepository implements OrganizationsRepository {
-
   async findById(id: string) {
     const organization = await prisma.organization.findUnique({
       where: {
-        id
-      }
+        id,
+      },
     })
 
     return organization

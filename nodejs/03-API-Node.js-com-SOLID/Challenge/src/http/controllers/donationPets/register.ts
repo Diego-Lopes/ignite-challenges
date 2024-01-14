@@ -1,3 +1,4 @@
+import { OrganizationNotExisteError } from '@/use-cases/errors/organizaton-not-exists-error'
 import { makeDonationPetUseCase } from '@/use-cases/factories/make-create-donation-pet-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -32,17 +33,24 @@ export async function registerDonationPet(
 
   const donationPetUseCase = makeDonationPetUseCase()
 
-  await donationPetUseCase.execute({
-    name,
-    age,
-    adopted,
-    city,
-    description,
-    images,
-    organizationId,
-    species,
-    state,
-  })
+  try {
+    await donationPetUseCase.execute({
+      name,
+      age,
+      adopted,
+      city,
+      description,
+      images,
+      organizationId,
+      species,
+      state,
+    })
+  } catch (error) {
+    if (error instanceof OrganizationNotExisteError) {
+      return reply.status(404).send({ message: error.message })
+    }
+    throw error
+  }
 
   return reply.status(201).send()
 }

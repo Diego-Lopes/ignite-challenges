@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable prettier/prettier */
 import { OrganizationsRepository } from '@/repositories/organizations-interfaces-repository'
 import { hash } from 'bcryptjs'
@@ -35,7 +36,6 @@ export class RegisterUseCase {
     longitude,
     password,
     phone,
-    role,
     state,
     title,
     userName,
@@ -56,7 +56,6 @@ export class RegisterUseCase {
       longitude,
       password_hash,
       phone,
-      role,
       state,
       title,
       user_name: userName,
