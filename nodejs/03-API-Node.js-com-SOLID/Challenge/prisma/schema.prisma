@@ -13,18 +13,17 @@ datasource db {
 enum Role {
   ADMIN
   ORG
-  USER
 }
 
 model DonationPet {
   id            String    @id @default(uuid())
   name          String
   species       String
-  idade         Int
+  age           Int
   description   String?
   state         String
   city          String
-  adotado       Boolean   @default(false)
+  adopted       Boolean?  @default(false)
   created_at    DateTime  @default(now())
   date_donation DateTime?
   images        String[]

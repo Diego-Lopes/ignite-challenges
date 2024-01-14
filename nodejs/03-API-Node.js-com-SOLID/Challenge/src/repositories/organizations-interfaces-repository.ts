@@ -5,6 +5,8 @@ import { Organization, Prisma } from '@prisma/client'
  * Interface de métodos de organization.
  */
 export interface OrganizationsRepository {
+  findById(id: string): Promise<Organization | null>
   findByEmail(email: string): Promise<Organization | null>
   create(data: Prisma.OrganizationCreateInput): Promise<Organization>
+
 }

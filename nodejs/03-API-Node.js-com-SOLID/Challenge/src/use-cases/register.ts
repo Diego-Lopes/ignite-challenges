@@ -2,6 +2,7 @@
 import { OrganizationsRepository } from '@/repositories/organizations-interfaces-repository'
 import { hash } from 'bcryptjs'
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error'
+import { Organization } from '@prisma/client'
 
 interface RegisterUseCaseRequest {
   userName: string
@@ -15,6 +16,11 @@ interface RegisterUseCaseRequest {
   phone: string
   role: 'ADMIN' | 'ORG' | 'USER'
   state: string
+}
+
+// implementanto interface para teste unitário.
+interface RegisterUseCaseResponse {
+  organization: Organization
 }
 
 // inversão de dependencia e usamos interface para fazer imensão no prisma
@@ -33,7 +39,7 @@ export class RegisterUseCase {
     state,
     title,
     userName,
-  }: RegisterUseCaseRequest) {
+  }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
     const organizationWithSameEmail = await this.organizationsRepository.findByEmail(email)
@@ -42,7 +48,7 @@ export class RegisterUseCase {
       throw new OrganizationAlreadyExistsError()
     }
 
-    await this.organizationsRepository.create({
+    const organization = await this.organizationsRepository.create({
       city,
       description,
       email,
@@ -55,5 +61,10 @@ export class RegisterUseCase {
       title,
       user_name: userName,
     })
+
+
+    return {
+      organization,
+    }
   }
 }
