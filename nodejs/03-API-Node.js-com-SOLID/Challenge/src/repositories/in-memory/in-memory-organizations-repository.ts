@@ -1,5 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { Prisma, Organization, Role } from '@prisma/client'
 import { OrganizationsRepository } from '../organizations-interfaces-repository'
+import { OrganizationNotExisteError } from '@/use-cases/errors/organizaton-not-exists-error'
 
 export class InMemoryOrganizationsRepository
   implements OrganizationsRepository {
@@ -32,6 +34,16 @@ export class InMemoryOrganizationsRepository
 
     if (!organization) {
       return null
+    }
+
+    return organization
+  }
+
+  async findById(id: string) {
+    const organization = this.items.find((item) => item.id === id)
+
+    if (!organization) {
+      return new OrganizationNotExisteError()
     }
 
     return organization

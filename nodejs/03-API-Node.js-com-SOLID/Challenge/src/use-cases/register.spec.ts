@@ -56,7 +56,6 @@ describe('Register Use Case', () => {
     const OrganizationsRepository = new InMemoryOrganizationsRepository()
     const registerUseCase = new RegisterUseCase(OrganizationsRepository)
 
-
     await registerUseCase.execute({
       city: 'New York',
       description: 'New York',

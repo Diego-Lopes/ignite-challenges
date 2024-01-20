@@ -1,13 +1,11 @@
-import { DonationPet, Prisma } from "@prisma/client";
-import { DonationPetsRepository } from "../donation-pet-interfaces-repository";
-import { randomUUID } from "node:crypto";
+import { DonationPet, Prisma } from '@prisma/client'
+import { DonationPetsRepository } from '../donation-pet-interfaces-repository'
+import { randomUUID } from 'node:crypto'
 
 export class InMemoryDonationPetsRepository implements DonationPetsRepository {
-
   public items: DonationPet[] = []
 
-
-  create(data: Prisma.DonationPetCreateInput) {
+  create(data: Prisma.DonationPetUncheckedCreateInput): Promise<DonationPet> {
     const donationPet = {
       id: `${randomUUID()}`,
       name: data.name,
@@ -19,13 +17,12 @@ export class InMemoryDonationPetsRepository implements DonationPetsRepository {
       adopted: data.adopted ?? null,
       created_at: new Date(),
       date_donation: new Date() ?? null,
-      images: [data.images] ?? null,
-      organization_id: 'xxx'
+      images: data.images as string[],
+      organization_id: '5569',
     }
 
     this.items.push(donationPet)
-    return donationPet
+
+    return Promise.resolve(donationPet)
   }
-
-
 }
