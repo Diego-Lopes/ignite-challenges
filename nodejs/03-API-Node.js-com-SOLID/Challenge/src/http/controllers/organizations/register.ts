@@ -50,7 +50,7 @@ export async function registerORG(
     const organizationsRepository = new PrismaOrganizationsRepository()
     const registerUseCase = new RegisterUseCase(organizationsRepository)
 
-    await registerUseCase.execute({
+    const { organization } = await registerUseCase.execute({
       userName,
       password,
       title,
@@ -63,13 +63,13 @@ export async function registerORG(
       phone,
       role,
     })
+
+    return reply.status(201).send({ id: organization.id })
   } catch (error) {
     if (error instanceof OrganizationAlreadyExistsError) {
       return reply.status(409).send({ message: error.message })
     }
 
-    return reply.status(500).send({})
+    return reply.status(500).send()
   }
-
-  return reply.status(201).send()
 }

@@ -1,12 +1,14 @@
 import fastify from 'fastify'
-import { appRoutes } from './http/routes'
 import { ZodError } from 'zod'
 import { env } from './env'
+import { donationPetRoutes } from './http/controllers/donationPets/routes'
+import { organizationRoutes } from './http/controllers/organizations/routes'
 
 // criando a aplicação
 export const app = fastify()
 
-app.register(appRoutes)
+app.register(donationPetRoutes)
+app.register(organizationRoutes)
 
 // colocando error global troca o request para _, quando não estamos usando a variável.
 app.setErrorHandler((error, _request, reply) => {

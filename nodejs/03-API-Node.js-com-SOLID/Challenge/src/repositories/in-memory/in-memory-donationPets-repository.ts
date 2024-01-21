@@ -1,6 +1,7 @@
 import { DonationPet, Prisma } from '@prisma/client'
 import { DonationPetsRepository } from '../donation-pet-interfaces-repository'
 import { randomUUID } from 'node:crypto'
+import { NotExistDonationPetByCity } from '@/use-cases/errors/not-exists-donation-pet-by-city'
 
 export class InMemoryDonationPetsRepository implements DonationPetsRepository {
   public items: DonationPet[] = []
