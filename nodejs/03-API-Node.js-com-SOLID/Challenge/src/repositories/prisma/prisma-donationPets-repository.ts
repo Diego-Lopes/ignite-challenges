@@ -11,7 +11,7 @@ export class PrismaDonationPetsRepository implements DonationPetsRepository {
     return donationPet
   }
 
-  async findPetsByCity(city: string) {
+  async findAllDonationPetOfCity(city: string) {
     const donationPet = await prisma.donationPet.findMany({
       where: {
         city,

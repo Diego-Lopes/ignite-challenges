@@ -6,7 +6,7 @@ import { NotExistDonationPetByCity } from '@/use-cases/errors/not-exists-donatio
 export class InMemoryDonationPetsRepository implements DonationPetsRepository {
   public items: DonationPet[] = []
 
-  create(data: Prisma.DonationPetUncheckedCreateInput): Promise<DonationPet> {
+  create(data: Prisma.DonationPetUncheckedCreateInput) {
     const donationPet = {
       id: `${randomUUID()}`,
       name: data.name,
@@ -26,4 +26,17 @@ export class InMemoryDonationPetsRepository implements DonationPetsRepository {
 
     return Promise.resolve(donationPet)
   }
+
+  findAllDonationPetOfCity(city: string) {
+    const donationPets = this.items.filter(
+      (donationPet) => donationPet.city === city,
+    )
+
+    // console.log({ donationPets })
+
+    return Promise.resolve(donationPets)
+  }
 }
+/**
+ * Terminar de inserir a lógica de busaca em memoria, depois da missa.
+ */
