@@ -3,6 +3,7 @@
 import { DonationPetsRepository } from '@/repositories/donation-pet-interfaces-repository'
 import { DonationPet } from '@prisma/client'
 import { NotExistDonationPetByCity } from './errors/not-exists-donation-pet-by-city'
+import { NeedsACity } from './errors/needs-a-city'
 
 // entrada
 interface GetAllDonationPetOfCityUseCaseRequest {
@@ -20,6 +21,11 @@ export class GetAllDonationPetOfCityUseCase {
   async execute({
     city,
   }: GetAllDonationPetOfCityUseCaseRequest): Promise<GetAllDonationPetOfCityUseCaseResponse> {
+
+    if (!city) {
+      throw new NeedsACity()
+    }
+
     const donationPets = await this.donationPetsRepository.findAllDonationPetOfCity(city)
 
     if (donationPets.length === 0) {
