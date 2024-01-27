@@ -1,10 +1,21 @@
 import { DonationPet, Prisma } from '@prisma/client'
 import { DonationPetsRepository } from '../donation-pet-interfaces-repository'
 import { randomUUID } from 'node:crypto'
-import { NotExistDonationPetByCity } from '@/use-cases/errors/not-exists-donation-pet-by-city'
 
 export class InMemoryDonationPetsRepository implements DonationPetsRepository {
   public items: DonationPet[] = []
+
+  findAllDonationPetOfCharacteristic(q: string) {
+    const donationPets = this.items.filter((donationPets) => {
+      return donationPets.species === q
+    })
+
+    if (!donationPets) {
+      return null
+    }
+
+    return donationPets
+  }
 
   create(data: Prisma.DonationPetUncheckedCreateInput) {
     const donationPet = {
