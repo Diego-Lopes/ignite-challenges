@@ -30,4 +30,14 @@ export class PrismaDonationPetsRepository implements DonationPetsRepository {
 
     return donationPet
   }
+
+  async getUniqueDonationPet(id: string) {
+    const detailsDonationPet = await prisma.donationPet.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    return detailsDonationPet
+  }
 }

@@ -47,6 +47,12 @@ export class InMemoryDonationPetsRepository implements DonationPetsRepository {
 
     return Promise.resolve(donationPets)
   }
+
+  getUniqueDonationPet(id: string) {
+    const donationPet = this.items.find((obj) => obj.id === id)
+
+    return Promise.resolve(donationPet)
+  }
 }
 /**
  * Terminar de inserir a lógica de busaca em memoria, depois da missa.
