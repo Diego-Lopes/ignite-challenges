@@ -24,7 +24,16 @@ export async function authenticate(
       email,
     })
 
-    return reply.status(200).send({ id: organization.id })
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+        },
+      },
+    )
+
+    return reply.status(200).send({ token })
   } catch (error) {
     if (error instanceof InvalidCredentials) {
       return reply.status(400).send({ message: error.message })
