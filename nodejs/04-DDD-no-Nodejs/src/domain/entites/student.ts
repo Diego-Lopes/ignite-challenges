@@ -1,11 +1,24 @@
-import { randomUUID } from "node:crypto";
+import { Entity } from "../../core/entities/entity"
 
-export class Student {
-  public id: string
-  public name: string
+interface StudentProps {
+  name: string
+}
 
-  constructor(name: string, id?: string) {
-    this.name = name;
-    this.id = id ?? randomUUID()
-  }
+export class Student extends Entity<StudentProps> {
+  // public name: string
+
+  /**
+   * Como já temos o construtor na classe entiti o contrutor dessa classe 
+   * acaba sendo inútil.
+   */
+
+
+  // constructor(props: StudentProps, id?: string) {
+  //   /**
+  //   * quando estendemos uma classe é necessário o uso do super()
+  //   */
+  //   super(props, id)
+
+  //   // this.name = props.name
+  // }
 }
