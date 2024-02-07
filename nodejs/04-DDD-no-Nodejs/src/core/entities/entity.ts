@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto"
+import { UniqueEntityID } from "./unique-entity-id"
 
 /**
  * Podemos passar para Entity um generic props, que é basicamente
@@ -9,7 +10,7 @@ import { randomUUID } from "node:crypto"
 export class Entity<Props> {
   // private protege a variável, nosso caso não queremos que o id, seja mudado.
   // uma vez criado não pode ser modificado.
-  private _id: string
+  private _id: UniqueEntityID
 
   /**
    * Protected diferente de private ele pode ser acessado pela classe entity e 
@@ -28,6 +29,6 @@ export class Entity<Props> {
    */
   constructor(props: Props, id?: string) {
     this.props = props
-    this._id = id || randomUUID()
+    this._id = new UniqueEntityID(id)
   }
 }
