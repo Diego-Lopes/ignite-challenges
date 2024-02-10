@@ -1,5 +1,6 @@
 import { Entity } from "../../core/entities/entity";
 import { UniqueEntityID } from "../../core/entities/unique-entity-id";
+import { Optional } from "../../core/types/optinal";
 
 interface AnswerProps {
   authorId: UniqueEntityID
@@ -45,4 +46,22 @@ export class Answer extends Entity<AnswerProps> {
   //   // this.authorId = props.authorId
   //   // this.questionId = props.questionId
   // }
+
+  /**
+  * Abstraindo criação de entidade, vamos usar create para simular um contructor
+  * lá no arquivo entity em entities vamos deixar contructor de lá protegido, protected deixa
+  * chamar em outras classe usando new.
+  * 
+  * Usando static não precisamos usar constructor é só chamar ex.: Question.create()
+  * 
+  * @description Abstraindo criação de entidade
+  */
+  static create(props: Optional<AnswerProps, 'createdAt'>, id?: UniqueEntityID) {
+    const answer = new Answer({
+      ...props,
+      createdAt: new Date(),
+    }, id)
+
+    return answer
+  }
 }

@@ -27,8 +27,8 @@ export class Entity<Props> {
    * fácil de usar e como todos tem id opcional também fica fácil, então criando um constructor
    * ajuda nas criações de ids.
    */
-  constructor(props: Props, id?: string) {
+  protected constructor(props: Props, id?: UniqueEntityID) {
     this.props = props
-    this._id = new UniqueEntityID(id)
+    this._id = id ?? new UniqueEntityID()
   }
 }
