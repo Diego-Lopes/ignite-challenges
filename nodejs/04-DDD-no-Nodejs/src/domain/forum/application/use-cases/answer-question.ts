@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Answer } from '../entites/answer'
 import { AnswersRepository } from '../repositories/answers-repository'
+import { Answer } from '../../enterprise/entites/answer'
 
 interface AnswerQuestionUseCaseRequest {
   instructorId: string
