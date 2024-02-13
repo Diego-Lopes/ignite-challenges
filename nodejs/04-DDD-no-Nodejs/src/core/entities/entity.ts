@@ -1,5 +1,4 @@
-import { randomUUID } from "node:crypto"
-import { UniqueEntityID } from "./unique-entity-id"
+import { UniqueEntityID } from './unique-entity-id'
 
 /**
  * Podemos passar para Entity um generic props, que é basicamente
@@ -13,7 +12,7 @@ export class Entity<Props> {
   private _id: UniqueEntityID
 
   /**
-   * Protected diferente de private ele pode ser acessado pela classe entity e 
+   * Protected diferente de private ele pode ser acessado pela classe entity e
    * por que os estende, protected bem parecido orientação objeto.
    */
   protected props: Props

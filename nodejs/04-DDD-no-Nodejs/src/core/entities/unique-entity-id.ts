@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto"
+import { randomUUID } from 'node:crypto'
 
 /**
  * aqui vai ficar a lógica de crianção de randoUUID

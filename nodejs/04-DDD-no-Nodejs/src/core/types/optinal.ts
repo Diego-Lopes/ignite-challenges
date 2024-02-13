@@ -11,10 +11,10 @@
  *
  * Optional<Post, 'id' | 'email'>
  * ```
- * 
- * @description 
- * 
- * faz com que passamos quais propriedades deixamos opcionais, 
+ *
+ * @description
+ *
+ * faz com que passamos quais propriedades deixamos opcionais,
  * depois que passamos interface de referencia podemos escolher
  * qualquer um como opcional
  **/

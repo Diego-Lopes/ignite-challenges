@@ -1,8 +1,8 @@
-import { Slug } from "./value-objects/slug";
-import { Entity } from "@/core/entities/entity";
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { Optional } from "@/core/types/optinal";
-import dayjs from "dayjs";
+import { Slug } from './value-objects/slug'
+import { Entity } from '@/core/entities/entity'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Optional } from '@/core/types/optinal'
+import dayjs from 'dayjs'
 
 interface QuestionProps {
   authorId: UniqueEntityID
@@ -15,28 +15,33 @@ interface QuestionProps {
 }
 
 export class Question extends Entity<QuestionProps> {
-
   /**
    * Implementando os métodos Getters e Setters
    */
   get authorId() {
     return this.props.authorId
   }
+
   get bestAnswerId() {
     return this.props.bestAnswerId
   }
+
   get title() {
     return this.props.title
   }
+
   get content() {
     return this.props.content
   }
+
   get slug() {
     return this.props.slug
   }
+
   get createdAt() {
     return this.props.createdAt
   }
+
   get updatedAt() {
     return this.props.updatedAt
   }
@@ -45,16 +50,16 @@ export class Question extends Entity<QuestionProps> {
     return dayjs().diff(this.createdAt, 'days') <= 3
   }
 
-  //basicamento um resumo da resposta
+  // basicamento um resumo da resposta
   get excerpt() {
     return this.content.substring(0, 120).trimEnd().concat('...')
   }
 
   /**
-   * Para usar setters tem que fazer a seguinte pergunta, faz sentido 
+   * Para usar setters tem que fazer a seguinte pergunta, faz sentido
    * mudar o nome do criador da resposta? Faz sentido mudar a data de criação?
    * única coisa que faz sentido é mudar o conteúdo da resposta.
-   * e vamos também setar a data de modificação e chamar ele no content para dizer 
+   * e vamos também setar a data de modificação e chamar ele no content para dizer
    * quando foi alterado a resposta.
    */
 
@@ -89,7 +94,7 @@ export class Question extends Entity<QuestionProps> {
   // public authorId: string
 
   /**
-   * Como já temos o construtor na classe entiti o contrutor dessa classe 
+   * Como já temos o construtor na classe entiti o contrutor dessa classe
    * acaba sendo inútil.
    */
 
@@ -109,19 +114,23 @@ export class Question extends Entity<QuestionProps> {
    * Abstraindo criação de entidade, vamos usar create para simular um contructor
    * lá no arquivo entity em entities vamos deixar contructor de lá protegido, protected deixa
    * chamar em outras classe usando new.
-   * 
+   *
    * Usando static não precisamos usar constructor é só chamar ex.: Question.create()
-   * 
+   *
    * @description Abstraindo criação de entidade
    */
-  static create(props: Optional<QuestionProps, 'createdAt' | 'slug'>,
-    id?: UniqueEntityID
+  static create(
+    props: Optional<QuestionProps, 'createdAt' | 'slug'>,
+    id?: UniqueEntityID,
   ) {
-    const question = new Question({
-      ...props,
-      slug: props.slug ?? Slug.createFromText(props.title),
-      createdAt: new Date(),
-    }, id)
+    const question = new Question(
+      {
+        ...props,
+        slug: props.slug ?? Slug.createFromText(props.title),
+        createdAt: new Date(),
+      },
+      id,
+    )
 
     return question
   }
