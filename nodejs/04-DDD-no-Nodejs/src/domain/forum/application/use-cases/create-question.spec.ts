@@ -1,25 +1,36 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { AnswerQuestionUseCase } from './answer-question'
-import { AnswersRepository } from '../repositories/answers-repository'
-import { Answer } from '../../enterprise/entites/answer'
-import { QuestionRepository } from '../repositories/question-repository'
-import { Question } from '../../enterprise/entites/question'
 import { CreateQuestionUseCase } from './create-question'
+import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
 
-const fakeQuestionRepository: QuestionRepository = {
-  create: async function (question: Question): Promise<void> { },
-}
+// automatizando a criação
+let inMemoryQuestionRepository: InMemoryQuestionsRepository
+let sut: CreateQuestionUseCase
 
-test('Create a question', async () => {
-  const createQuestion = new CreateQuestionUseCase(fakeQuestionRepository)
+describe('Create Question', () => {
 
-  const { question } = await createQuestion.execute({
-    authorId: '1',
-    title: 'Nova pergunta',
-    content: 'Conteúdo da pergunta.',
+  beforeEach(() => {
+    // instanciando repositorio.
+    inMemoryQuestionRepository = new InMemoryQuestionsRepository()
+    sut = new CreateQuestionUseCase(inMemoryQuestionRepository)
   })
 
-  // toBeTruthy quer dizer que o objeto não pode ser null ou underfined
-  expect(question.id).toBeTruthy()
+  /**
+   * SUT
+   * Significa System Under Test
+   */
+
+  it('should be able to create a question', async () => {
+    const { question } = await sut.execute({
+      authorId: '1',
+      title: 'Nova pergunta',
+      content: 'Conteúdo da pergunta.',
+    })
+
+    // toBeTruthy quer dizer que o objeto não pode ser null ou underfined
+    expect(question.id).toBeTruthy()
+    expect(inMemoryQuestionRepository.items[0].id).toEqual(question.id)
+  })
 })
+
+

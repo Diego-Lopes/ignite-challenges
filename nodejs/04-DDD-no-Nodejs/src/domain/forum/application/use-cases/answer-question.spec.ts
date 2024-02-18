@@ -1,21 +1,36 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { AnswerQuestionUseCase } from './answer-question'
-import { AnswersRepository } from '../repositories/answers-repository'
-import { Answer } from '../../enterprise/entites/answer'
+import { InMemoryAnswersRepository } from 'test/repository/in-memory-answers'
 
-const fakeAnswersRepository: AnswersRepository = {
-  create: async function (answer: Answer): Promise<void> { },
-}
+// automatizando a criação
+let inMemoryAnswersRepository: InMemoryAnswersRepository
+let sut: AnswerQuestionUseCase
 
-test('Create an answer', async () => {
-  const answerQuestion = new AnswerQuestionUseCase(fakeAnswersRepository)
+describe('Create Answer', () => {
 
-  const answer = await answerQuestion.execute({
-    questionId: '1',
-    instructorId: '1',
-    content: 'Nova resposta',
+  beforeEach(() => {
+    // instanciando repositorio.
+    inMemoryAnswersRepository = new InMemoryAnswersRepository()
+    sut = new AnswerQuestionUseCase(inMemoryAnswersRepository)
   })
 
-  expect(answer.content).toEqual('Nova resposta')
+  /**
+   * SUT
+   * Significa System Under Test
+   */
+
+  it('should be able to create an answer', async () => {
+    const { answer } = await sut.execute({
+      questionId: '1',
+      instructorId: '1',
+      content: 'Conteúdo da resposta.'
+    })
+
+    // toBeTruthy quer dizer que o objeto não pode ser null ou underfined
+    expect(answer.id).toBeTruthy()
+    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer.id)
+  })
 })
+
+
