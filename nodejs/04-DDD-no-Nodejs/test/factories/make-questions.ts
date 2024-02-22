@@ -3,20 +3,26 @@ import {
   Question,
   QuestionProps,
 } from '@/domain/forum/enterprise/entites/question'
-import { Slug } from '@/domain/forum/enterprise/entites/value-objects/slug'
+import { faker } from '@faker-js/faker'
+
 /**
  * @param override Recebe os parâmetros de QuestionProps
  * @generator Partial Faz com que um Objeto tenha suas propriedade opicionais.
  * @returns
  */
-export function makeQuestion(override: Partial<QuestionProps> = {}) {
-  const question = Question.create({
-    authorId: new UniqueEntityID(),
-    title: 'Hora do Show',
-    slug: Slug.create('hora-do-show'),
-    content: 'Sou eu... Tiririca...',
-    ...override,
-  })
+export function makeQuestion(
+  override: Partial<QuestionProps> = {},
+  id?: UniqueEntityID,
+) {
+  const question = Question.create(
+    {
+      authorId: new UniqueEntityID(),
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
+      ...override,
+    },
+    id,
+  )
 
   return question
 }
