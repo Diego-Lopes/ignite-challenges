@@ -2,9 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug'
-import { Question } from '../../enterprise/entites/question'
+import { makeQuestion } from 'test/factories/make-questions'
 import { Slug } from '../../enterprise/entites/value-objects/slug'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 // automatizando a criação
 let inMemoryQuestionRepository: InMemoryQuestionsRepository
@@ -24,11 +23,8 @@ describe('Get Question By Slug', () => {
    */
 
   it('should be able to get a question by slug', async () => {
-    const newQuestion = Question.create({
-      authorId: new UniqueEntityID(),
-      title: 'test title',
-      slug: Slug.create('test-title'),
-      content: 'test dos testes'
+    const newQuestion = makeQuestion({
+      slug: Slug.create('test-title')
     })
 
     inMemoryQuestionRepository.create(newQuestion)
