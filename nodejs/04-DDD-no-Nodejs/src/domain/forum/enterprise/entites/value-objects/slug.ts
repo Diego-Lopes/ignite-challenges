@@ -12,8 +12,13 @@ export class Slug {
   // criando variável pública
   public value: string
 
-  constructor(value: string) {
+  private constructor(value: string) {
     this.value = value
+  }
+
+  // criando um método que retorna um novo slug usando Slug()
+  static create(slug: string) {
+    return new Slug(slug)
   }
 
   // criando método estático
