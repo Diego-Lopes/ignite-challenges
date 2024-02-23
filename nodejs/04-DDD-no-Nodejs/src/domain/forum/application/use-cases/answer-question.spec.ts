@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { InMemoryAnswersRepository } from 'test/repository/in-memory-answers-repository'
 import { AnswerQuestionUseCase } from './answer-question'
-import { InMemoryAnswersRepository } from 'test/repository/in-memory-answers'
 
 // automatizando a criação
 let inMemoryAnswersRepository: InMemoryAnswersRepository
