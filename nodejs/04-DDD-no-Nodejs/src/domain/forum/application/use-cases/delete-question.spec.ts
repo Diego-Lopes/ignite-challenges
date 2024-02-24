@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
+import { InMemoryQuestionsRepository } from 'test/repository/in-memory-questions-repository'
 import { makeQuestion } from 'test/factories/make-questions'
 import { DeleteQuestionUseCase } from './delete-question'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'

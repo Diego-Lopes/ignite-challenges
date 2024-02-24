@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CreateQuestionUseCase } from './create-question'
-import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
+import { InMemoryQuestionsRepository } from 'test/repository/in-memory-questions-repository'
 
 // automatizando a criação
 let inMemoryQuestionRepository: InMemoryQuestionsRepository
