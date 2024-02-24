@@ -9,4 +9,26 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     // simulando como estivessemos inserindo em uma tabela.
     this.items.push(answer)
   }
+
+  async delete(answer: Answer) {
+    // varias formas de deletar, vamos usar o index para remover do array.
+    const itemIndex = this.items.findIndex((item) => item.id === answer.id)
+
+    // removendo com splice
+    this.items.splice(itemIndex, 1)
+  }
+
+  async findById(id: string) {
+    /**
+     * Não conseguimos compara com UniqueEntityID,
+     * então vamos usar toString() que criamos na automação de id.
+     */
+    const answer = this.items.find((item) => item.id.toString() === id)
+
+    if (!answer) {
+      return null
+    }
+
+    return answer
+  }
 }
