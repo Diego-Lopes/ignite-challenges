@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { InMemoryQuestionsRepository } from 'test/repository/in-memory-questions-repository'
-import { makeQuestion } from 'test/factories/make-questions'
-import { DeleteQuestionUseCase } from './delete-question'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { InMemoryQuestionsRepository } from "test/repository/in-memory-question-repository"
+import { DeleteQuestionUseCase } from "./delete-question"
+import { makeQuestion } from "test/factories/make-questions"
+import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
 // automatizando a criação
 let inMemoryQuestionRepository: InMemoryQuestionsRepository
