@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { Question } from '../../enterprise/entites/question';
 import { QuestionsRepository } from '../repositories/question-repository';
 
 interface EditQuestionUseCaseRequest {
@@ -8,7 +9,10 @@ interface EditQuestionUseCaseRequest {
   content: string
 }
 
-interface EditQuestionUseCaseResponse { }
+interface EditQuestionUseCaseResponse {
+  // retornando a question editada.
+  question: Question
+}
 
 export class EditQuestionUseCase {
   constructor(private questionRepository: QuestionsRepository) { }
@@ -25,7 +29,7 @@ export class EditQuestionUseCase {
 
 
     if (!question) {
-      return new Error('Question not found.')
+      throw new Error('Question not found.')
     }
 
     if (authorId !== question.authorId.toString()) {
@@ -38,6 +42,8 @@ export class EditQuestionUseCase {
     // editar uma questão
     await this.questionRepository.save(question)
 
-    return {}
+    return {
+      question,
+    }
   }
 }
