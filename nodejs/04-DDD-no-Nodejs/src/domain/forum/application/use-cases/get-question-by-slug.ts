@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Question } from '../../enterprise/entites/question';
-import { QuestionRepository } from '../repositories/question-repository';
+import { QuestionsRepository } from '../repositories/question-repository';
 
 interface GetQuestionBySlugUseCaseRequest {
   slug: string
@@ -11,7 +11,7 @@ interface GetQuestionBySlugUseCaseResponse {
 }
 
 export class GetQuestionBySlugUseCase {
-  constructor(private questionRepository: QuestionRepository) { }
+  constructor(private questionRepository: QuestionsRepository) { }
 
   async execute({
     slug
