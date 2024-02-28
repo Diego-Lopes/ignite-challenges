@@ -1,9 +1,18 @@
+import { PaginationParams } from '@/core/repositories/pagination-params'
 import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
 import { Answer } from '@/domain/forum/enterprise/entites/answer'
 
 export class InMemoryAnswersRepository implements AnswersRepository {
   // uma variável que vai armazenar um array de respostas
   public items: Answer[] = []
+
+  async findManyByQuestionId(questionId: string, { page }: PaginationParams) {
+    const answers = this.items
+      .filter((item) => item.questionId.toString() === questionId)
+      .slice((page - 1) * 20, page * 20)
+
+    return answers
+  }
 
   async create(answer: Answer) {
     // simulando como estivessemos inserindo em uma tabela.
