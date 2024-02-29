@@ -1,7 +1,5 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { makeAnswer } from 'test/factories/make-answers'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
 import { makeQuestion } from 'test/factories/make-questions'
 import { InMemoryQuestionCommentsRepository } from 'test/repository/in-memory-question-comments-repository'
