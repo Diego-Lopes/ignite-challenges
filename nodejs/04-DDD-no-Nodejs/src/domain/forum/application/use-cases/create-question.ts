@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Question } from '../../enterprise/entites/question';
-import { QuestionRepository } from '../repositories/question-repository';
+import { QuestionsRepository } from '../repositories/question-repository';
 
 interface CreateQuestionUseCaseRequest {
   authorId: string
@@ -14,7 +14,7 @@ interface CreateQuestionUseCaseResponse {
 }
 
 export class CreateQuestionUseCase {
-  constructor(private questionRepository: QuestionRepository) { }
+  constructor(private questionRepository: QuestionsRepository) { }
 
   async execute({
     authorId, title, content
