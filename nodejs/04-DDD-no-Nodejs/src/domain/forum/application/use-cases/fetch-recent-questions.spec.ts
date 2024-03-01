@@ -5,15 +5,15 @@ import { makeQuestion } from 'test/factories/make-questions'
 import { FetchRecentQuestionsUseCase } from './fetch-recent-questions'
 
 // automatizando a criação
-let inMemoryQuestionRepository: InMemoryQuestionsRepository
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: FetchRecentQuestionsUseCase
 
 describe('Fetch Recent Questions', () => {
 
   beforeEach(() => {
     // instanciando repositorio.
-    inMemoryQuestionRepository = new InMemoryQuestionsRepository()
-    sut = new FetchRecentQuestionsUseCase(inMemoryQuestionRepository)
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
+    sut = new FetchRecentQuestionsUseCase(inMemoryQuestionsRepository)
   })
 
   /**
@@ -22,13 +22,13 @@ describe('Fetch Recent Questions', () => {
    */
 
   it('should be able to fetch recent questions', async () => {
-    await inMemoryQuestionRepository.create(makeQuestion({
+    await inMemoryQuestionsRepository.create(makeQuestion({
       createdAt: new Date(2022, 0, 20)
     }))
-    await inMemoryQuestionRepository.create(makeQuestion({
+    await inMemoryQuestionsRepository.create(makeQuestion({
       createdAt: new Date(2022, 0, 18)
     }))
-    await inMemoryQuestionRepository.create(makeQuestion({
+    await inMemoryQuestionsRepository.create(makeQuestion({
       createdAt: new Date(2022, 0, 23)
     }))
 
@@ -48,7 +48,7 @@ describe('Fetch Recent Questions', () => {
 
     // validando paginação
     for (let i = 1; i <= 22; i++) {
-      await inMemoryQuestionRepository.create(makeQuestion())
+      await inMemoryQuestionsRepository.create(makeQuestion())
     }
 
     const { questions } = await sut.execute({
