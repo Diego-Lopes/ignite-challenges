@@ -20,7 +20,7 @@
  *
  */
 // error
-export class Left<L> {
+export class Left<L, R> {
   /**
    * @description readonly não pode ser alterada após sua inicialização.
    */
@@ -29,10 +29,21 @@ export class Left<L> {
   constructor(value: L) {
     this.value = value
   }
+
+  // inserindo métodos auxiliares
+  // : this is é um rack do typescript para inferir uma tipagem
+  // quando usamos com if(){} consegue entender automáticamento o tipo
+  isRight(): this is Right<L, R> {
+    return false
+  }
+
+  isLeft(): this is Left<L, R> {
+    return true
+  }
 }
 
 // success
-export class Right<R> {
+export class Right<L, R> {
   /**
    * @description readonly não pode ser alterada após sua inicialização.
    */
@@ -41,12 +52,23 @@ export class Right<R> {
   constructor(value: R) {
     this.value = value
   }
+
+  // inserindo métodos auxiliares
+  // : this is é um rack do typescript para inferir uma tipagem
+  // quando usamos com if(){} consegue entender automáticamento o tipo
+  isRight(): this is Right<L, R> {
+    return true
+  }
+
+  isLeft(): this is Left<L, R> {
+    return false
+  }
 }
 
 /**
  * Agora vamos trabalhar com a tipagem para defenimos um ou outro.
  */
-export type Either<L, R> = Left<L> | Right<R>
+export type Either<L, R> = Left<L, R> | Right<L, R>
 
 // aqui é criações de funções para automatizar classe acima.
 // <>():T<> => {} genérico na frente arrow function chamase inferir, existe no typescript, aqui usamos para automatizar.
