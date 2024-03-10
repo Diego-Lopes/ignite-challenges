@@ -4,34 +4,36 @@
  * e quanto get ele usa para quando é retorno único.
  */
 
-/* eslint-disable prettier/prettier */
-import { QuestionComment } from '../../enterprise/entites/question-comment';
-import { QuestionCommentsRepository } from '../repositories/question-comments-repository';
+import { Either, right } from '@/core/either'
+import { QuestionComment } from '../../enterprise/entites/question-comment'
+import { QuestionCommentsRepository } from '../repositories/question-comments-repository'
 
 interface FetchQuestionCommentsUseCaseRequest {
   questionId: string
   page: number
 }
 
-interface FetchQuestionCommentsUseCaseResponse {
-  questionComments: QuestionComment[]
-}
+type FetchQuestionCommentsUseCaseResponse = Either<
+  null,
+  {
+    questionComments: QuestionComment[]
+  }
+>
 
 export class FetchQuestionCommentsUseCase {
-  constructor(private questionCommentsRepository: QuestionCommentsRepository) { }
+  constructor(private questionCommentsRepository: QuestionCommentsRepository) {}
 
   async execute({
     questionId,
-    page
+    page,
   }: FetchQuestionCommentsUseCaseRequest): Promise<FetchQuestionCommentsUseCaseResponse> {
     const questionComments =
       await this.questionCommentsRepository.findManyByQuestionId(questionId, {
         page,
       })
 
-
-    return {
+    return right({
       questionComments,
-    }
+    })
   }
 }

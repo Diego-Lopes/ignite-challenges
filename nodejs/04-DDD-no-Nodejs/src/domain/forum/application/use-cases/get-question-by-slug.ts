@@ -1,20 +1,24 @@
-/* eslint-disable prettier/prettier */
-import { Question } from '../../enterprise/entites/question';
-import { QuestionsRepository } from '../repositories/question-repository';
+import { Either, left, right } from '@/core/either'
+import { Question } from '../../enterprise/entites/question'
+import { QuestionsRepository } from '../repositories/question-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface GetQuestionBySlugUseCaseRequest {
   slug: string
 }
 
-interface GetQuestionBySlugUseCaseResponse {
-  question: Question
-}
+type GetQuestionBySlugUseCaseResponse = Either<
+  ResourceNotFoundError,
+  {
+    question: Question
+  }
+>
 
 export class GetQuestionBySlugUseCase {
-  constructor(private questionRepository: QuestionsRepository) { }
+  constructor(private questionRepository: QuestionsRepository) {}
 
   async execute({
-    slug
+    slug,
   }: GetQuestionBySlugUseCaseRequest): Promise<GetQuestionBySlugUseCaseResponse> {
     const question = await this.questionRepository.findBySlug(slug)
 
@@ -22,11 +26,11 @@ export class GetQuestionBySlugUseCase {
      * Como pedoemos retornar nulo devemos fazer uma tratativa de erro.
      */
     if (!question) {
-      throw new Error('Question not found.')
+      return left(new ResourceNotFoundError())
     }
 
-    return {
+    return right({
       question,
-    }
+    })
   }
 }

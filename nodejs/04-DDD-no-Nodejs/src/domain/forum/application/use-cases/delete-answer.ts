@@ -1,37 +1,39 @@
-/* eslint-disable prettier/prettier */
-
-import { AnswersRepository } from "../repositories/answers-repository"
+import { Either, left, right } from '@/core/either'
+import { AnswersRepository } from '../repositories/answers-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 interface DeleteAnswerUseCaseRequest {
   authorId: string
   answerId: string
 }
 
-interface DeleteAnswerUseCaseResponse { }
+type DeleteAnswerUseCaseResponse = Either<
+  ResourceNotFoundError | NotAllowedError,
+  {}
+>
 
 export class DeleteAnswerUseCase {
-  constructor(private answerRepository: AnswersRepository) { }
+  constructor(private answerRepository: AnswersRepository) {}
 
   async execute({
     authorId,
-    answerId
+    answerId,
   }: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse> {
-
     // pesquisando para verificar se existe a pergunda informada.
     const answer = await this.answerRepository.findById(answerId)
 
-
     if (!answer) {
-      return new Error('Answer not found.')
+      return left(new ResourceNotFoundError())
     }
 
     if (authorId !== answer.authorId.toString()) {
-      throw new Error('Not allowed.')
+      return left(new NotAllowedError())
     }
 
     // deletear uma questão
     await this.answerRepository.delete(answer)
 
-    return {}
+    return right({})
   }
 }
