@@ -27,15 +27,20 @@ describe('Get Question By Slug', () => {
       slug: Slug.create('test-title')
     })
 
-    inMemoryQuestionRepository.create(newQuestion)
+    await inMemoryQuestionRepository.create(newQuestion)
 
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       slug: 'test-title'
     })
 
     // toBeTruthy quer dizer que o objeto não pode ser null ou underfined
-    expect(question.id).toBeTruthy()
-    expect(question.title).toEqual(newQuestion.title)
+    // expect(result.value?.question.id).toBeTruthy()
+    // expect(result.value?.question.title).toEqual(newQuestion.title)
+    expect(result.isRight()).toBe(true)
+
+    if (result.isRight()) {
+      expect(result.value.question.title).toEqual(newQuestion.title)
+    }
   })
 })
 

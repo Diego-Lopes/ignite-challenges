@@ -3,6 +3,7 @@ import { InMemoryQuestionCommentsRepository } from 'test/repository/in-memory-qu
 import { DeleteQuestionCommentUseCase } from './delete-question-comment'
 import { makeQuestionComment } from 'test/factories/make-question-comment'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 // automatizando a criação
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
@@ -44,11 +45,19 @@ describe('Delete Question Comment', () => {
     // salvando question e answer em memoria.
     await inMemoryQuestionCommentsRepository.create(questionComment)
 
-    expect(() => {
-      return sut.execute({
-        questionCommentId: questionComment.id.toString(),
-        authorId: 'author-2',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    // expect(() => {
+    //   return sut.execute({
+    //     questionCommentId: questionComment.id.toString(),
+    //     authorId: 'author-2',
+    //   })
+    // }).rejects.toBeInstanceOf(Error)
+
+    const result = await sut.execute({
+      questionCommentId: questionComment.id.toString(),
+      authorId: 'author-2',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

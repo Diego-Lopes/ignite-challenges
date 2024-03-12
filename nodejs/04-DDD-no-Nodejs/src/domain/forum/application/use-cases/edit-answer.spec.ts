@@ -4,6 +4,7 @@ import { InMemoryAnswersRepository } from "test/repository/in-memory-answers-rep
 import { EditAnswerUseCase } from "./edit-answer"
 import { makeAnswer } from "test/factories/make-answers"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+import { NotAllowedError } from "./errors/not-allowed-error"
 
 // automatizando a criação
 let inMemoryAnswerRepository: InMemoryAnswersRepository
@@ -67,14 +68,22 @@ describe('Edit Answer', () => {
      * Esperado é rejeitar o comando de deletar quando o authorId
      * não é igual da questão a ser deletada.
      */
-    expect(() => {
-      return sut.execute({
-        answerId: newAnswer.id.toValue(),
-        authorId: 'author-2',
-        content: 'Conteúdo test 1'
-      })
-    }).rejects.toBeInstanceOf(Error)
+    // expect(() => {
+    //   return sut.execute({
+    //     answerId: newAnswer.id.toValue(),
+    //     authorId: 'author-2',
+    //     content: 'Conteúdo test 1'
+    //   })
+    // }).rejects.toBeInstanceOf(Error)
 
+    const result = await sut.execute({
+      answerId: newAnswer.id.toValue(),
+      authorId: 'author-2',
+      content: 'Conteúdo test 1'
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })
 

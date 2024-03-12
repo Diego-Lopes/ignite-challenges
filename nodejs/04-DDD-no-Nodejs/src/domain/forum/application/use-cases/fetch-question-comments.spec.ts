@@ -33,13 +33,13 @@ describe('Fetch Questions Comments', () => {
       { questionId: new UniqueEntityID('question-1') }
     ))
 
-    const { questionComments } = await sut.execute({
+    const result = await sut.execute({
       questionId: 'question-1',
       page: 1
     })
 
     // eu espero que tenha um array com 3 itens
-    expect(questionComments).toHaveLength(3)
+    expect(result.value?.questionComments).toHaveLength(3)
 
   })
 
@@ -52,13 +52,13 @@ describe('Fetch Questions Comments', () => {
       ))
     }
 
-    const { questionComments } = await sut.execute({
+    const result = await sut.execute({
       questionId: 'question-1',
       page: 2
     })
 
     // espero que na pagina 2, apenas 2 itens
-    expect(questionComments).toHaveLength(2)
+    expect(result.value?.questionComments).toHaveLength(2)
 
   })
 })
