@@ -6,7 +6,7 @@ import { UniqueEntityID } from './unique-entity-id'
  * pode ser representado por qualquer nome entre maior que e menor que, mas para
  * uso de estudo vamos deixa semântica.
  */
-export class Entity<Props> {
+export abstract class Entity<Props> {
   // private protege a variável, nosso caso não queremos que o id, seja mudado.
   // uma vez criado não pode ser modificado.
   private _id: UniqueEntityID
