@@ -7,7 +7,7 @@ interface QuestionAttachmentProps {
   attachmentId: UniqueEntityID
 }
 
-export class QuestionAttachement extends Entity<QuestionAttachmentProps> {
+export class QuestionAttachment extends Entity<QuestionAttachmentProps> {
   get questionId() {
     return this.props.questionId
   }
@@ -17,7 +17,7 @@ export class QuestionAttachement extends Entity<QuestionAttachmentProps> {
   }
 
   static create(props: QuestionAttachmentProps, id?: UniqueEntityID) {
-    const attachment = new QuestionAttachement(props, id)
+    const attachment = new QuestionAttachment(props, id)
 
     return attachment
   }

@@ -38,10 +38,10 @@ describe('Create Question', () => {
     // testando attachments
 
     // testando se no array há dois elementos
-    expect(inMemoryQuestionRepository.items[0].attachments).toHaveLength(2)
+    expect(inMemoryQuestionRepository.items[0].attachments.currentItems).toHaveLength(2)
 
     // testando se no array de elementos existe os ids inseridos no teste.
-    expect(inMemoryQuestionRepository.items[0].attachments).toEqual([
+    expect(inMemoryQuestionRepository.items[0].attachments.currentItems).toEqual([
       expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
       expect.objectContaining({ attachmentId: new UniqueEntityID('2') })
     ])
