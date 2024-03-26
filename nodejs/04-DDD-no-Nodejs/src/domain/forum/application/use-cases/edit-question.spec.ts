@@ -1,21 +1,26 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { InMemoryQuestionsRepository } from "test/repository/in-memory-question-repository"
-import { EditQuestionUseCase } from "./edit-question"
-import { makeQuestion } from "test/factories/make-questions"
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-import { NotAllowedError } from "./errors/not-allowed-error"
+import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
+import { EditQuestionUseCase } from './edit-question'
+import { makeQuestion } from 'test/factories/make-questions'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { NotAllowedError } from './errors/not-allowed-error'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repository/in-memory-question-attachments-repository'
+import { makeQuestionAttachment } from 'test/factories/make-question-attachments'
 
 // automatizando a criação
-let inMemoryQuestionRepository: InMemoryQuestionsRepository
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let sut: EditQuestionUseCase
 
 describe('Edit Question', () => {
-
   beforeEach(() => {
     // instanciando repositorio.
-    inMemoryQuestionRepository = new InMemoryQuestionsRepository()
-    sut = new EditQuestionUseCase(inMemoryQuestionRepository)
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentsRepository()
+    sut = new EditQuestionUseCase(
+      inMemoryQuestionsRepository,
+      inMemoryQuestionAttachmentsRepository,
+    )
   })
 
   /**
@@ -24,47 +29,75 @@ describe('Edit Question', () => {
    */
 
   it('should be able to edit a question', async () => {
-
     /**
-     * Deixamos gerar os valores automáticamente na criação e, 
-     * só no segundo parâmetro que passamos um id 
+     * Deixamos gerar os valores automáticamente na criação e,
+     * só no segundo parâmetro que passamos um id
      * para fazer o teste.
      */
-    const newQuestion = makeQuestion({
-      authorId: new UniqueEntityID('author-1')
-    }, new UniqueEntityID('question-1'))
+    const newQuestion = makeQuestion(
+      {
+        authorId: new UniqueEntityID('author-1'),
+      },
+      new UniqueEntityID('question-1'),
+    )
 
-    inMemoryQuestionRepository.create(newQuestion)
+    await inMemoryQuestionsRepository.create(newQuestion)
+
+    inMemoryQuestionAttachmentsRepository.items.push(
+      makeQuestionAttachment({
+        questionId: newQuestion.id,
+        attachmentId: new UniqueEntityID('1'),
+      }),
+      makeQuestionAttachment({
+        questionId: newQuestion.id,
+        attachmentId: new UniqueEntityID('2'),
+      }),
+    )
 
     await sut.execute({
       questionId: newQuestion.id.toValue(),
       authorId: 'author-1',
       title: 'Pergunta-test 1',
-      content: 'Conteúdo test 1'
+      content: 'Conteúdo test 1',
+      attachmentsIds: ['1', '3'],
     })
 
     /**
-     * como nosso função não devolve nada, devemos ir lá no items array 
+     * como nosso função não devolve nada, devemos ir lá no items array
      * e vericar se foi deletado com sucesso.
      */
-    expect(inMemoryQuestionRepository.items[0]).toMatchObject({
+    expect(inMemoryQuestionsRepository.items[0]).toMatchObject({
       title: 'Pergunta-test 1',
-      content: 'Conteúdo test 1'
+      content: 'Conteúdo test 1',
     })
+    // testando se no array há dois elementos
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
 
+    // testando se no array de elementos existe os ids inseridos no teste.
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+    ).toEqual([
+      expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
+      expect.objectContaining({ attachmentId: new UniqueEntityID('3') }),
+    ])
   })
-  it('should not be able to edit a question from another user', async () => {
 
+  it('should not be able to edit a question from another user', async () => {
     /**
-     * Deixamos gerar os valores automáticamente na criação e, 
-     * só no segundo parâmetro que passamos um id 
+     * Deixamos gerar os valores automáticamente na criação e,
+     * só no segundo parâmetro que passamos um id
      * para fazer o teste.
      */
-    const newQuestion = makeQuestion({
-      authorId: new UniqueEntityID('author-1')
-    }, new UniqueEntityID('question-1'))
+    const newQuestion = makeQuestion(
+      {
+        authorId: new UniqueEntityID('author-1'),
+      },
+      new UniqueEntityID('question-1'),
+    )
 
-    inMemoryQuestionRepository.create(newQuestion)
+    inMemoryQuestionsRepository.create(newQuestion)
 
     /**
      * Esperado é rejeitar o comando de deletar quando o authorId
@@ -83,13 +116,11 @@ describe('Edit Question', () => {
       questionId: newQuestion.id.toValue(),
       authorId: 'author-2',
       title: 'Pergunta-test 1',
-      content: 'Conteúdo test 1'
+      content: 'Conteúdo test 1',
+      attachmentsIds: [],
     })
 
     expect(result.isLeft()).toBe(true)
     expect(result.value).toBeInstanceOf(NotAllowedError)
-
   })
 })
-
-
