@@ -1,18 +1,22 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { CreateQuestionUseCase } from './create-question'
 import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repository/in-memory-question-attachments-repository'
 
 // automatizando a criação
 let inMemoryQuestionRepository: InMemoryQuestionsRepository
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let sut: CreateQuestionUseCase
 
 describe('Create Question', () => {
-
   beforeEach(() => {
+    inMemoryQuestionAttachmentsRepository =
+      new InMemoryQuestionAttachmentsRepository()
     // instanciando repositorio.
-    inMemoryQuestionRepository = new InMemoryQuestionsRepository()
+    inMemoryQuestionRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
     sut = new CreateQuestionUseCase(inMemoryQuestionRepository)
   })
 
@@ -26,7 +30,7 @@ describe('Create Question', () => {
       authorId: '1',
       title: 'Nova pergunta',
       content: 'Conteúdo da pergunta.',
-      attachmentsIds: ['1', '2']
+      attachmentsIds: ['1', '2'],
     })
 
     // toBeTruthy quer dizer que o objeto não pode ser null ou underfined
@@ -38,16 +42,16 @@ describe('Create Question', () => {
     // testando attachments
 
     // testando se no array há dois elementos
-    expect(inMemoryQuestionRepository.items[0].attachments.currentItems).toHaveLength(2)
+    expect(
+      inMemoryQuestionRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
 
     // testando se no array de elementos existe os ids inseridos no teste.
-    expect(inMemoryQuestionRepository.items[0].attachments.currentItems).toEqual([
+    expect(
+      inMemoryQuestionRepository.items[0].attachments.currentItems,
+    ).toEqual([
       expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
-      expect.objectContaining({ attachmentId: new UniqueEntityID('2') })
+      expect.objectContaining({ attachmentId: new UniqueEntityID('2') }),
     ])
-
-
   })
 })
-
-
