@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { InMemoryAnswersRepository } from 'test/repository/in-memory-answers-repository'
-import { makeAnswer } from 'test/factories/make-answers'
-import { DeleteAnswerUseCase } from './delete-answer'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
+import { makeAnswer } from 'test/factories/make-answers'
+import { makeQuestion } from 'test/factories/make-questions'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repository/in-memory-answer-attachments-repository'
+import { InMemoryAnswersRepository } from 'test/repository/in-memory-answers-repository'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repository/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
 import { ChooseQuestionBestAnswerUseCase } from './choose-question-best-answer'
-import { makeQuestion } from 'test/factories/make-questions'
-import { NotAllowedError } from './errors/not-allowed-error'
-import { InMemoryAnswerAttachmentsRepository } from 'test/repository/in-memory-answer-attachments-repository'
-import { InMemoryQuestionAttachmentsRepository } from 'test/repository/in-memory-question-attachments-repository'
 
 // automatizando a criação
 let inMemoryQuestionRepository: InMemoryQuestionsRepository

@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { AnswerCommentsRepository } from '../repositories/answer-comments-repository';
-import { AnswerComment } from '../../enterprise/entites/answer-comment';
-import { AnswersRepository } from '../repositories/answers-repository';
 import { Either, left, right } from '@/core/either';
-import { ResourceNotFoundError } from './errors/resource-not-found-error';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
+import { AnswerComment } from '../../enterprise/entites/answer-comment';
+import { AnswerCommentsRepository } from '../repositories/answer-comments-repository';
+import { AnswersRepository } from '../repositories/answers-repository';
 
 interface CommentOnAnswerUseCaseRequest {
   authorId: string

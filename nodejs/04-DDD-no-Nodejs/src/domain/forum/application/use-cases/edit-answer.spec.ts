@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
+import { makeAnswerAttachment } from 'test/factories/make-answer-attachment'
+import { makeAnswer } from 'test/factories/make-answers'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repository/in-memory-answer-attachments-repository'
 import { InMemoryAnswersRepository } from 'test/repository/in-memory-answers-repository'
 import { EditAnswerUseCase } from './edit-answer'
-import { makeAnswer } from 'test/factories/make-answers'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { NotAllowedError } from './errors/not-allowed-error'
-import { InMemoryAnswerAttachmentsRepository } from 'test/repository/in-memory-answer-attachments-repository'
-import { makeAnswerAttachment } from 'test/factories/make-answer-attachment'
 
 // automatizando a criação
 let inMemoryAnswersRepository: InMemoryAnswersRepository

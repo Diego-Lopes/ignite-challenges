@@ -1,10 +1,10 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
+import { makeQuestionAttachment } from 'test/factories/make-question-attachments'
+import { makeQuestion } from 'test/factories/make-questions'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repository/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
 import { EditQuestionUseCase } from './edit-question'
-import { makeQuestion } from 'test/factories/make-questions'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { NotAllowedError } from './errors/not-allowed-error'
-import { InMemoryQuestionAttachmentsRepository } from 'test/repository/in-memory-question-attachments-repository'
-import { makeQuestionAttachment } from 'test/factories/make-question-attachments'
 
 // automatizando a criação
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
