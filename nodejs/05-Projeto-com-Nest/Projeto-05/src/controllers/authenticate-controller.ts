@@ -1,25 +1,58 @@
-import { Controller, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Post,
+  UnauthorizedException,
+  UsePipes,
+} from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
+import { compare } from 'bcryptjs'
+import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
+import { PrismaService } from 'src/prisma/prisma.service'
+import { z } from 'zod'
 
-// const createAccountBodySchema = z.object({
-//   name: z.string(),
-//   email: z.string().email(),
-//   password: z.string().min(6),
-// })
+const authenticateBodySchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+})
 
-// type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
+type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 
 @Controller('/sessions')
 export class AuthenticateController {
-  constructor(private jwt: JwtService) { }
+  constructor(
+    private prisma: PrismaService,
+    private jwt: JwtService,
+  ) { }
 
   @Post()
-  // @HttpCode(201) // podemos forçar um tipo de http code
-  // @UsePipes(new ZodValidationPipe(createAccountBodySchema)) // UsePipes é um midelware que intercepta e valida os dados com zod.
-  async handle() {
-    const token = this.jwt.sign({
-      sub: 'Diegones',
+  @UsePipes(new ZodValidationPipe(authenticateBodySchema)) // UsePipes é um midelware que intercepta e valida os dados com zod.
+  async handle(@Body() body: AuthenticateBodySchema) {
+    // chamando o body e tipando.
+    const { email, password } = body
+
+    // vazendo uma busca no user se existe.
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email,
+      },
     })
-    return token
+
+    if (!user) {
+      throw new UnauthorizedException('User credentials do not match.') // UnauthorizedException representa o http code 401
+    }
+
+    const isPasswordValid = await compare(password, user.password)
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('User credentials do not match.') // UnauthorizedException representa o http code 401
+    }
+
+    const accessToken = this.jwt.sign({
+      sub: user.id,
+    })
+    return {
+      access_token: accessToken, // diz o diego que fica mais legalzinho no frontend kkk
+    }
   }
 }
