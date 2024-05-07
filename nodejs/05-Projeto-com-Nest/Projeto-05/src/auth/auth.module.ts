@@ -3,11 +3,14 @@ import { ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { Env } from 'src/env'
+import { JwtStrategy } from './jwt.strategy'
 
 /**
  * para funcionar esse módulo tem que instalar 2 bibliotecas
  * @nestjs/passport e @nest/jwt
  */
+
+// aqui é configuração global da aplicação.
 
 @Module({
   imports: [
@@ -27,5 +30,6 @@ import { Env } from 'src/env'
       },
     }),
   ],
+  providers: [JwtStrategy], // passando a class jwt.strategy para ser reconhecida.
 })
 export class AuthModule { }
