@@ -5,11 +5,11 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { Env } from 'src/env'
 import { z } from 'zod'
 
-const tokenSchema = z.object({
+const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
 })
 
-type TokenSchema = z.infer<typeof tokenSchema>
+export type UserPayload = z.infer<typeof tokenPayloadSchema>
 
 // Quando usa injectable significa que ele está em um provider, no nest quanod está em provider tem que usar Injectable para injeção de arquivo.
 @Injectable()
@@ -29,7 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   // criando um método com foco de validar as informações do token
   // validar as informações do sub do token com as informações necessárias para o token ter.
-  async validate(payload: TokenSchema) {
-    return tokenSchema.parse(payload)
+  async validate(payload: UserPayload) {
+    return tokenPayloadSchema.parse(payload)
   }
 }
