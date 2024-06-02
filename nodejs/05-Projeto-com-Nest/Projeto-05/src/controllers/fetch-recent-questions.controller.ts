@@ -29,7 +29,7 @@ export class FetchRecentQuestionsController {
   @Get()
   async handle(@Query('page', queryValidationPipe) page: PageQueryParamSchema) {
     // busca os dados do usuário autenticado.
-    const parPage = 1
+    const parPage = 20
     const questions = await this.prisma.question.findMany({
       take: parPage,
       skip: (page - 1) * parPage, // ele pula o número de registro necessário para mostra na próxima pagina.
