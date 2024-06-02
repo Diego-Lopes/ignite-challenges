@@ -31,7 +31,7 @@ beforeAll(async () => {
   // deploy ele não le as migration do projeto e sim o que já está no banco.
   execSync('npx prisma migrate deploy')
 
-  console.log(databaseURL)
+  // console.log(databaseURL)
 })
 
 // Roda depois dos testes
@@ -39,5 +39,5 @@ afterAll(async () => {
   // após o teste precisamo deletar o schema criado.
   await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`)
   await prisma.$disconnect()
-  console.log('depois')
+  // console.log('depois')
 })
