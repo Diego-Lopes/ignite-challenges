@@ -24,4 +24,4 @@ import { PrismaService } from './prisma/prisma.service'
   ],
   providers: [PrismaService],
 })
-export class AppModule { }
+export class AppModule {}

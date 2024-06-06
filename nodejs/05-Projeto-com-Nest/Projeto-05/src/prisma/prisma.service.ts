@@ -4,7 +4,8 @@ import { PrismaClient } from '@prisma/client'
 @Injectable() // usando isso faz com que possa ser utilizado em outras parte da aplicação.
 export class PrismaService
   extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy {
+  implements OnModuleInit, OnModuleDestroy
+{
   // remova a extends para usar a função base abaixo.
   // fazendo a conexão ao banco de dados.
   // public client: PrismaClient

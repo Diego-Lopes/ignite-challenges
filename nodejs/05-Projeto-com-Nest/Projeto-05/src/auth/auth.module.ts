@@ -32,4 +32,4 @@ import { JwtStrategy } from './jwt.strategy'
   ],
   providers: [JwtStrategy], // passando a class jwt.strategy para ser reconhecida.
 })
-export class AuthModule { }
+export class AuthModule {}

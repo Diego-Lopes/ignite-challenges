@@ -4,7 +4,7 @@ import {
   Controller,
   Post,
   UnauthorizedException,
-  UsePipes
+  UsePipes,
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { compare } from 'bcryptjs'
@@ -23,7 +23,7 @@ export class AuthenticateController {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
-  ) { }
+  ) {}
 
   @Post()
   @UsePipes(new ZodValidationPipe(authenticateBodySchema)) // UsePipes é um midelware que intercepta e valida os dados com zod.
