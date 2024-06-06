@@ -1,4 +1,4 @@
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaService } from '@/infra/prisma/prisma.service'
 import {
   Body,
   Controller,
@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { compare } from 'bcryptjs'
-import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { z } from 'zod'
+import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 
 const authenticateBodySchema = z.object({
   email: z.string().email(),
@@ -23,7 +23,7 @@ export class AuthenticateController {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
-  ) {}
+  ) { }
 
   @Post()
   @UsePipes(new ZodValidationPipe(authenticateBodySchema)) // UsePipes é um midelware que intercepta e valida os dados com zod.

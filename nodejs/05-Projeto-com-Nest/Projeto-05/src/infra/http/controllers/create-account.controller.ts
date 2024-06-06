@@ -1,4 +1,4 @@
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaService } from '@/infra/prisma/prisma.service'
 import {
   Body,
   ConflictException,
@@ -8,8 +8,8 @@ import {
   UsePipes,
 } from '@nestjs/common'
 import { hash } from 'bcryptjs'
-import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { z } from 'zod'
+import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 
 const createAccountBodySchema = z.object({
   name: z.string(),
@@ -21,7 +21,7 @@ type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
 
 @Controller('/accounts')
 export class CreateAccountController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   @Post()
   @HttpCode(201) // podemos forçar um tipo de http code
