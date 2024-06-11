@@ -13,30 +13,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+}
 
-  questions Question[]
+model User {
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole @default(STUDENT) // criando permissões.
+
+  questions Question[] //relacionamento inverso 
+  answers   Answer[] //relacionamento inverso
 
   //renomeando o nome da tabela para lowcase
   @@map("users")
 }
 
 model Question {
-  id        String    @id @default(uuid())
-  title     String
-  slug      String    @unique
-  content   String
-  createdAt DateTime  @default(now()) @map("created_at") //renomeando coluna da tabela.
-  updatedAt DateTime? @updatedAt @map("updated_at") //fazendo o prisma preencher automáticamente
-  authorId  String    @map("author_id")
+  id           String    @id @default(uuid())
+  title        String
+  slug         String    @unique
+  content      String
+  createdAt    DateTime  @default(now()) @map("created_at") //renomeando coluna da tabela.
+  updatedAt    DateTime? @updatedAt @map("updated_at") //fazendo o prisma preencher automáticamente
+  authorId     String    @map("author_id")
+  bestAnswerId String?   @unique @map("best_answer_id")
 
   // toda question pertence a um usuário.
   // fazendo o relacionamento
-  author User @relation(fields: [authorId], references: [id])
+  author     User    @relation(fields: [authorId], references: [id])
+  bestAnswer Answer? @relation("bestAnswer", fields: [bestAnswerId], references: [id])
+  // quando tem duas tabela de relacionamento iguais prisma fica perdido,
+  // para resolver isso acrescentamos uma string onde está sendo relacionado.
+
+  // varias respostas
+  answers Answer[]
 
   @@map("questions")
+}
+
+model Answer {
+  id         String    @id @default(uuid())
+  content    String
+  createdAt  DateTime  @default(now()) @map("created_at") //renomeando coluna da tabela.
+  updatedAt  DateTime? @updatedAt @map("updated_at") //fazendo o prisma preencher automáticamente
+  authorId   String    @map("author_id")
+  questionId String    @map("question_id")
+
+  // toda question pertence a um usuário.
+  // fazendo o relacionamento
+  author       User      @relation(fields: [authorId], references: [id])
+  bestAnswerOn Question? @relation("bestAnswer")
+  question     Question  @relation(fields: [questionId], references: [id])
+
+  @@map("answers")
 }
