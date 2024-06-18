@@ -1,4 +1,5 @@
 import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question'
+import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions'
 import { Module } from '@nestjs/common'
 import { DatabaseModule } from '../database/database.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
@@ -14,6 +15,6 @@ import { FetchRecentQuestionsController } from './controllers/fetch-recent-quest
     CreateQuestionController,
     FetchRecentQuestionsController,
   ],
-  providers: [CreateQuestionUseCase], // O Por que é se eu a aplicação tem um controller que depende do createQuestionUseCase, sou obrigado a colocar no providers
+  providers: [CreateQuestionUseCase, FetchRecentQuestionsUseCase], // O Por que é se eu a aplicação tem um controller que depende do createQuestionUseCase, sou obrigado a colocar no providers
 })
 export class HttpModule { }
