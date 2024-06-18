@@ -1,3 +1,4 @@
+import { QuestionsRepository } from '@/domain/forum/application/repositories/question-repository'
 import { Module } from '@nestjs/common'
 import { PrismaService } from './prisma/prisma.service'
 import { PrismaAnswersAttachmentsRepository } from './prisma/repositories/prisma-answer-attchaments-respository'
@@ -10,7 +11,14 @@ import { PrismaQuestionsRepository } from './prisma/repositories/prisma-question
 @Module({
   providers: [
     PrismaService,
-    PrismaQuestionsRepository,
+    {
+      provide: QuestionsRepository,
+      useClass: PrismaQuestionsRepository,
+      /**
+       * esse objeto faz uma refeência onde estiver chamando a classe abstrata QuestionRepository
+       * substitua a referência para PrismaQuestionRepository
+       */
+    },
     PrismaQuestionsCommentsRepository,
     PrismaQuestionsAttachmentsRepository,
     PrismaAnswersAttachmentsRepository,
@@ -20,7 +28,7 @@ import { PrismaQuestionsRepository } from './prisma/repositories/prisma-question
   ], // aqui só está visivel dentro do módulo DatabaseModule.
   exports: [
     PrismaService,
-    PrismaQuestionsRepository,
+    QuestionsRepository,
     PrismaQuestionsCommentsRepository,
     PrismaQuestionsAttachmentsRepository,
     PrismaAnswersAttachmentsRepository,

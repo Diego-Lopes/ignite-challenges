@@ -1,7 +1,7 @@
+import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { Body, Controller, Post, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
@@ -22,7 +22,7 @@ type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>
  */
 @UseGuards(JwtAuthGuard)
 export class CreateQuestionController {
-  constructor(private prisma: PrismaService) { }
+  constructor(private createQuestion: CreateQuestionUseCase) { }
 
   @Post()
   async handle(
@@ -33,23 +33,32 @@ export class CreateQuestionController {
     // busca os dados do usuário autenticado.
     const { title, content } = body
     const userId = user.sub
-    const slug = this.convertToSlug(title)
-    await this.prisma.question.create({
-      data: {
-        authorId: userId,
-        title,
-        content,
-        slug,
-      },
+
+    // implementando isso não temos mais a depedência do prisma.
+    await this.createQuestion.execute({
+      title,
+      content,
+      authorId: userId,
+      attachmentsIds: [],
     })
   }
+  //   const slug = this.convertToSlug(title)
+  //   await this.prisma.question.create({
+  //     data: {
+  //       authorId: userId,
+  //       title,
+  //       content,
+  //       slug,
+  //     },
+  //   })
+  // }
 
-  private convertToSlug(title: string): string {
-    return title
-      .toLowerCase()
-      .normalize('NFC')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-  }
+  // private convertToSlug(title: string): string {
+  //   return title
+  //     .toLowerCase()
+  //     .normalize('NFC')
+  //     .replace(/[\u0300-\u036f]/g, '')
+  //     .replace(/[^\w\s-]/g, '')
+  //     .replace(/\s+/g, '-')
+  // }
 }
