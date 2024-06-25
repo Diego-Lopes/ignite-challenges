@@ -27,6 +27,7 @@ model User {
 
   questions Question[] //relacionamento inverso 
   answers   Answer[] //relacionamento inverso
+  comments  Comment[] //relacionamento inverso
 
   //renomeando o nome da tabela para lowcase
   @@map("users")
@@ -50,7 +51,9 @@ model Question {
   // para resolver isso acrescentamos uma string onde está sendo relacionado.
 
   // varias respostas
-  answers Answer[]
+  answers     Answer[]
+  comments    Comment[]
+  attachments Attachment[]
 
   @@map("questions")
 }
@@ -65,9 +68,44 @@ model Answer {
 
   // toda question pertence a um usuário.
   // fazendo o relacionamento
-  author       User      @relation(fields: [authorId], references: [id])
-  bestAnswerOn Question? @relation("bestAnswer")
-  question     Question  @relation(fields: [questionId], references: [id])
+  author       User         @relation(fields: [authorId], references: [id])
+  bestAnswerOn Question?    @relation("bestAnswer")
+  question     Question     @relation(fields: [questionId], references: [id])
+  comments     Comment[]
+  attachments  Attachment[]
 
   @@map("answers")
+}
+
+model Comment {
+  id         String    @id @default(uuid())
+  content    String
+  createdAt  DateTime  @default(now()) @map("created_at") //renomeando coluna da tabela.
+  updatedAt  DateTime? @updatedAt @map("updated_at") //fazendo o prisma preencher automáticamente
+  authorId   String    @map("author_id")
+  questionId String?   @map("question_id")
+  answerId   String?   @map("answer_id")
+
+  // fazendo o relacionamento
+  author User @relation(fields: [authorId], references: [id])
+
+  // criando relacionamento opcionais
+  question Question? @relation(fields: [questionId], references: [id])
+  answer   Answer?   @relation(fields: [answerId], references: [id])
+
+  @@map("comments")
+}
+
+model Attachment {
+  id         String  @id @default(uuid())
+  title      String
+  url        String
+  questionId String? @map("question_id")
+  answerId   String? @map("answer_id")
+
+  // criando relacionamento opcionais
+  question Question? @relation(fields: [questionId], references: [id])
+  answer   Answer?   @relation(fields: [answerId], references: [id])
+
+  @@map("attachments")
 }
