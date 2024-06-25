@@ -1,11 +1,9 @@
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions'
-import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import {
   BadRequestException,
   Controller,
   Get,
-  Query,
-  UseGuards,
+  Query
 } from '@nestjs/common'
 import { z } from 'zod'
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
@@ -29,7 +27,12 @@ type PageQueryParamSchema = z.infer<typeof pageQueryParamSchema>
  * como parâmetro passamos uma string chamada 'jwt'
  * que faz referência ao jwt.strategy.ts
  */
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
+/**
+ * AGORA NÃO PRECISA MAIS COLOCAR O USEGUARDS, DENTRO DO MÓDULO DE AUTH
+ * COLOCAMOS TODAS AS ROTAS AUTENTICADA E AGORA DIZEMOS QUAIS ROTAS
+ * NÃO PRECISA DE AUTENTICAÇÃO
+ */
 export class FetchRecentQuestionsController {
   constructor(private fetchRecentQuestions: FetchRecentQuestionsUseCase) { }
 

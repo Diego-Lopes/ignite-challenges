@@ -1,13 +1,11 @@
 import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
-import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import {
   BadRequestException,
   Body,
   Controller,
-  Post,
-  UseGuards,
+  Post
 } from '@nestjs/common'
 import { z } from 'zod'
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
@@ -26,7 +24,12 @@ type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>
  * como parâmetro passamos uma string chamada 'jwt'
  * que faz referência ao jwt.strategy.ts
  */
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
+/**
+ * AGORA NÃO PRECISA MAIS COLOCAR O USEGUARDS, DENTRO DO MÓDULO DE AUTH
+ * COLOCAMOS TODAS AS ROTAS AUTENTICADA E AGORA DIZEMOS QUAIS ROTAS
+ * NÃO PRECISA DE AUTENTICAÇÃO
+ */
 export class CreateQuestionController {
   constructor(private createQuestion: CreateQuestionUseCase) { }
 
