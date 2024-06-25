@@ -6,7 +6,7 @@
 
 import { Either, right } from '@/core/either'
 import { Injectable } from '@nestjs/common'
-import { Question } from '../../enterprise/entites/question'
+import { Question } from '../../enterprise/entities/question'
 import { QuestionsRepository } from '../repositories/question-repository'
 
 interface FetchRecentQuestionsUseCaseRequest {

@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { AnswersRepository } from '../repositories/answers-repository'
-import { Answer } from '../../enterprise/entites/answer'
 import { Either, right } from '@/core/either'
-import { AnswerAttachment } from '../../enterprise/entites/answer-attachment'
-import { AnswerAttachmentList } from '../../enterprise/entites/answer-attachment-list'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Answer } from '../../enterprise/entities/answer'
+import { AnswerAttachment } from '../../enterprise/entities/answer-attachment'
+import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list'
+import { AnswersRepository } from '../repositories/answers-repository'
 
 interface AnswerQuestionUseCaseRequest {
   instructorId: string

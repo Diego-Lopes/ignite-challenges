@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
-import { GetQuestionBySlugUseCase } from './get-question-by-slug'
 import { makeQuestion } from 'test/factories/make-questions'
-import { Slug } from '../../enterprise/entites/value-objects/slug'
 import { InMemoryQuestionAttachmentsRepository } from 'test/repository/in-memory-question-attachments-repository'
+import { InMemoryQuestionsRepository } from 'test/repository/in-memory-question-repository'
+import { Slug } from '../../enterprise/entities/value-objects/slug'
+import { GetQuestionBySlugUseCase } from './get-question-by-slug'
 
 // automatizando a criação
 let inMemoryQuestionRepository: InMemoryQuestionsRepository

@@ -5,7 +5,7 @@
  */
 
 import { Either, right } from '@/core/either'
-import { AnswerComment } from '../../enterprise/entites/answer-comment'
+import { AnswerComment } from '../../enterprise/entities/answer-comment'
 import { AnswerCommentsRepository } from '../repositories/answer-comments-repository'
 
 interface FetchAnswerCommentsUseCaseRequest {
@@ -21,7 +21,7 @@ type FetchAnswerCommentsUseCaseResponse = Either<
 >
 
 export class FetchAnswerCommentsUseCase {
-  constructor(private answerCommentsRepository: AnswerCommentsRepository) {}
+  constructor(private answerCommentsRepository: AnswerCommentsRepository) { }
 
   async execute({
     answerId,

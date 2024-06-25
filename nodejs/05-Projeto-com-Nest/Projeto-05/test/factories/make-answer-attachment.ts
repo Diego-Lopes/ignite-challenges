@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import {
   AnswerAttachment,
   AnswerAttachmentProps,
-} from '@/domain/forum/enterprise/entites/answer-attachment'
+} from '@/domain/forum/enterprise/entities/answer-attachment'
 
 /**
  * @param override Recebe os parâmetros de AnswerProps

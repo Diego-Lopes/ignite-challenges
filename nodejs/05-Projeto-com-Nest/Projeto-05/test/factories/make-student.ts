@@ -2,7 +2,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import {
   Student,
   StudentProps,
-} from '@/domain/forum/enterprise/entites/student'
+} from '@/domain/forum/enterprise/entities/student'
 import { faker } from '@faker-js/faker'
 
 /**

@@ -2,7 +2,7 @@ import { DomainEvents } from '@/core/event/domain-events'
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments-repository'
 import { QuestionsRepository } from '@/domain/forum/application/repositories/question-repository'
-import { Question } from '@/domain/forum/enterprise/entites/question'
+import { Question } from '@/domain/forum/enterprise/entities/question'
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
   // uma variável que vai armazenar um array de perguntas
@@ -11,7 +11,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
   // inversão de dependência
   constructor(
     private questionAttachmentsRepository: QuestionAttachmentsRepository,
-  ) {}
+  ) { }
 
   async findById(id: string) {
     /**

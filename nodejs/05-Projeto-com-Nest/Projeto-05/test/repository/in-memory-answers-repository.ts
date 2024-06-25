@@ -2,7 +2,7 @@ import { DomainEvents } from '@/core/event/domain-events'
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { AnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository'
 import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
-import { Answer } from '@/domain/forum/enterprise/entites/answer'
+import { Answer } from '@/domain/forum/enterprise/entities/answer'
 
 export class InMemoryAnswersRepository implements AnswersRepository {
   // uma variável que vai armazenar um array de respostas
@@ -10,7 +10,7 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 
   constructor(
     private answerAttachmentsRepository: AnswerAttachmentsRepository,
-  ) {}
+  ) { }
 
   async findManyByQuestionId(questionId: string, { page }: PaginationParams) {
     const answers = this.items
