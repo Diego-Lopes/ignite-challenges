@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { Encrypter } from '../cryptography/encrypter'
 import { HashComparer } from '../cryptography/hash-comparer'
-import { StudentRepository } from '../repositories/students-repository'
+import { StudentsRepository } from '../repositories/students-repository'
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
 
 interface AuthenticateStudentUseCaseRequest {
@@ -18,7 +18,7 @@ type AuthenticateStudentUseCaseResponse = Either<
 
 export class AuthenticateStudentUseCase {
   constructor(
-    private studentsRespository: StudentRepository,
+    private studentsRespository: StudentsRepository,
     private hashComparer: HashComparer,
     private encrypter: Encrypter, // para gerar o accessToken
   ) { }
@@ -27,7 +27,11 @@ export class AuthenticateStudentUseCase {
     email,
     password,
   }: AuthenticateStudentUseCaseRequest): Promise<AuthenticateStudentUseCaseResponse> {
+    console.log({ email, password })
+
     const student = await this.studentsRespository.findByEmail(email)
+
+    console.log({ student })
 
     if (!student) {
       return left(new WrongCredentialsError())

@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { Student } from '../../enterprise/entities/student'
 import { HashGenerator } from '../cryptography/hash-generator'
-import { StudentRepository } from '../repositories/students-repository'
+import { StudentsRepository } from '../repositories/students-repository'
 import { StudentAlreadyExistsError } from './errors/student-already-exists-error'
 
 interface RegisterStudentUseCaseRequest {
@@ -19,7 +19,7 @@ type RegisterStudentUseCaseResponse = Either<
 
 export class RegisterStudentUseCase {
   constructor(
-    private studentsRespository: StudentRepository,
+    private studentsRespository: StudentsRepository,
     private hashGenarator: HashGenerator,
   ) { }
 

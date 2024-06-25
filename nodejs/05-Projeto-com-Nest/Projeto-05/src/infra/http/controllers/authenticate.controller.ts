@@ -1,13 +1,5 @@
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
-import {
-  Body,
-  Controller,
-  Post,
-  UnauthorizedException,
-  UsePipes,
-} from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
-import { compare } from 'bcryptjs'
+import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student'
+import { Body, Controller, Post, UsePipes } from '@nestjs/common'
 import { z } from 'zod'
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 
@@ -20,37 +12,26 @@ type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 
 @Controller('/sessions')
 export class AuthenticateController {
-  constructor(
-    private prisma: PrismaService,
-    private jwt: JwtService,
-  ) { }
+  constructor(private authenticateStudent: AuthenticateStudentUseCase) { }
 
   @Post()
   @UsePipes(new ZodValidationPipe(authenticateBodySchema)) // UsePipes é um midelware que intercepta e valida os dados com zod.
   async handle(@Body() body: AuthenticateBodySchema) {
     // chamando o body e tipando.
     const { email, password } = body
+    console.log({ email })
 
-    // vazendo uma busca no user se existe.
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
+    const result = await this.authenticateStudent.execute({
+      email,
+      password,
     })
 
-    if (!user) {
-      throw new UnauthorizedException('User credentials do not match.') // UnauthorizedException representa o http code 401
+    if (result.isLeft()) {
+      throw new Error()
     }
 
-    const isPasswordValid = await compare(password, user.password)
+    const { accessToken } = result.value
 
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('User credentials do not match.') // UnauthorizedException representa o http code 401
-    }
-
-    const accessToken = this.jwt.sign({
-      sub: user.id,
-    })
     return {
       access_token: accessToken, // diz o diego que fica mais legalzinho no frontend kkk
     }
