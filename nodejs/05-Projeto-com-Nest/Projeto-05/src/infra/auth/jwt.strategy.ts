@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { z } from 'zod'
-import { Env } from '../env'
+import { EnvService } from '../env/env.service'
 
 const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
@@ -14,8 +13,8 @@ export type UserPayload = z.infer<typeof tokenPayloadSchema>
 // Quando usa injectable significa que ele está em um provider, no nest quanod está em provider tem que usar Injectable para injeção de arquivo.
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(config: ConfigService<Env, true>) {
-    const publicKey = config.get('JWT_PUBLIC_KEY', { infer: true })
+  constructor(env: EnvService) {
+    const publicKey = env.get('JWT_PUBLIC_KEY')
     // para validar o usuário só precisamos da chave pública,
 
     // super chamar o constructor da class PassportStrategy

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
-import { Env } from '../env'
+import { EnvModule } from '../env/env.module'
+import { EnvService } from '../env/env.service'
 import { JwtAuthGuard } from './jwt-auth.guard'
 import { JwtStrategy } from './jwt.strategy'
 
@@ -18,12 +18,13 @@ import { JwtStrategy } from './jwt.strategy'
   imports: [
     PassportModule,
     JwtModule.registerAsync({
-      inject: [ConfigService],
+      imports: [EnvModule],
+      inject: [EnvService],
       global: true,
-      useFactory(config: ConfigService<Env, true>) {
+      useFactory(env: EnvService) {
         // isso é uma inversão de dependência e é assim na documentação do nestjs reconhecer config service
-        const privateKey = config.get('JWT_PRIVATE_KEY', { infer: true })
-        const publicKey = config.get('JWT_PUBLIC_KEY', { infer: true })
+        const privateKey = env.get('JWT_PRIVATE_KEY')
+        const publicKey = env.get('JWT_PUBLIC_KEY')
         return {
           signOptions: { algorithm: 'RS256' }, // precisamo passar o tipo de algoritmo que estamos usando.
           privateKey: Buffer.from(privateKey, 'base64'), // buffer é carregar dados em memoria no node.
@@ -34,6 +35,7 @@ import { JwtStrategy } from './jwt.strategy'
   ],
   providers: [
     JwtStrategy,
+    EnvService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,

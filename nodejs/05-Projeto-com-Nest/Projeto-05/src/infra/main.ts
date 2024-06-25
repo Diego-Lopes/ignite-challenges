@@ -1,7 +1,6 @@
-import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { Env } from './env'
+import { EnvService } from './env/env.service'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -9,9 +8,9 @@ async function bootstrap() {
     // fallbackOnErrors: true,
   })
 
-  const configService = app.get<ConfigService<Env, true>>(ConfigService)
+  const envService = app.get(EnvService)
   // o segundo parâmetros do generico config service tem wasvalited ele faz com que a variável de ambiente não fica undefined.
-  const port = configService.get('PORT', { infer: true })
+  const port = envService.get('PORT')
 
   await app.listen(port)
 }
