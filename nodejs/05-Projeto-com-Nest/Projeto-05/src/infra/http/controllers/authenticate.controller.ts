@@ -19,7 +19,6 @@ export class AuthenticateController {
   async handle(@Body() body: AuthenticateBodySchema) {
     // chamando o body e tipando.
     const { email, password } = body
-    console.log({ email })
 
     const result = await this.authenticateStudent.execute({
       email,

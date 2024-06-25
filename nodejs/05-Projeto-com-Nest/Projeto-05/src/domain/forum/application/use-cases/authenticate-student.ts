@@ -28,11 +28,7 @@ export class AuthenticateStudentUseCase {
     email,
     password,
   }: AuthenticateStudentUseCaseRequest): Promise<AuthenticateStudentUseCaseResponse> {
-    console.log({ email, password })
-
     const student = await this.studentsRespository.findByEmail(email)
-
-    console.log({ student })
 
     if (!student) {
       return left(new WrongCredentialsError())
