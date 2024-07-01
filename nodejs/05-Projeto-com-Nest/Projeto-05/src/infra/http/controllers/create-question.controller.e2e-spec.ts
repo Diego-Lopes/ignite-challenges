@@ -1,14 +1,16 @@
 import { AppModule } from '@/infra/app.module'
+import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
-import { hash } from 'bcryptjs'
 import request from 'supertest'
+import { StudentFactory } from 'test/factories/make-student'
 
 describe('Create question (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
+  let studentFactory: StudentFactory
   let jwt: JwtService
   /**
    * Para fazer um test e2e precisamos subir a aplicação, para fazer isso
@@ -18,12 +20,13 @@ describe('Create question (E2E)', () => {
    */
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [AppModule, DatabaseModule],
+      providers: [StudentFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
-
     prisma = moduleRef.get(PrismaService)
+    studentFactory = moduleRef.get(StudentFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
@@ -33,15 +36,9 @@ describe('Create question (E2E)', () => {
     // antes de fazer a pergunta preciso está autenticado e antes de autenticar
     // preciso criar um conta.
     // criando uma conta.
-    const user = await prisma.user.create({
-      data: {
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        password: await hash('123456', 8),
-      },
-    })
+    const user = await studentFactory.makePrismaStudent()
 
-    const accessToken = jwt.sign({ sub: user.id })
+    const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const response = await request(app.getHttpServer())
       .post('/questions')
