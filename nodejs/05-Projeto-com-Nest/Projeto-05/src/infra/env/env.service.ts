@@ -10,6 +10,6 @@ export class EnvService {
 
   get<T extends keyof Env>(key: T) {
     // Aqui temos uma tipagem genérica onde o tipo de key e passado para T
-    return this.configService.get<T>(key, { infer: true })
+    return this.configService.get(key, { infer: true })
   }
 }

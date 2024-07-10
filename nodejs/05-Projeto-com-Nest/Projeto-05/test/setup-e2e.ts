@@ -1,7 +1,19 @@
 // isso é do vitest não do nestjs
 import { PrismaClient } from '@prisma/client'
+import { config } from 'dotenv'
 import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
+
+/**
+ * Isso faz sobre escrever a variável de ambiente de prod para test
+ * no nest ainda isso não está nativo, então temos que implementar na mão mesmo.
+ * Futuras versões do nest terá isso nativo.
+ *
+ * chamando a outra env ele faz a comparação se estiver o nome na
+ * segunda chamada ele faz um override do primeiro.
+ */
+config({ path: '.env', override: true })
+config({ path: '.env.test', override: true })
 
 const prisma = new PrismaClient()
 
