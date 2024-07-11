@@ -41,6 +41,16 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     // simulando como estivessemos inserindo em uma tabela.
     this.items.push(question)
 
+    /**
+     * No momento que salvamos uma questão, também vamos salvar os anexos
+     * no banco de dados.
+     * Ou seja um repositório chama outro repositório normal de acontecer
+     */
+    // salvando os attachments
+    await this.questionAttachmentsRepository.createMany(
+      question.attachments.getItems(),
+    )
+
     DomainEvents.dispatchEventsForAggregate(question.id)
   }
 
@@ -61,6 +71,20 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
     // dentro desse indece vou substituir os dados que modificamos.
     this.items[itemIndex] = question
+
+    /**
+     * no save podemos ter tanto novos anexos quanto novos anexos removido do
+     * banco de dados.
+     */
+
+    // chamando createMany apenas para novos anexos.
+    await this.questionAttachmentsRepository.createMany(
+      question.attachments.getNewItems(),
+    )
+    // chamando deleteMany para anexos removidos do banco de dados.
+    await this.questionAttachmentsRepository.deleteMany(
+      question.attachments.getRemovedItems(),
+    )
 
     DomainEvents.dispatchEventsForAggregate(question.id)
   }

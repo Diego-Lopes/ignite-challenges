@@ -1,3 +1,6 @@
+/**
+ * Com WatchedList, podemos monitorar quais itens foram adicionados ou removidos.
+ */
 export abstract class WatchedList<T> {
   public currentItems: T[]
   private initial: T[]
