@@ -1,10 +1,10 @@
-import { Container, Title } from "./style";
+import * as S from "./style";
 
 
 export function Groups() {
   return (
-    <Container>
-      <Title>Groups</Title>
-    </Container>
+    <S.Container>
+      <S.Title>Groups</S.Title>
+    </S.Container>
   );
 }
