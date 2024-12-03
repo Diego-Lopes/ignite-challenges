@@ -4,7 +4,7 @@ import * as S from "./style";
 export function Groups() {
   return (
     <S.Container>
-      <Header />
+      <Header showBackButton />
     </S.Container>
   );
 }
