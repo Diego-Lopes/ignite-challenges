@@ -1,15 +1,16 @@
 import { GroupCard } from "@components/groupCard";
 import { Header } from "@components/header";
 import { Highlight } from "@components/highlight";
+import { ListEmpty } from "@components/listEmpty";
 import { useState } from "react";
 import { FlatList } from "react-native";
 import * as S from "./style";
 
 export function Groups() {
-  const [groups, setGroups] = useState<string[]>(["Galera da T.I", "Galera da R.H", "Galera da BackOffice"])
+  const [groups, setGroups] = useState<string[]>([])
   return (
     <S.Container>
-      <Header showBackButton />
+      <Header />
       <Highlight title={"Tumas"} subTitle={"Jogue com a sua turma"} />
 
       <FlatList
@@ -20,6 +21,10 @@ export function Groups() {
             title={item}
           />
         )}
+        ListEmptyComponent={() => (
+          <ListEmpty message={"Que tal cadastrar a primeira turma?"}  />
+        )}
+        contentContainerStyle={groups.length === 0 && { flex: 1 }}
       />
 
 
