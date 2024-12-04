@@ -4,7 +4,8 @@ import { Header } from "@components/header";
 import { Highlight } from "@components/highlight";
 import { ListEmpty } from "@components/listEmpty";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { groupGetAll } from "@storage/group/groupGetAll";
+import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import * as S from "./style";
 
@@ -14,6 +15,19 @@ export function Groups() {
   function handleNewGroup() {
     navigation.navigate('new')
   }
+
+  async function fetchGroups() {
+    try {
+      const groups = await groupGetAll()
+      setGroups(groups)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+ useEffect(useCallback( () => {
+  fetchGroups()
+ }, []))
 
   return (
     <S.Container>
