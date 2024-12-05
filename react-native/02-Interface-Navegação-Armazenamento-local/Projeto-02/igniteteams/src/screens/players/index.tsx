@@ -5,6 +5,7 @@ import { Header } from "@components/header";
 import { Highlight } from "@components/highlight";
 import { Input } from "@components/input";
 import { ListEmpty } from "@components/listEmpty";
+import { Loading } from "@components/loading";
 import { PlayerCard } from "@components/playerCard";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { GroupRemoveByName } from "@storage/group/groupRemoveByName";
@@ -22,6 +23,7 @@ type RouteParams = {
 }
 
 export function Players() {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [newPlayerName, setNewPlayerName] = useState<string>('')
   const [team, setTeam] = useState<string>('')
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([])
@@ -50,7 +52,7 @@ export function Players() {
 
     try {
       await PlayerAddByGroup(newPlayer, group)
-     
+
       newPlayerNameInputRef.current?.blur() //retirar o foco.
       // Keyboard.dismiss() //fechar o teclado
 
@@ -69,8 +71,13 @@ export function Players() {
 
   async function fetchPlayersByTeam() {
     try {
+      setIsLoading(true)
+
       const playersByTeam = await PlayersGetByGroupAndTeam(group, team)
+
       setPlayers(playersByTeam)
+
+      setIsLoading(false)
     } catch (error) {
       console.log(error);
       Alert.alert('Pessoas', 'Não foi possível carregar as pessoas do time selecionado.')
@@ -84,7 +91,7 @@ export function Players() {
     } catch (error) {
       console.log(error);
       Alert.alert('Remover pessoa', 'Não foi possível remover a pessoa selecionada.')
-      
+
     }
   }
   async function groupRemove(group: string) {
@@ -102,14 +109,14 @@ export function Players() {
         'Remover',
         'Deseja remover a turma?',
         [
-          {text: 'Não', style: 'cancel'},
-          {text: 'Sim', onPress: () => groupRemove(group)}
+          { text: 'Não', style: 'cancel' },
+          { text: 'Sim', onPress: () => groupRemove(group) }
         ]
       )
     } catch (error) {
       console.log(error);
       Alert.alert('Remover turma', 'Não foi possível remover a turma selecionada.')
-      
+
     }
   }
 
@@ -152,25 +159,27 @@ export function Players() {
         />
         <NumberOfPlayers>{players.length}</NumberOfPlayers>
       </HeaderList>
+      {
+        isLoading ? <Loading /> : <FlatList
+          data={players}
+          keyExtractor={item => item.name}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 100 },
+            players.length === 0 && { flex: 1 }
+          ]}
+          renderItem={({ item }) => (
+            <PlayerCard
+              name={item.name}
+              onRemove={() => handlePlayerRemove(item.name)}
+            />
+          )}
+          ListEmptyComponent={() => (
+            <ListEmpty message="Não há pessoas nesse time" />
+          )}
+        />
+      }
 
-      <FlatList
-        data={players}
-        keyExtractor={item => item.name}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          { paddingBottom: 100 },
-          players.length === 0 && { flex: 1 }
-        ]}
-        renderItem={({ item }) => (
-          <PlayerCard
-            name={item.name}
-            onRemove={() => handlePlayerRemove(item.name)}
-          />
-        )}
-        ListEmptyComponent={() => (
-          <ListEmpty message="Não há pessoas nesse time" />
-        )}
-      />
 
       <Button
         title="Remover turma"
