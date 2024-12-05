@@ -11,8 +11,8 @@ import { PlayerAddByGroup } from "@storage/player/playerAddByGroup";
 import { PlayersGetByGroupAndTeam } from "@storage/player/playerGetByGroupAndTeam";
 import { PlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
 import { AppError } from "@utils/appError";
-import { useEffect, useState } from "react";
-import { Alert, FlatList } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, FlatList, TextInput } from "react-native";
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
 type RouteParams = {
@@ -26,6 +26,8 @@ export function Players() {
 
   const route = useRoute()
   const { group } = route.params as RouteParams
+
+  const newPlayerNameInputRef = useRef<TextInput>(null)
 
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0) {
@@ -41,13 +43,14 @@ export function Players() {
       team,
     }
 
-    // console.log({ newPlayer });
-
-
     try {
       await PlayerAddByGroup(newPlayer, group)
      
+      newPlayerNameInputRef.current?.blur() //retirar o foco.
+      // Keyboard.dismiss() //fechar o teclado
+
       fetchPlayersByTeam()
+      setNewPlayerName('')
 
     } catch (error) {
       if (error instanceof AppError) {
@@ -82,9 +85,13 @@ export function Players() {
       />
       <Form>
         <Input
+          inputRef={newPlayerNameInputRef}
           placeholder="Nome da pessoa"
           autoCorrect={false}
           onChangeText={setNewPlayerName}
+          value={newPlayerName}
+          onSubmitEditing={handleAddPlayer} //para usar o botão de enviar do teclado
+          returnKeyType="done"
         />
         <ButtonIcon icon="add" onPress={handleAddPlayer} />
       </Form>
