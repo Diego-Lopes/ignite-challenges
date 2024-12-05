@@ -3,9 +3,9 @@ import { GroupCard } from "@components/groupCard";
 import { Header } from "@components/header";
 import { Highlight } from "@components/highlight";
 import { ListEmpty } from "@components/listEmpty";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { groupGetAll } from "@storage/group/groupGetAll";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FlatList } from "react-native";
 import * as S from "./style";
 
@@ -25,7 +25,7 @@ export function Groups() {
     }
   }
 
- useEffect(useCallback( () => {
+ useFocusEffect(useCallback( () => {
   fetchGroups()
  }, []))
 
