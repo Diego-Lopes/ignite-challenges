@@ -10,7 +10,7 @@ export async function PlayerAddByGroup(newPlayer: PlayerStorageDTO, group: strin
     const storagePlayers = await playersGetByGroup(group)
 
 
-    const playerAlreadyExists = storagePlayers.filter(player => player.name === newPlayer.name)
+    const playerAlreadyExists = storagePlayers.filter(player => player.name === newPlayer.name && player.team === newPlayer.team)
 
 
 
