@@ -1,10 +1,13 @@
-import { Text } from "react-native";
-import { Container } from "./styles";
+import { Header } from "@components/header";
+import { Container, Content } from "./styles";
 
 export function HomeScreen() {
   return (
     <Container>
-      <Text>Home</Text>
+      <Header />
+      <Content>
+        
+      </Content>
     </Container>
   );
 }
