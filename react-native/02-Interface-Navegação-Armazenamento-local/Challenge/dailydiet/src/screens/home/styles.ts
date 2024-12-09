@@ -5,4 +5,8 @@ export const Container = styled.View`
   padding: 24px;
 `;
 
-export const Content = styled.View``;
+export const Content = styled.View`
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+`;

@@ -1,4 +1,5 @@
 import { Header } from "@components/header";
+import { ViewDietButton } from "@components/viewDietButton";
 import { Container, Content } from "./styles";
 
 export function HomeScreen() {
@@ -6,7 +7,7 @@ export function HomeScreen() {
     <Container>
       <Header />
       <Content>
-        
+        <ViewDietButton type="PRIMARY"  />
       </Content>
     </Container>
   );
