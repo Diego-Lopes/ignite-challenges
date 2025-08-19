@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify'
+import crypto from 'node:crypto'
 import { z } from 'zod'
 import { knex } from '../database'
-import crypto from 'node:crypto'
 import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 
 // todo o plugin fastify obrigatoriamente precisa ser assíncrona
@@ -101,7 +101,7 @@ export async function transationsRoutes(app: FastifyInstance) {
       // salvando nos cookies
       reply.cookie('sessionId', sessionId, {
         path: '/',
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        maxAge: 60 * 60 * 24 * 7, // 7 days
       })
     }
 
